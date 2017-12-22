@@ -33,6 +33,7 @@ class WorkflowGeneratorFunctionsTest(unittest.TestCase):
     @patch.object(inventory.Inventory, '_connect', autospec=True)
     def setUp(self, mock_connect):
         self.cfg_mgr = ConfigManager(UNIT_TEST_ENV)
+        self.cfg_mgr.is_profile_required = True
         self.req_inventory = RequestInventory(self.cfg_mgr)
         self.driver = Driver(self.cfg_mgr)
         self.generator = WorkflowGenerator('test_workflow', self.cfg_mgr)
@@ -599,6 +600,20 @@ class WorkflowGeneratorFunctionsTest(unittest.TestCase):
         bool_test = self.files_equal(
             os.path.join(self.cfg_mgr.files, 'test_workflow.xml'),
             os.path.join(BASE_DIR, 'expected_workflows/heavy_grouping.xml'))
+        self.assertTrue(bool_test)
+
+    @patch('ibis.inventor.action_builder.SqoopHelper.eval', autospec=True)
+    def test_generate_incremental_podium(self, m_eval):
+        """test incremental workflow generation - podium"""
+        m_eval.return_value = [['TEST_COLUMN', 'TIMESTAMP'],
+                               ['test_incr_column', 'INT']]
+        table = ItTable(heavy_3_prop, self.cfg_mgr)
+        self.cfg_mgr.is_profile_required = False
+        self.generator.generate_incremental(table)
+        bool_test = self.files_equal(
+            os.path.join(self.cfg_mgr.files, 'test_workflow.xml'),
+            os.path.join(BASE_DIR,
+                         'expected_workflows/podium_incremental_workflow.xml'))
         self.assertTrue(bool_test)
 
     @patch('ibis.inventor.action_builder.SqoopHelper.eval', autospec=True)

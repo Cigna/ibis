@@ -562,7 +562,9 @@ class ItTable(object):
     @views.setter
     def views(self, val):
         """setter for views"""
-        _domains = ['domain1', 'domain2', 'domain3']
+        _domains = ['pharmacy', 'client', 'customer', 'portal', 'logs',
+                    'member', 'audit', 'call', 'claim', 'clinic', 'structure',
+                    'provider', 'benefits', 'opportunities']
         _views = self.views_list
         new_views = self.views_helper(val)
 
@@ -701,4 +703,94 @@ class ItTable(object):
                 text += \
                     msg.format(property_name=attr, value=getattr(self, attr))
         text += '\n====================='
+        return text
+
+
+class StagingItTable(ItTable):
+    """Staging IT table is a staging table for IT table."""
+
+    def __init__(self, meta_dict, cfg_mgr):
+        """Init."""
+        super(self.__class__,
+              self).__init__(meta_dict, cfg_mgr)
+
+    @property
+    def requestor(self):
+        """requestor getter"""
+        return self.get_meta_dict().get('requestor', '')
+
+    @requestor.setter
+    def requestor(self, val):
+        """setter for requestor"""
+        self.meta_dict['requestor'] = val
+
+    @property
+    def request_time(self):
+        """request_time getter"""
+        _time = self.get_meta_dict().get('request_time', '')
+        if not _time:
+            now = datetime.now()
+            _time = now.strftime("%Y-%m-%d %H:%M:%S.%f")
+        return _time
+
+    @property
+    def desc(self):
+        """desc getter"""
+        return self.get_meta_dict().get('desc', '')
+
+    @desc.setter
+    def desc(self, val):
+        """setter for desc"""
+        self.meta_dict['desc'] = val
+
+    @property
+    def resolve_id(self):
+        """returns unique id"""
+        _id = self.get_meta_dict().get('resolve_id', '')
+        if not _id:
+            return uuid.uuid4()
+        else:
+            return _id
+
+    @property
+    def resolved(self):
+        """Default value is False"""
+        return self.get_meta_dict().get('resolved', False)
+
+    @resolved.setter
+    def resolved(self, val):
+        """Setter for resolved"""
+        if isinstance(val, bool):
+            self.meta_dict['resolved'] = val
+        else:
+            err_msg = "resolved column. Not a boolean:{0}"
+            err_msg = err_msg.format(val)
+            raise ValueError(err_msg)
+
+    @property
+    def dirty_column(self):
+        """getter"""
+        return self.get_meta_dict().get('dirty_column',
+                                        'none')
+
+    @dirty_column.setter
+    def dirty_column(self, val):
+        """setter"""
+        if self.dirty_column == 'none':
+            self.meta_dict['dirty_column'] = val
+        else:
+            raise ValueError("Cannot mark more than one "
+                             "column as dirty per instance")
+
+    def __repr__(self):
+        """Obj repr. Prints only python properties"""
+        text = '\nStaging It table'
+        for attr in dir(self):
+            if isinstance(getattr(type(self), attr, None),
+                          property):
+                msg = "\n\t{property_name}({data_type}): \t'{value}'"
+                text += msg.format(property_name=attr,
+                                   data_type=type(getattr(self, attr)),
+                                   value=getattr(self, attr))
+        text += '\n======================='
         return text

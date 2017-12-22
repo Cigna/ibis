@@ -25,7 +25,7 @@ class ActionBuilder(object):
         self.default_actions = (
             'import_prep', 'import', 'avro', 'avro_parquet',
             'quality_assurance', 'qa_data_sampling', 'parquet_swap',
-            'parquet_live', 'views', 'refresh')
+            'parquet_live', 'views', 'refresh', 'podium_profile')
         self.custom_action_scripts = []
         self.error_to_action = 'kill'
         self.auto_query = False
@@ -48,6 +48,7 @@ class ActionBuilder(object):
         self.action_names['parquet_live'] = 'parquet_live'
         self.action_names['views'] = 'views'
         self.action_names['refresh'] = 'refresh'
+        self.action_names['podium_profile'] = 'podium_profile'
         for action in self.default_actions:
             if action not in self.action_names.keys():
                 raise ValueError('Unrecognized action name: ' + action)
@@ -1124,6 +1125,12 @@ class ActionBuilder(object):
         refresh_action = self.gen_refresh(
             self._get_action_name(self.action_names['refresh']))
 
+        if not self.cfg_mgr.is_profile_required:
+            self.logger.info('profile required')
+            # Creates action which calls podium push shell
+            podium_profile_action = self.gen_podium_profile(
+                self._get_action_name(self.action_names['podium_profile']))
+
         actions = []
         ingest_xml = ''
 
@@ -1148,6 +1155,9 @@ class ActionBuilder(object):
                 actions.append(views_action)
             elif rule.action_id == self.action_names['refresh']:
                 actions.append(refresh_action)
+            elif rule.action_id == self.action_names['podium_profile']:
+                if not self.cfg_mgr.is_profile_required:
+                    actions.append(podium_profile_action)
             elif rule.action_id == 'hive_script':
                 action_name = self._get_action_name('hive_' + str(index))
                 script_name = self.gen_custom_workflow_scripts(
@@ -1183,6 +1193,44 @@ class ActionBuilder(object):
         entity_name = entity_name.replace(src_name + '_', '', 1)
         return entity_name.upper()
 
+    def gen_podium_profile(self, action_name):
+        """Return podium push action xml"""
+        podium_entity_name = self.get_pdm_table_name(self.it_table.database,
+                                                     self.it_table.table_name)
+        source_database_name = self.it_table.database
+        if self.it_table.domain.split("_")[-1] == "i":
+            just_domain = self.it_table.domain.split("_")[0:-1]
+            pdm_src_name = "PDM_" + "_".join(just_domain).upper()
+        else:
+            pdm_src_name = "PDM_" + self.it_table.domain.upper()
+
+        if "sqlserver" in self.it_table.jdbcurl \
+                or "mysql" in self.it_table.jdbcurl \
+                or "postgresql" in self.it_table.jdbcurl:
+            schema = self.it_table.schema
+            source_database_name = schema if schema else "dbo"
+        params = {
+            'cfg_mgr': self.cfg_mgr, 'action_type': 'shell',
+            'name': action_name,
+            'ok': 'unknown', 'error': self.error_to_action,
+            'execute': self.cfg_mgr.pod_shell_name,
+            'env_var': [
+                'env={0}'.format(self.cfg_mgr.env),
+                'domain={0}'.format(self.it_table.domain),
+                'database_table={0}'.format(source_database_name +
+                                            '_' + self.it_table.table_name),
+                'podium_database={0}'.format(pdm_src_name),
+                'podium_table={0}'.format(podium_entity_name),
+                'request_source={0}'.format("IBIS"),
+                'jdbc_url={0}'.format(self.it_table.jdbcurl),
+                'jdbc_uname={0}'.format(self.it_table.username),
+                'jdbc_pass={0}'.format(self.it_table.password_file),
+                'HADOOP_CONF_DIR=/etc/hadoop/conf',
+                'hdfs_ingest_path={0}'.format(
+                    self.get_hdfs_files_path())],
+            'file': [self.cfg_mgr.pod_shell_dir]}
+        return Shell(**params)
+
     def gen_kite_ingest(self, source_table_name, source_database_name,
                         hdfs_loc, ok, error):
         """Return kite ingest action xml"""
@@ -1201,6 +1249,31 @@ class ActionBuilder(object):
                                              'kite.sh']}
         kite_ingest = Shell(**params)
         return kite_ingest.generate_action()
+
+    def checks_and_balance(self, action_name, env, domain, podium_entity_name,
+                           esp_id, directory, ok, error):
+        """Return checks and balance action xml"""
+        if domain.split("_")[-1] == "i":
+            pdm_src_name = "PDM_" + "_".join(domain.split("_")[0:-1]).upper()
+        else:
+            pdm_src_name = "PDM_" + domain.upper()
+
+        params = {
+            'cfg_mgr': self.cfg_mgr, 'action_type': 'shell',
+            'name': action_name,
+            'ok': ok, 'error': error,
+            'execute': self.cfg_mgr.check_shell_name,
+            'arg': ['{0}'.format(env),
+                    '{0}'.format(pdm_src_name),
+                    '{0}'.format(podium_entity_name),
+                    '{0}'.format(directory)],
+            'file': [self.cfg_mgr.check_shell_dir]}
+
+        if esp_id:
+            params['arg'].append('{0}'.format(esp_id))
+
+        import_prep = Shell(**params)
+        return import_prep.generate_action()
 
     def get_hive_credentials_config(self):
         """Returns hive config properties to add on hive.xml.mako template

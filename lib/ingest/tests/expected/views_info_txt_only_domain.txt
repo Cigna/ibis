@@ -1,3 +1,5 @@
 mock_domain fake_database_mock_table
 pharmacy fake_database_mock_table
+pharmacy_non_phi fake_database_mock_table
 benefits fake_database_mock_table
+benefits_non_phi fake_database_mock_table

@@ -33,7 +33,7 @@ class UtilitiesFunctionsTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.utilities = Utilities(ConfigManager(UNIT_TEST_ENV))
-        cls.utilities_run = Utilities(ConfigManager('dev', '', True))
+        cls.utilities_run = Utilities(ConfigManager('JENKINS', '', True))
         cls.td_tbl_weekly = {
             'load': '100001', 'mappers': 20, 'domain': 'fake_view_im',
             'target_dir': 'mdm/fake_view_im/fake_database_3/'

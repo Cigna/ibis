@@ -4,7 +4,7 @@
 -----------------------------------------------------------------------------
 | source_database_name | source_table_name    | ColumnName           | Split_By_Find |
 -----------------------------------------------------------------------------
-| FAKE_DATABSE                   | PLAN                | KEY            | 7    |
-| FAKE_DATABSE                   | PLAN                | KEY            | 7    |
-| FAKE_DATABSE                   | PLAN                | CRET_TS                        | 7    |
+| FAKE_DATABSE                   | CLIENT_BEN_PLAN                | CLIENT_BEN_PLAN_KEY            | 7    |
+| FAKE_DATABSE                   | CLIENT_BEN_PLAN                | CLIENT_BEN_PLAN_KEY            | 7    |
+| FAKE_DATABSE                   | CLIENT_BEN_PLAN                | CRET_TS                        | 7    |
 -----------------------------------------------------------------------------

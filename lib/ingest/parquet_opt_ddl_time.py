@@ -536,7 +536,7 @@ class ConnectionManager(object):
     def build_ddl_query(self):
         """Determine db vendor. Column ordering is added Oracle & DB2, as the
         metadata tables do not always maintain the column ordering
-        that is required for the Avro ingest
+        that is required for the Avro ingest and Podium
         """
         if 'teradata' in self.jdbc_url:
             self.source = 'td'
@@ -735,6 +735,41 @@ class ConnectionManager(object):
             parquet_stage_tbl=self.parquet_stage_tbl)
         return merge_table_hql
 
+    def all_non_phi_tables_sentry_match(self):
+        """
+        Looks at the "nonsensitive" group in Podium and returns
+        all those that have currently been designated as non-
+        sensitive
+        :return: list: all non-sensitive tables
+        """
+        config = ConfigParser.ConfigParser()
+        # assumes that the PHI file is in the
+        # working directory - taken from avro_parquet.sh
+        config.read("./sentry-provider.ini")
+        role_name = config.get('groups', 'g_podium_nonsensitive')
+        normalized_table_list = []
+        for line in config.get('roles', role_name).split(", \\"):
+            dbs_tbls = line.split('server=server1->db=')[1].split("->")
+            if len(dbs_tbls) > 1:
+                database = dbs_tbls[0]
+                if database.startswith("pdm"):
+                    database = database[4:]
+                normalized_table_list.append(
+                    database + "_" + dbs_tbls[1].split("table=")[1])
+        return normalized_table_list
+
+    def determine_phi_schema(self, table_to_check):
+        """Determine if its a phi schema"""
+        norm_list = self.all_non_phi_tables_sentry_match()
+        # assuming that we have the name of the table that IBIS is processing
+        if table_to_check in norm_list:
+            # this means that it's been tagged as a
+            # non_sensitive table explicitly
+            return False
+        else:
+            # PHI table
+            return True
+
     def create_externaltable(self, rpc_method):
         """Wrapper for building create external table for views"""
         create_view_hql = impala_invalidate = views_info = ''
@@ -777,7 +812,7 @@ class ConnectionManager(object):
                     view_full_name=view_full_name,
                     ingest_date=self.partition_name)
 
-            if self.ibis_env == 'PERF' and len(only_domain) < 1:
+            if self.ibis_env == 'PVS' and len(only_domain) < 1:
                 try:
                     try:
                         ImpalaConnect.run_query(
@@ -956,7 +991,7 @@ class ConnectionManager(object):
                     views_hql += "msck repair table `{0}`;\n\n".format(
                         view_full_name)
 
-            elif self.ibis_env == 'PERF' and len(only_domain) > 0:
+            elif self.ibis_env == 'PVS' and len(only_domain) > 0:
                 views_hql = (
                     'DROP VIEW IF EXISTS {view_full_name};\n'
                     'DROP TABLE IF EXISTS {view_full_name};\n'
@@ -1007,7 +1042,7 @@ class ConnectionManager(object):
                 'SET mapreduce.map.memory.mb=8000;\n'
                 'SET mapreduce.reduce.memory.mb=16000;\n'
             )
-            if self.ibis_env == 'PERF':
+            if self.ibis_env == 'PVS':
                 create_view_hql += 'SET hive.exec.dynamic.partition.mode='\
                     'nonstrict;\n\n'
             create_view_hql = create_view_hql.format(
@@ -1019,7 +1054,7 @@ class ConnectionManager(object):
             domain = set(domain).intersection(view_list)
             domain = list(domain)
 
-            if self.ibis_env == 'PERF':
+            if self.ibis_env == 'PVS':
                 for view_name in view_list:
                     if len(view_list) != len(domain) and\
                             len(domain) > 0 and domain[0]:
@@ -1033,6 +1068,23 @@ class ConnectionManager(object):
                     create_view_hql += table_hql
                     impala_invalidate += impala_invalidate_stmts
                     views_info += views
+                    # if the table is also determined to NOT be PHI
+                    # make the table in the non-phi space as well
+                    db_tbl = '{0}_{1}'.format(self.database,
+                                              self.table_name)
+                    is_phi = self.determine_phi_schema(db_tbl)
+                    if not is_phi:
+                        if len(view_list) != len(domain) and\
+                                len(domain) > 0 and domain[0]:
+                            table_hql = gen_view_hql(view_name + '_non_phi',
+                                                     domain[0])
+                        else:
+                            table_hql = gen_view_hql(view_name + '_non_phi')
+                        impala_invalidate_stmts, views = create_views_info(
+                            view_name + '_non_phi')
+                        create_view_hql += table_hql
+                        impala_invalidate += impala_invalidate_stmts
+                        views_info += views
 
             else:
                 for view_name in view_list:
@@ -1042,6 +1094,17 @@ class ConnectionManager(object):
                     create_view_hql += table_hql
                     impala_invalidate += impala_invalidate_stmts
                     views_info += views
+                    # if the table is also determined to NOT be PHI
+                    # make the table in the non-phi space as well
+                    db_tbl = '{0}_{1}'.format(self.database, self.table_name)
+                    is_phi = self.determine_phi_schema(db_tbl)
+                    if not is_phi:
+                        table_hql = gen_view_hql(view_name + '_non_phi')
+                        impala_invalidate_stmts, views = create_views_info(
+                            view_name + '_non_phi')
+                        create_view_hql += table_hql
+                        impala_invalidate += impala_invalidate_stmts
+                        views_info += views
         else:
             create_view_hql = (
                 'SET mapreduce.map.memory.mb=8000;\n'
@@ -1072,7 +1135,7 @@ def main():
         os.environ['db_username'],
         os.environ['password_file'],
         os.environ['views'],
-        os.environ['PERF_ENV'],
+        os.environ['PVS_ENV'],
         os.environ['DOMAIN_LIST'],
         os.environ['IMPALA_HOST'],
         ingest_time,

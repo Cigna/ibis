@@ -669,11 +669,30 @@ class WorkflowGenerator(object):
             hdfs_ingest_path=self.action_builder.get_hdfs_files_path(),
             views_xml=views_xml, merge_ok_to=merge_ok_to)
 
-        refresh_action = self.action_builder.gen_refresh(
-            db_table_name + '_refresh')
-        refresh_action.ok = 'oozie_cb_ok'
-        refresh_xml = refresh_action.generate_action()
+        is_profile_required = self.cfg_mgr.is_profile_required
+
+        if is_profile_required:
+            # by default, profile is set on unless set with --skip-profile
+            self.logger.info('profile not required')
+            refresh_action = self.action_builder.gen_refresh(
+                db_table_name + '_refresh')
+            refresh_action.ok = 'oozie_cb_ok'
+            refresh_xml = refresh_action.generate_action()
+        else:
+            refresh_action = self.action_builder.gen_refresh(
+                db_table_name + '_refresh')
+            refresh_action.ok = db_table_name + '_podium_profile'
+            refresh_xml = refresh_action.generate_action()
+            #  Creates action which calls podium push shell
+            podium_profile_action = self.action_builder.gen_podium_profile(
+                db_table_name + '_podium_profile')
+            podium_profile_action.ok = 'oozie_cb_ok'
+            podium_profile_xml = podium_profile_action.generate_action()
+
         incr_xml += refresh_xml
+
+        if not is_profile_required:
+            incr_xml += podium_profile_xml
 
         self.file_out.write(incr_xml + '\n')
         self.gen_oozie_cb_action()

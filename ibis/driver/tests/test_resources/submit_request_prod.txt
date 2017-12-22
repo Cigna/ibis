@@ -1,5 +1,5 @@
 [Request]
-db_username:fake_username
+db_username:fake_username_cima_dev2
 password_file:jceks://hdfs/user/dev/fake.passwords.jceks#fake.password.alias
 jdbcurl:jdbc:teradata://fake.teradata/DATABASE=fake_database
 source_database_name:fake_database

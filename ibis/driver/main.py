@@ -227,12 +227,12 @@ def main():
                         'team name and full table name')
 
     # Drop all the table from selected database
-    parser.add_argument('--wipe-perf-env', nargs=1, type=str,
+    parser.add_argument('--wipe-pvs-env', nargs=1, type=str,
                         help='Provide the team_name or database '
                         'name for dropping all tables')
 
     parser.add_argument('--reingest-all', action='store_true',
-                        help='Use this option with wipe-perf-env to '
+                        help='Use this option with wipe-pvs-env to '
                         'reingest all tables')
 
     # Not saving workflows to git
@@ -242,10 +242,15 @@ def main():
     parser.add_argument('--no-dry-run', action='store_true',
                         help='Dont dry run workflow')
 
+    # Expose Git push via IBIS-Shell by passing the workflow file name
+    parser.add_argument('--git-push', type=str,
+                        help='Push the given file directly into Git-Workflows')
     parser.add_argument('--timeout', type=str,
                         help='Timeout duration for auto split by')
     parser.add_argument('--ingest-version', action='store_true',
                         help='Get the ingest version used for the xml')
+    parser.add_argument('--skip-profile', action='store_true',
+                        help='Flag to activate podium profiling')
     parser.add_argument('--kite-ingest', type=FileType('r'),
                         help='Used to generate kite-ingest workflow')
 
@@ -262,7 +267,7 @@ def main():
         'export': export,
         'gen_esp_workflow_tables': gen_esp_workflow_tables,
         'update_activator': update_activator,
-        'wipe_perf_env': wipe_perf_env,
+        'wipe_pvs_env': wipe_pvs_env,
         'gen_esp_workflow': gen_esp_workflow,
         'gen_config_workflow': gen_config_workflow,
         'retrieve_backup': retrieve_backup,
@@ -274,6 +279,7 @@ def main():
         'save_it_table': save_it_table,
         'update_it_table': update_it_table,
         'update_it_table_export': update_it_table_export,
+        'git_push': save_workflow,
         'auth_test': auth_test,
         'ingest_version': ingest_version,
         'parse_request_file': parse_request_file,
@@ -282,7 +288,7 @@ def main():
 
     is_failed = False
     if args.env:
-        cfg_mgr = ConfigManager(args.env[0], args.for_env)
+        cfg_mgr = ConfigManager(args.env[0], args.for_env, args.skip_profile)
         file_permission = 0774
 
         if not os.path.isdir(cfg_mgr.files):
@@ -391,10 +397,10 @@ def update_activator(args):
                                      args.activate)
 
 
-def wipe_perf_env(args):
+def wipe_pvs_env(args):
     """Drop all the tables of the selected database and reingest
      all the tables"""
-    driver.wipe_perf_env_driver(args.wipe_perf_env,
+    driver.wipe_pvs_env_driver(args.wipe_pvs_env,
                                args.reingest_all)
 
 
@@ -466,6 +472,24 @@ def update_it_table(args):
 def update_it_table_export(args):
     """Handler for updating IT table."""
     print driver.submit_it_file_export(args.update_it_table_export)
+
+
+def save_workflow(args):
+    """Save workflow"""
+    file_name = args.git_push
+
+    con_file_name = os.path.basename(args.config.name)
+    file_path = os.path.abspath(os.path.dirname(args.config.name))
+    full_path = file_path + '/' + con_file_name
+
+    print 'Enter a branch name: '
+    branch_name = raw_input(' >> ').lower()
+
+    print 'Enter a commit message: '
+    commit_msg = raw_input(' >> ').lower()
+
+    utilities = Utilities(ConfigManager(full_path))
+    utilities.save_workflow(file_name, branch_name, commit_msg)
 
 
 def ingest_version(args):

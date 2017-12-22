@@ -778,6 +778,26 @@ class ActionBuilderFunctionsTest(unittest.TestCase):
                          format(str(
                              self.cfg_mgr.hadoop_credstore_password_disable)))
 
+    def test_gen_podium_profile(self):
+        """Test the action tag creation for podium profile"""
+        _tbl = {
+            'domain': 'member',
+            'jdbcurl': 'jdbc:oracle:thin:@//fake.oracle:'
+                       '1521/fake_servicename',
+            'db_username': 'fake_username',
+            'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks#'
+                             'fake.password.alias',
+            'load': '000001', 'fetch_size': 50000, 'hold': 0,
+            'source_database_name': 'fake_database', 'source_table_name': 'fake_mem_tablename'}
+        self.builder.it_table = ItTable(_tbl, self.cfg_mgr)
+        action = self.builder.gen_podium_profile(
+            'source_table_name_action_name')
+        actual_xml = action.generate_action()
+        _path = os.path.join(BASE_DIR, 'expected_workflows/podium_push.xml')
+        with open(_path, 'r') as my_file:
+            expected = my_file.read()
+        self.assertTrue(self.compare_files(actual_xml, expected))
+
     def test_gen_kite_ingest(self):
         """Test generating a kite_ingest action"""
         actual_xml = self.builder.gen_kite_ingest(

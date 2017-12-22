@@ -4,6 +4,11 @@ from setuptools import setup, find_packages
 from setuptools.command.install import install
 from pip.req import parse_requirements
 
+# Utility function to read the README file.
+# Used for the long_description.  It's nice, because now 1) we have a top level
+# README file and 2) it's easier to type in the README file than to put a raw
+# string in below ...
+
 
 def read(fname):
     """Read file."""
@@ -23,6 +28,15 @@ with open('requirements.pip') as f:
     ibis_deps = f.read().splitlines()
 
 
+class CustomInstallCommand(install):
+    """Customized setuptools install command - prints a friendly greeting."""
+
+    def run(self):
+        """deploy ibis egg"""
+        install.run(self)
+        print "Custom install ----\n"
+
+
 # Info on creating a setup.py file:
 # https://pythonhosted.org/an_example_pypi_project/setuptools.html
 setup(
@@ -36,12 +50,19 @@ setup(
              '*.sh', '*.hql', '*.wld', '*txt', '*.feature'],
     },
     data_files=[('.', ['README.md', '__main__.py',
-                       'behavior_tests.py'])],
+                       'ibis_int_tests.py', 'behavior_tests.py'])],
 
     install_requires=ibis_deps,
+    # setup_requires=ibis_deps,
     include_package_data=True,
+
+    author="Big Data Analytics & Shared Services Team (Hadoop)",
+    author_email="fake_email",
     description="Ibis: Workflow and Ingestion Made Easy",
     keywords="hadoop oozie workflows bigdata ingest",
+    cmdclass={
+        'install': CustomInstallCommand
+    },
     # project home page, if any
     url="fake_home_page",
     entry_points={

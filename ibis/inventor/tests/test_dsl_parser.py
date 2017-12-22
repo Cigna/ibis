@@ -18,7 +18,7 @@ class DSLParserTest(unittest.TestCase):
         self.cfg_mgr = ConfigManager(UNIT_TEST_ENV)
         self.cfg_mgr.requests_dir = BASE_DIR
         self.dsl_parser = DSLParser(
-            self.cfg_mgr, ['import_prep', 'import', 'avro'],
+            self.cfg_mgr, ['import_prep', 'import', 'avro', 'podium_profile'],
             self.cfg_mgr.requests_dir)
         self.cfg_mgr.hadoop_credstore_password_disable = False
 
@@ -46,7 +46,7 @@ class DSLParserTest(unittest.TestCase):
             'test_resources/custom_config.dsl')
         action_data = self.dsl_parser.parse_file(path)
         expected = ['import_prep', 'import', 'avro', '/DEV/ibis2.hql',
-                    'test_shell.sh']
+                    'test_shell.sh', 'podium_profile']
         self.assertEquals(action_data, expected)
 
     def test_parse_file_invalid(self):

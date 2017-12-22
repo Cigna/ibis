@@ -15,7 +15,7 @@ from ibis.inventory.esp_ids_inventory import ESPInventory
 from ibis.inventory.export_it_inventory import ExportITInventory
 from ibis.inventory.inventory import Inventory
 from ibis.inventory.it_inventory import ITInventory
-from ibis.inventory.perf_inventory import PerfInventory
+from ibis.inventory.pvs_inventory import PvsInventory
 from ibis.inventory.request_inventory import Request, RequestInventory
 from ibis.model.exporttable import ItTableExport
 from ibis.model.table import ItTable
@@ -387,16 +387,17 @@ class DriverFunctionsTest(unittest.TestCase):
            autospec=True)
     @patch('ibis.utilities.utilities.Utilities.dryrun_workflow',
            autospec=True)
+    @patch.object(Utilities, 'save_workflow', autospec=True)
     @patch.object(ITInventory, 'get_all_tables_for_esp', autospec=True)
     @patch.object(ESPInventory, 'get_tables_by_id', autospec=True)
     @patch('ibis.inventory.inventory.Inventory._connect', autospec=True)
     @patch('ibis.inventor.action_builder.SqoopHelper.eval', autospec=True)
     @patch.object(VizOozie, 'visualizeXML', autospec=True)
     @patch.object(VizOozie, 'convertDotToPDF', autospec=True)
-    @patch.object(PerfInventory, 'insert_freq_ingest', autospec=True)
+    @patch.object(PvsInventory, 'insert_freq_ingest', autospec=True)
     def test_gen_prod_workflow(self, m_freq_ingest, m_convert_pdf,
                                m_v_xml, m_eval, m_c,
-                               m_get_id, m_get_t_esp, m_dryrun,
+                               m_get_id, m_get_t_esp, m_save, m_dryrun,
                                m_put_w, m_sqoop_cache, m_sqoop_cache_view,
                                m_dryrun_all):
         """ Tests generate_prod_workflows with 3 tables. One light,
@@ -406,7 +407,7 @@ class DriverFunctionsTest(unittest.TestCase):
         _mock_esp_tables_02 = [ItTable(tbl, self.cfg_mgr) for tbl in
                                mock_esp_tables_02]
         m_get_t_esp.return_value = _mock_esp_tables_02
-        self.cfg_mgr.env = 'perf'
+        self.cfg_mgr.env = 'pvs'
         status, msg, git_files = self.driver.gen_prod_workflow('FAKED001')
         for file_name in git_files:
             git_file = 'full_fake_open_fake_prog_tablename.hql'
@@ -418,7 +419,7 @@ class DriverFunctionsTest(unittest.TestCase):
                           'r') as file_h:
                     expected_hql = file_h.read()
                 self.assertTrue(expected_hql, actual_hql)
-        self.assertEquals(len(git_files), 26)
+        self.assertEquals(len(git_files), 23)
         self.assertIn('Generated', msg)
         self.assertIn('workflow:', msg)
         self.assertIn('subworkflow:', msg)
@@ -434,16 +435,17 @@ class DriverFunctionsTest(unittest.TestCase):
            autospec=True)
     @patch('ibis.utilities.utilities.Utilities.dryrun_workflow',
            autospec=True)
+    @patch.object(Utilities, 'save_workflow', autospec=True)
     @patch.object(ITInventory, 'get_all_tables_for_esp', autospec=True)
     @patch.object(ESPInventory, 'get_tables_by_id', autospec=True)
     @patch('ibis.inventory.inventory.Inventory._connect', autospec=True)
     @patch('ibis.inventor.action_builder.SqoopHelper.eval', autospec=True)
     @patch.object(VizOozie, 'visualizeXML', autospec=True)
     @patch.object(VizOozie, 'convertDotToPDF', autospec=True)
-    @patch.object(PerfInventory, 'insert_freq_ingest', autospec=True)
-    def test_gen_prod_workflow_perf_nodomain(self, m_freq_ingest, m_convert_pdf,
+    @patch.object(PvsInventory, 'insert_freq_ingest', autospec=True)
+    def test_gen_prod_workflow_pvs_nodomain(self, m_freq_ingest, m_convert_pdf,
                                             m_v_xml, m_eval, m_c,
-                                            m_get_id, m_get_t_esp,
+                                            m_get_id, m_get_t_esp, m_save,
                                             m_dryrun, m_put_w, m_sqoop_cache,
                                             m_sqoop_cache_view, m_dryrun_all):
         """ Tests generate_prod_workflows with 3 tables. One light,
@@ -451,9 +453,9 @@ class DriverFunctionsTest(unittest.TestCase):
         m_eval.return_value = [['Col1', 'varchar'], ['Col2', 'varchar']]
         m_get_id.side_effect = [appl_ref_id_tbl_01, appl_ref_id_tbl_02]
         _mock_esp_tables = [ItTable(tbl, self.cfg_mgr) for tbl in
-                            mock_esp_tbl_perf_domain]
+                            mock_esp_tbl_pvs_domain]
         m_get_t_esp.return_value = _mock_esp_tables
-        self.cfg_mgr.env = 'perf'
+        self.cfg_mgr.env = 'pvs'
         status, msg, git_files = self.driver.gen_prod_workflow('FAKED001')
         for file_name in git_files:
             git_file = 'full_fake_open_fake_prog_tablename.hql'
@@ -482,6 +484,7 @@ class DriverFunctionsTest(unittest.TestCase):
     @patch('ibis.utilities.utilities.Utilities.put_dry_workflow',
            autospec=True)
     @patch('ibis.utilities.utilities.Utilities.dryrun_workflow', autospec=True)
+    @patch.object(Utilities, 'save_workflow', autospec=True)
     @patch.object(ITInventory, 'get_all_tables_for_esp', autospec=True)
     @patch.object(ESPInventory, 'get_tables_by_id', autospec=True)
     @patch('ibis.inventory.inventory.Inventory._connect', autospec=True)
@@ -489,10 +492,10 @@ class DriverFunctionsTest(unittest.TestCase):
     @patch.object(VizOozie, 'visualizeXML', autospec=True)
     @patch.object(VizOozie, 'convertDotToPDF', autospec=True)
     @patch.object(Driver, 'gen_incr_workflow_files', autospec=True)
-    @patch.object(PerfInventory, 'insert_freq_ingest', autospec=True)
+    @patch.object(PvsInventory, 'insert_freq_ingest', autospec=True)
     def test_gen_prod_workflow_2(self, m_freq_ingest, m_gen_incr,
                                  m_convert_pdf, m_v_xml,
-                                 m_eval, m_c, m_get_id, m_get_t_esp,
+                                 m_eval, m_c, m_get_id, m_get_t_esp, m_save,
                                  m_dryrun, m_put_w, m_sqoop_cache,
                                  m_sqoop_cache_view, m_dryrun_all):
         """ Tests generate_prod_workflows with five tables. 3 heavy,
@@ -503,9 +506,9 @@ class DriverFunctionsTest(unittest.TestCase):
                                mock_esp_tables_03]
         m_get_t_esp.return_value = _mock_esp_tables_03
         m_gen_incr.return_value = []
-        self.cfg_mgr.env = 'perf'
+        self.cfg_mgr.env = 'pvs'
         status, msg, git_files = self.driver.gen_prod_workflow('FAKED001')
-        self.assertEquals(len(git_files), 40)
+        self.assertEquals(len(git_files), 35)
         self.assertIn('Generated', msg)
         self.assertIn('workflow:', msg)
         self.assertIn('subworkflow:', msg)
@@ -520,16 +523,17 @@ class DriverFunctionsTest(unittest.TestCase):
     @patch('ibis.utilities.utilities.Utilities.put_dry_workflow',
            autospec=True)
     @patch('ibis.utilities.utilities.Utilities.dryrun_workflow', autospec=True)
+    @patch.object(Utilities, 'save_workflow', autospec=True)
     @patch.object(ITInventory, 'get_all_tables_for_esp', autospec=True)
     @patch.object(ESPInventory, 'get_tables_by_id', autospec=True)
     @patch('ibis.inventory.inventory.Inventory._connect', autospec=True)
     @patch('ibis.inventor.action_builder.SqoopHelper.eval', autospec=True)
     @patch.object(VizOozie, 'visualizeXML', autospec=True)
     @patch.object(VizOozie, 'convertDotToPDF', autospec=True)
-    @patch.object(PerfInventory, 'insert_freq_ingest', autospec=True)
+    @patch.object(PvsInventory, 'insert_freq_ingest', autospec=True)
     def test_gen_prod_workflow_3(self, m_freq_ingest, m_convert_pdf,
                                  m_v_xml, m_eval, m_c,
-                                 m_get_id, m_get_t_esp, m_dryrun,
+                                 m_get_id, m_get_t_esp, m_save, m_dryrun,
                                  m_put_w, m_sqoop_cache, m_sqoop_cache_view,
                                  m_dryrun_all):
         """ Tests generate_prod_workflows with 6 tables. Two light,
@@ -539,9 +543,9 @@ class DriverFunctionsTest(unittest.TestCase):
         _mock_esp_tables_01 = [ItTable(tbl, self.cfg_mgr) for tbl in
                                mock_esp_tables_01]
         m_get_t_esp.return_value = _mock_esp_tables_01
-        self.cfg_mgr.env = 'perf'
+        self.cfg_mgr.env = 'pvs'
         status, msg, git_files = self.driver.gen_prod_workflow('FAKED001')
-        self.assertEquals(len(git_files), 51)
+        self.assertEquals(len(git_files), 45)
         self.assertIn('Generated', msg)
         self.assertIn('workflow:', msg)
         self.assertIn('subworkflow:', msg)
@@ -820,11 +824,13 @@ class DriverFunctionsTest(unittest.TestCase):
         mock_update.return_value = (True, 'Update Success')
         self.assertTrue(self.driver.gen_prod_workflow_tables(file_h))
 
+    @patch.object(Utilities, 'save_workflow', autospec=True)
     @patch('ibis.driver.driver.Driver.update_it_table_export')
     @patch('ibis.driver.driver.RequestInventory.get_available_requests_export',
            autospec=True)
     def test_export_request(self, mock_get_available_requests,
-                            mock_upate):
+                            mock_upate,
+                            mock_save):
         mock_get_available_requests.return_value = \
             ([ItTableExport(heavy_3_prop_exp, self.cfg_mgr)], [])
         request_file = open(
@@ -833,7 +839,8 @@ class DriverFunctionsTest(unittest.TestCase):
         status, _ = self.driver.export_request(request_file, False)
         self.assertTrue(status)
 
-    def test_export_oracle(self):
+    @patch.object(Utilities, 'save_workflow', autospec=True)
+    def test_export_oracle(self, mock_save):
         self.driver.export_oracle("source_table_name",
                                   "source_database_name",
                                   "source_dir", "jdbc_url",
@@ -842,7 +849,8 @@ class DriverFunctionsTest(unittest.TestCase):
                                   "target_database_name",
                                   "user_name", "password_alias")
 
-    def test_export_teradata(self):
+    @patch.object(Utilities, 'save_workflow', autospec=True)
+    def test_export_teradata(self, mock_save):
         self.driver.export_teradata("source_table_name",
                                     "source_database_name",
                                     "source_dir", "jdbc_url",
@@ -957,7 +965,7 @@ class DriverFunctionsTest(unittest.TestCase):
         val = self.driver._get_incr_workflow_name(tab1)
         self.assertEquals(val, 'dev_userId_incr_fake_cens_tablename')
 
-    @patch.object(PerfInventory, 'insert_freq_ingest')
+    @patch.object(PvsInventory, 'insert_freq_ingest')
     def test_insert_freq_ingest_driver(self, m_freq_ingest):
         """ test freq_ingest_driver"""
         self.driver.insert_freq_ingest_driver(['mock_team_nm'],
@@ -969,7 +977,7 @@ class DriverFunctionsTest(unittest.TestCase):
                                               ['mock_table_nm'],
                                               ['no'])
 
-    @patch.object(PerfInventory, 'insert_freq_ingest')
+    @patch.object(PvsInventory, 'insert_freq_ingest')
     def test_insert_freq_ingest_driver_fa(self, m_freq_ingest):
         """ test freq_ingest_driver for frequency and actovor are none"""
         with self.assertRaises(ValueError) as context:
@@ -980,25 +988,34 @@ class DriverFunctionsTest(unittest.TestCase):
         error = "Either of frequency or activate column must contain value"
         self.assertTrue(error in str(context.exception))
 
-    @patch.object(PerfInventory, 'wipe_perf_env')
-    def test_wipe_perf_env_driver(self, m_wipe_perf):
-        """test wipe_perf_driver with team name"""
-        self.driver.wipe_perf_env_driver(['fake_view_im'], False)
-        m_wipe_perf.assert_called_once_with('fake_view_im', False)
+    @patch.object(PvsInventory, 'wipe_pvs_env')
+    def test_wipe_pvs_env_driver(self, m_wipe_pvs):
+        """test wipe_pvs_driver with team name"""
+        self.driver.wipe_pvs_env_driver(['fake_view_im'], False)
+        m_wipe_pvs.assert_called_once_with('fake_view_im', False)
 
-    @patch.object(PerfInventory, 'wipe_perf_env', autospec=True)
-    def test_wipe_perf_env_driver_ibis(self, m_wipe_perf):
-        """test wipe_perf_driver with domain as ibis"""
+    @patch.object(PvsInventory, 'wipe_pvs_env', autospec=True)
+    def test_wipe_pvs_env_driver_pdm(self, m_wipe_pvs):
+        """test wipe_pvs_driver with domain starting with pdm
+        and ending with _i"""
         with self.assertRaises(ValueError) as context:
-            self.driver.wipe_perf_env_driver(['ibis'], False)
-        self.assertTrue('Cannot wipe Ibis database' in
+            self.driver.wipe_pvs_env_driver(['pdm_test_i'], False)
+        self.assertTrue('Cannot wipe Podium or Ibis database' in
                         str(context.exception))
 
-    @patch.object(PerfInventory, 'wipe_perf_env', autospec=True)
-    def test_wipe_perf_env_driver_domain(self, m_wipe_perf):
-        """test wipe_perf_driver with team name as domain"""
+    @patch.object(PvsInventory, 'wipe_pvs_env', autospec=True)
+    def test_wipe_pvs_env_driver_ibis(self, m_wipe_pvs):
+        """test wipe_pvs_driver with domain as ibis"""
         with self.assertRaises(ValueError) as context:
-            self.driver.wipe_perf_env_driver(['domain1'], False)
+            self.driver.wipe_pvs_env_driver(['ibis'], False)
+        self.assertTrue('Cannot wipe Podium or Ibis database' in
+                        str(context.exception))
+
+    @patch.object(PvsInventory, 'wipe_pvs_env', autospec=True)
+    def test_wipe_pvs_env_driver_domain(self, m_wipe_pvs):
+        """test wipe_pvs_driver with team name as domain"""
+        with self.assertRaises(ValueError) as context:
+            self.driver.wipe_pvs_env_driver(['pharmacy'], False)
         self.assertTrue('Team name provided is Domain, please \
              provide your team name' in str(context.exception))
 

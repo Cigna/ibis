@@ -14,7 +14,7 @@ from ibis.inventory.esp_ids_inventory import ESPInventory
 from ibis.inventory.export_it_inventory import ExportITInventory
 from ibis.inventory.inventory import Inventory
 from ibis.inventory.it_inventory import ITInventory
-from ibis.inventory.perf_inventory import PerfInventory
+from ibis.inventory.pvs_inventory import PvsInventory
 from ibis.inventory.request_inventory import RequestInventory, \
     REQUIRED_FIELDS, OPTIONAL_FIELDS, REQUIRED_FIELDS_EXPORT,\
     OPTIONAL_FIELDS_EXPORT
@@ -40,7 +40,7 @@ class Driver(object):
         self.cfg_mgr = cfg_mgr
         self.workflow_gen = None
         self.inventory = Inventory(self.cfg_mgr)
-        self.perf_inventory = PerfInventory(self.cfg_mgr)
+        self.pvs_inventory = PvsInventory(self.cfg_mgr)
         self.req_inventory = RequestInventory(self.cfg_mgr)
         self.it_inventory = ITInventory(self.cfg_mgr)
         self.export_it_inventory = ExportITInventory(self.cfg_mgr)
@@ -435,6 +435,9 @@ class Driver(object):
                     'Dryrun failed. Fix the workflow!', border_char='x')
                 raise ValueError(_err)
 
+            if not no_git:
+                branch = self._get_off_cycle_branch_name(wf_name)
+                self.utilities.save_workflow(gen_files, branch)
             self._print_table_wf_map()
             status = True
         else:
@@ -456,24 +459,25 @@ class Driver(object):
         if frequency is None and activate is None:
             raise ValueError("Either of frequency or activate column must "
                              "contain value")
-        self.perf_inventory.insert_freq_ingest(team_name, frequency, table,
+        self.pvs_inventory.insert_freq_ingest(team_name, frequency, table,
                                               activate)
 
-    def wipe_perf_env_driver(self, db_name, reingest):
+    def wipe_pvs_env_driver(self, db_name, reingest):
         """used to wipe tables from database
         Args:
             db_name - database name, reingest - boolean to reingest tables
         """
         db_name = db_name[0]
-        if db_name.lower().endswith("_i") or db_name.lower() == 'ibis':
-            raise ValueError("Cannot wipe Ibis database")
+        if db_name.lower().startswith('pdm') or db_name.lower().endswith("_i")\
+                or db_name.lower() == 'ibis':
+            raise ValueError("Cannot wipe Podium or Ibis database")
         domain = self.cfg_mgr.domains_list
         domain = domain.split(",")
         if db_name in domain:
             raise ValueError("Team name provided is Domain, please \
              provide your team name")
         else:
-            self.perf_inventory.wipe_perf_env(db_name, reingest)
+            self.pvs_inventory.wipe_pvs_env(db_name, reingest)
 
     def gen_kite_workflow(self, request_file):
         required_keys = ['source_database_name', 'source_table_name',
@@ -494,6 +498,8 @@ class Driver(object):
         # self.utilities.dryrun_workflow(wf_name)
         gen_files += [wf_name + '.xml', wf_name + '_job.properties',
                       wf_name + '.ksh']
+        self.utilities.save_workflow(gen_files, wf_name,
+                                     message='Ibis submitting kite workflow')
         return gen_files
 
     def run_oozie_job(self, workflow_name):
@@ -748,8 +754,8 @@ class Driver(object):
             workflow_names = []
             # Generate workflow(s)
             for table in tables:
-                if self.cfg_mgr.env.lower() == 'perf' or \
-                        self.cfg_mgr.env.lower() == 'dev_perf':
+                if self.cfg_mgr.env.lower() == 'pvs' or \
+                        self.cfg_mgr.env.lower() == 'dev_pvs':
                     all_views = table.views_list
                     domain = self.cfg_mgr.domains_list
                     domain = domain.split(",")
@@ -762,13 +768,13 @@ class Driver(object):
                         for view_nm in all_views:
                             if domain[0] == view_nm.lower():
                                 continue
-                            self.perf_inventory.insert_freq_ingest([view_nm],
+                            self.pvs_inventory.insert_freq_ingest([view_nm],
                                                                   [freq],
                                                                   [full_tb_nm],
                                                                   ['default'])
                     elif len(all_views) != len(domain):
                         for view_nm in all_views:
-                            self.perf_inventory.insert_freq_ingest([view_nm],
+                            self.pvs_inventory.insert_freq_ingest([view_nm],
                                                                   [freq],
                                                                   [full_tb_nm],
                                                                   ['default'])
@@ -779,10 +785,10 @@ class Driver(object):
                 gen_files = self.gen_schedule_request([table], wf_name,
                                                       appl_id)
                 git_files += gen_files
-                if self.cfg_mgr.env.lower() == 'perf' or \
-                        self.cfg_mgr.env.lower() == 'dev_perf'and\
+                if self.cfg_mgr.env.lower() == 'pvs' or \
+                        self.cfg_mgr.env.lower() == 'dev_pvs'and\
                         len(all_views) != len(domain):
-                    hql_name = self.perf_inventory.save_perf_hql(table)
+                    hql_name = self.pvs_inventory.save_pvs_hql(table)
                     git_files.extend(hql_name)
                 generated_workflows.append([table, wf_name])
                 _msg = 'Generated workflow {path}{file_name}.xml\n'
@@ -808,6 +814,10 @@ class Driver(object):
                 appl_id, tables, workflow_names)
             git_files.append(wld_file)
             self.utilities.chmod_files(git_files)
+            if not no_git:
+                self.utilities.save_workflow(
+                    git_files, appl_id,
+                    message='Ibis submitting esp workflows')
             status = True
         except Exception:
             err_msg = "Error generating workflow for " \
@@ -913,6 +923,10 @@ class Driver(object):
         msg = msg.format(workflow=workflow_name, loc=self.cfg_mgr.files)
         self.logger.info(msg)
 
+        branch = self._get_off_cycle_branch_name(workflow_name)
+        file_name = workflow_name
+        self.utilities.save_workflow(file_name, branch)
+
     def export_oracle(self, source_table_name, source_database_name,
                       source_dir, jdbc_url,
                       update_key, target_table_name, target_database_name,
@@ -951,6 +965,10 @@ class Driver(object):
         msg = msg.format(workflow=workflow_name, loc=self.cfg_mgr.files)
         self.logger.info(msg)
 
+        branch = workflow_name
+        file_name = workflow_name
+        self.utilities.save_workflow(file_name, branch)
+
     def export_teradata(self, source_table_name, source_database_name,
                         source_dir, jdbc_url, target_table_name,
                         target_database_name, user_name, password_alias):
@@ -986,6 +1004,10 @@ class Driver(object):
         msg += 'Workflow {workflow}.xml generated to {loc}.'
         msg = msg.format(workflow=workflow_name, loc=self.cfg_mgr.files)
         self.logger.info(msg)
+
+        branch = workflow_name
+        file_name = workflow_name
+        self.utilities.save_workflow(file_name, branch)
 
     def gen_it_table_with_split_by(self, tables_fh, timeout):
         """Given a list of tables, and an IT table request skeleton.
@@ -1270,6 +1292,8 @@ class Driver(object):
             wf_props = self.cfg_mgr.read_config_wf_props(
                 config_workflow_properties)
             # override the values
+            self.cfg_mgr.git_workflows_url = wf_props.get(
+                'Workflows', 'git_workflows_url')
             self.cfg_mgr.custom_scripts_hql = wf_props.get(
                 'Workflows', 'custom_scripts_hql')
             self.cfg_mgr.custom_scripts_shell = wf_props.get(
@@ -1298,3 +1322,6 @@ class Driver(object):
                      wf_name + '.ksh', wf_name + '_props_job.xml']
         # include custom scripts
         gen_files += wf_gen.action_builder.custom_action_scripts
+        branch = self.cfg_mgr.env.lower()
+        self.utilities.save_config_workflow(
+            gen_files, branch, message='Ibis submitting config workflows')

@@ -14,7 +14,7 @@ from ibis.inventory.tests.test_request_inventory \
 from ibis.inventory.tests.test_inventory import InventoryFunctionsTest
 from ibis.inventory.tests.test_it_inventory import ITInventoryFunctionsTest
 from ibis.inventory.tests.test_cb_inventory import CBInventoryFunctionsTest
-from ibis.inventory.tests.test_perf_inventory import PerfInventoryTest
+from ibis.inventory.tests.test_pvs_inventory import PvsInventoryTest
 from ibis.inventory.tests.test_esp_ids_inventory \
     import ESPInventoryFunctionsTest
 from ibis.model.tests.test_shell_action import ShellActionFunctionsTest
@@ -34,6 +34,8 @@ from ibis.utilities.tests.test_it_table_generation \
 from ibis.utilities.tests.test_config_manager import ConfigManagerTest
 from ibis.utilities.tests.test_file_parser import FileParserTest
 from ibis.utilities.tests.test_sqoop_auth_check import AuthTestTest
+from ibis.utilities.tests.test_gitlab import GitlabAPITest
+from ibis.utilities.tests.test_git_helper import GitCmdTest
 from lib.ingest.tests.test_checks_and_balances_export \
     import TestChecksBalancesExportManager
 from lib.ingest.tests.test_parquet_opt_ddl_time \
@@ -83,13 +85,13 @@ if __name__ == '__main__':
                            DriverFunctionsTest, WorkflowGeneratorFunctionsTest,
                            ESPInventoryFunctionsTest,
                            CBInventoryFunctionsTest, ConfigManagerTest,
-                           AuthTestTest, 
+                           AuthTestTest, GitlabAPITest,
                            ZookeeperLocksFunctionsTest,
                            MainFunctionsTest, SubWFActionFunctionsTest,
                            SSHActionFunctionsTest, ImpalaUtilsFunctionsTest,
                            TestChecksBalancesExportManager, DSLParserTest,
-                           PyHDFSTest, ImportPrepFunctionsTest,
-                           PerfInventoryTest, Test_freq_ingest]
+                           PyHDFSTest, ImportPrepFunctionsTest, GitCmdTest,
+                           PvsInventoryTest, Test_freq_ingest]
 
     # test_classes_to_run = []
     loader = unittest.TestLoader()

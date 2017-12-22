@@ -135,6 +135,25 @@
             <env-var>hdfs_ingest_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
             <file>/user/dev/oozie/workspaces/ibis/lib/ingest/impala_cleanup.sh#impala_cleanup.sh</file>
         </shell>
+        <ok to="fake_mem_tablename_podium_profile"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action name="fake_mem_tablename_podium_profile">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>podium_push.sh</exec>
+			<env-var>env=unit_test</env-var>
+			<env-var>domain=member</env-var>
+			<env-var>database_table=fake_database_fake_mem_tablename</env-var>
+			<env-var>podium_database=PDM_MEMBER</env-var>
+			<env-var>podium_table=FAKE_MEM_TABLENAME</env-var>
+            <env-var>request_source=IBIS</env-var>
+            <env-var>jdbc_url=jdbc:oracle:thin:@//fake.oracle:1521/fake_servicename</env-var>
+            <env-var>jdbc_uname=fake_username</env-var>
+            <env-var>jdbc_pass=jceks://hdfs/user/dev/fake.passwords.jceks#fake.password.alias</env-var>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <env-var>hdfs_ingest_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/podium-ibis/podium-push/podium_push.sh#podium_push.sh</file>
+        </shell>
         <ok to="oozie_cb_ok"/>
         <error to="oozie_cb_fail"/>
         </action>

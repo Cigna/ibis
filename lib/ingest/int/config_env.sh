@@ -16,4 +16,4 @@ export CHK_BAL_DIR=/user/dev/data/checks_balances
 export CHK_BAL_EXP_DIR=/user/dev/data/checks_balances_export
 export CHK_BAL_AUDIT_DIR=/user/dev/data/checks_balances_audit
 export EXPORT_HDFS_ROOT=/ibis/outbound/export/
-export DOMAIN_LIST=domain1,domain2,domain3
+export DOMAIN_LIST=pharmacy,client,customer,portal,logs,member,audit,call,claim,clinic,structure,provider,benefits

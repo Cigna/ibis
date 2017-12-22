@@ -14,13 +14,13 @@ class SSHActionFunctionsTest(unittest.TestCase):
         self.cfg_mgr = ConfigManager(UNIT_TEST_ENV)
         self.ssh_params = {
             'cfg_mgr': self.cfg_mgr, 'action_type': 'ssh',
-            'name': 'fake_model',
+            'name': 'CGNMDL816_run',
             'user': 'fake_open',
             'error': 'fake_model_run_log_status_failure',
-            'execute': 'exec bash /home/fake_open/scripts/fake_openSAS.sh' + ' fake_model_'
+            'execute': self.cfg_mgr.sas_command + ' fake_model_'
                                                   'v001_t001.sas 57 1005',
             'ok': 'fake_model_run_log_status_success',
-            'host': 'fake.sas.server',
+            'host': self.cfg_mgr.sas_server,
             'args': ['argument1'], 'capture_output': 'false'}
 
         self.my_ssh = SSH(**self.ssh_params)
@@ -48,10 +48,10 @@ class SSHActionFunctionsTest(unittest.TestCase):
             'name': 'fake_model_run',
             'user': 'fake_username',
             'error': 'fake_model_run_log_status_failure',
-            'execute': 'exec bash /home/fake_open/scripts/fake_openSAS.sh' + ' fake_model_'
+            'execute': self.cfg_mgr.sas_command + ' fake_model_'
                                                   'v001_t001.sas 57 1005',
             'ok': 'fake_model_run_log_status_success',
-            'host': 'fake.sas.server', 'args': ['argument1'],
+            'host': self.cfg_mgr.sas_server, 'args': ['argument1'],
             'capture_output': 'false'}
         my_ssh = SSH(**params)
         with open(os.path.join(BASE_DIR, 'expected/ssh.xml'), 'r') as my_file:

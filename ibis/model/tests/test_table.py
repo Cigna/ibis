@@ -1,4 +1,4 @@
-"""ItTable tests"""
+"""ItTable and StagingItTable tests"""
 import unittest
 import os
 from ibis.model.table import ItTable

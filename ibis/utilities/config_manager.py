@@ -16,7 +16,10 @@ class ConfigManager(object):
     def __init__(self, environment, *args):
         """Init."""
 
-        self.env = environment.lower()
+        if environment == "JENKINS":
+            self.env = "dev"
+        else:
+            self.env = environment.lower()
 
         self.for_env = None
         if args:
@@ -31,12 +34,16 @@ class ConfigManager(object):
 
         # This is the base dir of this particular file
         # for example:
-        # /Users/USERNAME/Desktop/ibis/dist/Ibis-0.3.0-py2.7.egg
+        # /Users/C51647/Desktop/ibis/dist/Ibis-0.3.0-py2.7.egg
         # /ibis/utilities/config_manager.pyc
         # we then take up a few knotches, to just get
-        # /Users/USERNAME/Desktop/ibis/
-        # This allows us to not have multiple property files for testing
+        # /Users/C51647/Desktop/ibis/
+        # This allows us to not have multiple property files for Jenkins
         # (for their different envs)
+        # Going forward, we want to make this part of all the properties
+        # files and have Jenkins build the files for us
+        # Going with this, check out the jenkins.properties file
+        # for how it's now not harded-coded paths
         curr_path = os.path.abspath(__file__)
         for _ in range(4):
             # cross platform path split
@@ -44,7 +51,7 @@ class ConfigManager(object):
         self.base_dir = curr_path
 
         # Used for selecting where workflows should be commited to with GIT
-        if environment in ["UNIT_TEST", 'INT_TEST']:
+        if environment in ["JENKINS", "UNIT_TEST", 'INT_TEST']:
             self.saves = self.base_dir + config.get('Directories', 'saves')
         else:
             self.saves = config.get('Directories', 'saves')
@@ -71,11 +78,18 @@ class ConfigManager(object):
         self.workflow_host = config.get('Workflows', 'workflow_host')
         self.workflow_hive2_jdbc_url = config.get(
             'Workflows', 'workflow_hive2_jdbc_url')
+        self.git_workflows_dir = config.get('Workflows', 'git_workflows_dir')
         self.default_db_env = config.get('Workflows', 'db_env').lower()
         self.kerberos = config.get('Workflows', 'kerberos')
         self.hdfs_ingest_version = config.get(
             'Workflows', 'hdfs_ingest_version')
 
+        if environment == "UNIT_TEST":
+            self.is_profile_required = True \
+                if config.get('Workflows', 'profileRequired') == "True" \
+                else False
+        else:
+            self.is_profile_required = args[1]
         rand_dir_name = self.rand_name()
         # Directories
         self.logs = self.base_dir + config.get('Directories', 'logs') + \
@@ -83,15 +97,30 @@ class ConfigManager(object):
         self.log_file = self.logs + '/ibis.log'
         self.files = self.base_dir + config.get('Directories', 'files') + \
             rand_dir_name + '/'
+        self.git_wf_local_dir = self.base_dir + \
+            config.get('Directories', 'git_wf_local_dir') + \
+            rand_dir_name + '/'
         self.create_path(self.logs)
         self.create_path(self.files)
+        self.create_path(self.git_wf_local_dir)
         self.custom_scripts_shell = config.get(
             'Directories', 'custom_scripts_shell')
         self.custom_scripts_hql = config.get(
             'Directories', 'custom_scripts_hql')
+        self.podium_ds_dir = self.base_dir + config.get(
+            'Directories', 'podium_ds_dir')
         self.requests_dir = config.get('Directories', 'requests_dir')
         self.export_hdfs_root = config.get('Directories', 'export_hdfs_root')
         self.root_hdfs_saves = config.get('Directories', 'root_hdfs_saves')
+        self.hdfs = config.get('Directories', 'hdfs')
+        self.hdfsmodel = config.get('Directories', 'hdfsmodel')
+        self.workdir = config.get('Directories', 'workdir')
+        self.pod_shell_dir = config.get('Directories', 'pod_shell_dir')
+        self.check_shell_dir = config.get('Directories',
+                                          'checks_balance_shell_dir')
+        self.pod_shell_name = config.get('Directories', 'pod_shell_name')
+        self.check_shell_name = config.get('Directories',
+                                           'checks_balance_shell_name')
         self.kite_shell_name = config.get('Directories', 'kite_shell_name')
         self.kite_shell_dir = config.get('Directories', 'kite_shell_dir')
 
@@ -162,16 +191,30 @@ class ConfigManager(object):
             config.get('Other', 'allowed_frequencies'))
         self.vizoozie = resource_filename('resources',
                                           config.get('Other', 'vizoozie'))
+        self.git_workflows_url = config.get('Other', 'git_workflows_url')
+        self.git_requests_url = config.get('Other', 'git_requests_url')
         self.max_table_per_workflow = int(
             config.get('Other', 'max_table_per_workflow'))
+        self.sas_server = config.get('Other', 'sas_server')
+        self.sas_command = config.get('Other', 'sas_command')
         self.parallel_dryrun_procs = int(config.get(
             'Other', 'parallel_dryrun_procs'))
         self.parallel_sqoop_procs = int(config.get(
             'Other', 'parallel_sqoop_procs'))
         self.domain_suffix = config.get('Other', 'domain_suffix')
-        self.teradata_server = self.gen_dict(
-            config.get('Other', 'teradata_server'))
+        self.tearadata_server = self.gen_dict(
+            config.get('Other', 'tearadata_server'))
 
+        # Podium
+        self.podium_url = config.get('Podium', 'podium_url')
+        self.podium_user = config.get('Podium', 'podium_user')
+        self.podium_pass = config.get('Podium', 'podium_pass')
+        self.ds_git_url = config.get('Podium', 'ds_git_url')
+        self.it_requests_git_url = config.get('Podium', 'it_requests_git_url')
+        self.it_requests_git_branch = config.get('Podium',
+                                                 'it_requests_git_branch')
+        self.requests_split_by = config.get('Podium', 'requests_split_by')
+        self.pod_path = config.get('Podium', 'path')
         self.domains_list = config.get('Other', 'domains_list')
 
         if self.for_env:
@@ -196,6 +239,8 @@ class ConfigManager(object):
             self.oozie_url = config.get('Oozie', 'oozie_url')
             self.kerberos = config.get('Workflows', 'kerberos')
             self.allowed_actions = config.get('Workflows', 'actions')
+            self.git_workflows_dir = config.get('Workflows',
+                                                'git_workflows_dir')
             self.hdfs_ingest_version = config.get('Workflows',
                                                   'hdfs_ingest_version')
             self.job_prop_template = resource_filename(
