@@ -46,7 +46,7 @@ class DSLParserTest(unittest.TestCase):
             'test_resources/custom_config.dsl')
         action_data = self.dsl_parser.parse_file(path)
         expected = ['import_prep', 'import', 'avro', '/DEV/ibis2.hql',
-                    'test_shell.sh', 'podium_profile']
+                    'test_shell.sh']
         self.assertEquals(action_data, expected)
 
     def test_parse_file_invalid(self):

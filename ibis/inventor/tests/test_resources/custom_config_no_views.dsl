@@ -9,4 +9,3 @@ action parquet_swap
 action parquet_live
 action refresh
 action shell_test.sh
-action podium_profile

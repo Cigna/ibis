@@ -249,8 +249,8 @@ def main():
                         help='Timeout duration for auto split by')
     parser.add_argument('--ingest-version', action='store_true',
                         help='Get the ingest version used for the xml')
-    parser.add_argument('--skip-profile', action='store_true',
-                        help='Flag to activate podium profiling')
+    # parser.add_argument('--skip-profile', action='store_true',
+    #                     help='Flag to activate podium profiling')
     parser.add_argument('--kite-ingest', type=FileType('r'),
                         help='Used to generate kite-ingest workflow')
 
@@ -288,7 +288,7 @@ def main():
 
     is_failed = False
     if args.env:
-        cfg_mgr = ConfigManager(args.env[0], args.for_env, args.skip_profile)
+        cfg_mgr = ConfigManager(args.env[0], args.for_env)
         file_permission = 0774
 
         if not os.path.isdir(cfg_mgr.files):

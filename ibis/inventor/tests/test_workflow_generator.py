@@ -603,20 +603,6 @@ class WorkflowGeneratorFunctionsTest(unittest.TestCase):
         self.assertTrue(bool_test)
 
     @patch('ibis.inventor.action_builder.SqoopHelper.eval', autospec=True)
-    def test_generate_incremental_podium(self, m_eval):
-        """test incremental workflow generation - podium"""
-        m_eval.return_value = [['TEST_COLUMN', 'TIMESTAMP'],
-                               ['test_incr_column', 'INT']]
-        table = ItTable(heavy_3_prop, self.cfg_mgr)
-        self.cfg_mgr.is_profile_required = False
-        self.generator.generate_incremental(table)
-        bool_test = self.files_equal(
-            os.path.join(self.cfg_mgr.files, 'test_workflow.xml'),
-            os.path.join(BASE_DIR,
-                         'expected_workflows/podium_incremental_workflow.xml'))
-        self.assertTrue(bool_test)
-
-    @patch('ibis.inventor.action_builder.SqoopHelper.eval', autospec=True)
     def test_generate_incremental(self, m_eval):
         """test incremental workflow generation"""
         m_eval.return_value = [['TEST_COLUMN', 'TIMESTAMP'],

@@ -84,12 +84,6 @@ class ConfigManager(object):
         self.hdfs_ingest_version = config.get(
             'Workflows', 'hdfs_ingest_version')
 
-        if environment == "UNIT_TEST":
-            self.is_profile_required = True \
-                if config.get('Workflows', 'profileRequired') == "True" \
-                else False
-        else:
-            self.is_profile_required = args[1]
         rand_dir_name = self.rand_name()
         # Directories
         self.logs = self.base_dir + config.get('Directories', 'logs') + \
@@ -205,16 +199,6 @@ class ConfigManager(object):
         self.tearadata_server = self.gen_dict(
             config.get('Other', 'tearadata_server'))
 
-        # Podium
-        self.podium_url = config.get('Podium', 'podium_url')
-        self.podium_user = config.get('Podium', 'podium_user')
-        self.podium_pass = config.get('Podium', 'podium_pass')
-        self.ds_git_url = config.get('Podium', 'ds_git_url')
-        self.it_requests_git_url = config.get('Podium', 'it_requests_git_url')
-        self.it_requests_git_branch = config.get('Podium',
-                                                 'it_requests_git_branch')
-        self.requests_split_by = config.get('Podium', 'requests_split_by')
-        self.pod_path = config.get('Podium', 'path')
         self.domains_list = config.get('Other', 'domains_list')
 
         if self.for_env:
