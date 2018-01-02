@@ -33,7 +33,6 @@ class WorkflowGeneratorFunctionsTest(unittest.TestCase):
     @patch.object(inventory.Inventory, '_connect', autospec=True)
     def setUp(self, mock_connect):
         self.cfg_mgr = ConfigManager(UNIT_TEST_ENV)
-        self.cfg_mgr.is_profile_required = True
         self.req_inventory = RequestInventory(self.cfg_mgr)
         self.driver = Driver(self.cfg_mgr)
         self.generator = WorkflowGenerator('test_workflow', self.cfg_mgr)

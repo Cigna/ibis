@@ -249,8 +249,6 @@ def main():
                         help='Timeout duration for auto split by')
     parser.add_argument('--ingest-version', action='store_true',
                         help='Get the ingest version used for the xml')
-    # parser.add_argument('--skip-profile', action='store_true',
-    #                     help='Flag to activate podium profiling')
     parser.add_argument('--kite-ingest', type=FileType('r'),
                         help='Used to generate kite-ingest workflow')
 
