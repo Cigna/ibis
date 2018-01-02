@@ -1202,31 +1202,6 @@ class ActionBuilder(object):
         kite_ingest = Shell(**params)
         return kite_ingest.generate_action()
 
-    def checks_and_balance(self, action_name, env, domain, podium_entity_name,
-                           esp_id, directory, ok, error):
-        """Return checks and balance action xml"""
-        if domain.split("_")[-1] == "i":
-            pdm_src_name = "PDM_" + "_".join(domain.split("_")[0:-1]).upper()
-        else:
-            pdm_src_name = "PDM_" + domain.upper()
-
-        params = {
-            'cfg_mgr': self.cfg_mgr, 'action_type': 'shell',
-            'name': action_name,
-            'ok': ok, 'error': error,
-            'execute': self.cfg_mgr.check_shell_name,
-            'arg': ['{0}'.format(env),
-                    '{0}'.format(pdm_src_name),
-                    '{0}'.format(podium_entity_name),
-                    '{0}'.format(directory)],
-            'file': [self.cfg_mgr.check_shell_dir]}
-
-        if esp_id:
-            params['arg'].append('{0}'.format(esp_id))
-
-        import_prep = Shell(**params)
-        return import_prep.generate_action()
-
     def get_hive_credentials_config(self):
         """Returns hive config properties to add on hive.xml.mako template
         for hive_credentials action workflow.xml

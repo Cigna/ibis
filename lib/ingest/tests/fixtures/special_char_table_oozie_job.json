@@ -276,7 +276,7 @@
       "retries": 0,
       "name": "fake_tablename_refresh",
       "type": "shell",
-      "transition": "fake_tablename_podium_profile",
+      "transition": "oozie_cb_ok",
       "consoleUrl": "http://fake.int.consoleurl:8088/proxy/application_1496708904047_80062/",
       "externalChildIDs": null,
       "endTime": "Thu, 22 Jun 2017 18:00:29 GMT"

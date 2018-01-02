@@ -536,7 +536,7 @@ class ConnectionManager(object):
     def build_ddl_query(self):
         """Determine db vendor. Column ordering is added Oracle & DB2, as the
         metadata tables do not always maintain the column ordering
-        that is required for the Avro ingest and Podium
+        that is required for the Avro ingest
         """
         if 'teradata' in self.jdbc_url:
             self.source = 'td'
