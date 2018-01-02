@@ -15,19 +15,6 @@ ALTER TABLE `fake_view_open.fake_database_mock_table` ADD PARTITION (incr_ingest
 
 msck repair table `fake_view_open.fake_database_mock_table`;
 
-DROP VIEW IF EXISTS `fake_view_open_non_phi.fake_database_mock_table`;
-DROP TABLE IF EXISTS `fake_view_open_non_phi.fake_database_mock_table`;
-
-CREATE DATABASE IF NOT EXISTS `fake_view_open_non_phi`;
-CREATE EXTERNAL TABLE `fake_view_open_non_phi.fake_database_mock_table` (mock_create_hql,
-`ingest_timestamp` string)
-partitioned by (incr_ingest_timestamp string)
-stored as parquet location 'hdfs:///user/data/mock_hdfs_loc/live/';
-
-ALTER TABLE `fake_view_open_non_phi.fake_database_mock_table` ADD PARTITION (incr_ingest_timestamp='full_20160101164756');
-
-msck repair table `fake_view_open_non_phi.fake_database_mock_table`;
-
 DROP VIEW IF EXISTS `fake_view_im.fake_database_mock_table`;
 DROP TABLE IF EXISTS `fake_view_im.fake_database_mock_table`;
 
@@ -40,16 +27,3 @@ CREATE EXTERNAL TABLE `fake_view_im.fake_database_mock_table` (mock_create_hql,
 ALTER TABLE `fake_view_im.fake_database_mock_table` ADD PARTITION (incr_ingest_timestamp='full_20160101164756');
 
 msck repair table `fake_view_im.fake_database_mock_table`;
-
-DROP VIEW IF EXISTS `fake_view_im_non_phi.fake_database_mock_table`;
-DROP TABLE IF EXISTS `fake_view_im_non_phi.fake_database_mock_table`;
-
-CREATE DATABASE IF NOT EXISTS `fake_view_im_non_phi`;
-CREATE EXTERNAL TABLE `fake_view_im_non_phi.fake_database_mock_table` (mock_create_hql,
-`ingest_timestamp` string)
-partitioned by (incr_ingest_timestamp string)
-stored as parquet location 'hdfs:///user/data/mock_hdfs_loc/live/';
-
-ALTER TABLE `fake_view_im_non_phi.fake_database_mock_table` ADD PARTITION (incr_ingest_timestamp='full_20160101164756');
-
-msck repair table `fake_view_im_non_phi.fake_database_mock_table`;

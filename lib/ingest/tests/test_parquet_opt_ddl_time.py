@@ -458,14 +458,10 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
         self.assertEqual(not_removed, column_without_spaces)
 
     @patch.object(ConnectionManager, 'get_schema', autospec=True)
-    @patch.object(ConnectionManager, 'all_non_phi_tables_sentry_match',
-                  autospec=True)
-    def test_create_externaltable(self, m_phi_non_phi, m_get_schema):
+    def test_create_externaltable(self, m_get_schema):
         """test incremental views"""
         jdbcurl = ('jdbc:sqlserver://fake.sqlserver:1433;database=fake_database;encrypt=true;'
                    'trustServerCertificate=true')
-
-        m_phi_non_phi.return_value = ['fake_database_mock_table', 'default_sample_07']
 
         m_get_schema.return_value = MagicMock(spec=DDLTypes)
 
@@ -496,16 +492,11 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
             expected_views_info_txt, views_info_txt))
 
     @patch.object(ConnectionManager, 'get_schema', autospec=True)
-    @patch.object(ConnectionManager, 'all_non_phi_tables_sentry_match',
-                  autospec=True)
     @patch('lib.ingest.parquet_opt_ddl_time.ImpalaConnect', autospec=True)
-    def test_create_externaltable_pvs(self, mock_impala_conn,
-                                      m_phi_non_phi, m_get_schema):
+    def test_create_externaltable_pvs(self, mock_impala_conn, m_get_schema):
         """test  pvs views with domain"""
         jdbcurl = ('jdbc:sqlserver://fake.sqlserver:1433;database=fake_database;encrypt=true;'
                    'trustServerCertificate=true')
-
-        m_phi_non_phi.return_value = ['fake_database_mock_table', 'default_sample_07']
 
         m_get_schema.return_value = MagicMock(spec=DDLTypes)
         mock_impala_conn.run_query.side_effect = [[['test0']],
@@ -543,16 +534,11 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
             expected_views_info_txt, views_info_txt))
 
     @patch.object(ConnectionManager, 'get_schema', autospec=True)
-    @patch.object(ConnectionManager, 'all_non_phi_tables_sentry_match',
-                  autospec=True)
     @patch('lib.ingest.parquet_opt_ddl_time.ImpalaConnect', autospec=True)
-    def test_create_externaltable_pvs_wd(self, mock_impala_conn,
-                                         m_phi_non_phi, m_get_schema):
+    def test_create_externaltable_pvs_wd(self, mock_impala_conn, m_get_schema):
         """test pvs views without domain """
         jdbcurl = ('jdbc:sqlserver://fake.sqlserver:1433;database=fake_database;encrypt=true;'
                    'trustServerCertificate=true')
-
-        m_phi_non_phi.return_value = ['fake_database_mock_table', 'default_sample_07']
 
         m_get_schema.return_value = MagicMock(spec=DDLTypes)
         mock_impala_conn.run_query.side_effect = [[['test0']],
@@ -590,16 +576,11 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
             expected_views_info_txt, views_info_txt))
 
     @patch.object(ConnectionManager, 'get_schema', autospec=True)
-    @patch.object(ConnectionManager, 'all_non_phi_tables_sentry_match',
-                  autospec=True)
     @patch('lib.ingest.parquet_opt_ddl_time.ImpalaConnect', autospec=True)
-    def test_create_externaltable_pvs_fwd(self, mock_impala_conn,
-                                          m_phi_non_phi, m_get_schema):
+    def test_create_externaltable_pvs_fwd(self, mock_impala_conn, m_get_schema):
         """test pvs views team frequency check without domain"""
         jdbcurl = ('jdbc:sqlserver://fake.sqlserver:1433;database=fake_database;encrypt=true;'
                    'trustServerCertificate=true')
-
-        m_phi_non_phi.return_value = ['fake_database_mock_table', 'default_sample_07']
 
         m_get_schema.return_value = MagicMock(spec=DDLTypes)
         mock_impala_conn.run_query.side_effect = [[['test0']],
@@ -654,16 +635,11 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
             expected_views_info_txt, views_info_txt))
 
     @patch.object(ConnectionManager, 'get_schema', autospec=True)
-    @patch.object(ConnectionManager, 'all_non_phi_tables_sentry_match',
-                  autospec=True)
     @patch('lib.ingest.parquet_opt_ddl_time.ImpalaConnect', autospec=True)
-    def test_create_externaltable_pvs_fd(self, mock_impala_conn,
-                                         m_phi_non_phi, m_get_schema):
+    def test_create_externaltable_pvs_fd(self, mock_impala_conn, m_get_schema):
         """test pvs views team frequency check with domain"""
         jdbcurl = ('jdbc:sqlserver://fake.sqlserver:1433;database=fake_database;encrypt=true;'
                    'trustServerCertificate=true')
-
-        m_phi_non_phi.return_value = ['fake_database_mock_table', 'default_sample_07']
 
         m_get_schema.return_value = MagicMock(spec=DDLTypes)
         mock_impala_conn.run_query.side_effect = [
@@ -704,17 +680,12 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
             expected_views_info_txt, views_info_txt))
 
     @patch.object(ConnectionManager, 'get_schema', autospec=True)
-    @patch.object(ConnectionManager, 'all_non_phi_tables_sentry_match',
-                  autospec=True)
     @patch('lib.ingest.parquet_opt_ddl_time.ImpalaConnect', autospec=True)
-    def test_create_externaltable_pvs_fdm(self, mock_impala_conn,
-                                          m_phi_non_phi, m_get_schema):
+    def test_create_externaltable_pvs_fdm(self, mock_impala_conn, m_get_schema):
         """test pvs views team frequency check monthly, full load
         with domain"""
         jdbcurl = ('jdbc:sqlserver://fake.sqlserver:1433;database=fake_database;encrypt=true;'
                    'trustServerCertificate=true')
-
-        m_phi_non_phi.return_value = ['fake_database_mock_table', 'default_sample_07']
 
         m_get_schema.return_value = MagicMock(spec=DDLTypes)
         mock_impala_conn.run_query.side_effect = [
@@ -755,15 +726,10 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
             expected_views_info_txt, views_info_txt))
 
     @patch.object(ConnectionManager, 'get_schema', autospec=True)
-    @patch.object(ConnectionManager, 'all_non_phi_tables_sentry_match',
-                  autospec=True)
-    def test_create_externaltable_pvs_domain(self, m_phi_non_phi,
-                                             m_get_schema):
+    def test_create_externaltable_pvs_domain(self, m_get_schema):
         """test pvs views with only domain"""
         jdbcurl = ('jdbc:sqlserver://fake.sqlserver:1433;database=fake_database;encrypt=true;'
                    'trustServerCertificate=true')
-
-        m_phi_non_phi.return_value = ['fake_database_mock_table', 'default_sample_07']
 
         m_get_schema.return_value = MagicMock(spec=DDLTypes)
 
@@ -796,14 +762,10 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
             expected_views_info_txt, views_info_txt))
 
     @patch.object(ConnectionManager, 'get_schema', autospec=True)
-    @patch.object(ConnectionManager, 'all_non_phi_tables_sentry_match',
-                  autospec=True)
-    def test_create_externaltable_full(self, m_phi_non_phi, m_get_schema):
+    def test_create_externaltable_full(self, m_get_schema):
         """test full ingest views"""
         jdbcurl = ('jdbc:sqlserver://fake.sqlserver:1433;database=fake_database;encrypt=true;'
                    'trustServerCertificate=true')
-
-        m_phi_non_phi.return_value = ['fake_database_mock_table', 'default_sample_07']
         m_get_schema.return_value = MagicMock(spec=DDLTypes)
 
         conn_mgr = ConnectionManager(
@@ -833,14 +795,10 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
             expected_views_info_txt, views_info_txt))
 
     @patch.object(ConnectionManager, 'get_schema', autospec=True)
-    @patch.object(ConnectionManager, 'all_non_phi_tables_sentry_match',
-                  autospec=True)
-    def test_create_externaltable_no_views(self, m_phi_non_phi, m_get_schema):
+    def test_create_externaltable_no_views(self, m_get_schema):
         """test no views"""
         jdbcurl = ('jdbc:sqlserver://fake.sqlserver:1433;database=fake_database;encrypt=true;'
                    'trustServerCertificate=true')
-
-        m_phi_non_phi.return_value = ['fake_database_mock_table', 'default_sample_07']
 
         m_get_schema.return_value = MagicMock(spec=DDLTypes)
 
@@ -871,14 +829,10 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
         self.assertEqual(views_info_txt, expected_views_info)
 
     @patch.object(ConnectionManager, 'get_schema', autospec=True)
-    @patch.object(ConnectionManager, 'all_non_phi_tables_sentry_match',
-                  autospec=True)
-    def test_create_ingest_table(self, m_phi_non_phi, m_get_schema):
+    def test_create_ingest_table(self, m_get_schema):
         """test create_ingest_table"""
         jdbcurl = ('jdbc:oracle:thin:@//fake.oracle:1521'
                    '/fake_servicename')
-
-        m_phi_non_phi.return_value = ['fake_database_mock_table', 'default_sample_07']
 
         m_get_schema.return_value = MagicMock(spec=DDLTypes)
 
@@ -895,14 +849,10 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
         self.assertEqual(test_hql, expected_hql)
 
     @patch.object(ConnectionManager, 'get_schema', autospec=True)
-    @patch.object(ConnectionManager, 'all_non_phi_tables_sentry_match',
-                  autospec=True)
-    def test_create_parquet_live(self, m_phi_non_phi, m_get_schema):
+    def test_create_parquet_live(self, m_get_schema):
         """test create_parquet_live"""
         jdbcurl = ('jdbc:oracle:thin:@//fake.oracle:1521'
                    '/fake_servicename')
-
-        m_phi_non_phi.return_value = ['fake_database_mock_table', 'default_sample_07']
 
         m_get_schema.return_value = MagicMock(spec=DDLTypes)
 

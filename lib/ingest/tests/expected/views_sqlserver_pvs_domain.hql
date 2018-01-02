@@ -7,14 +7,6 @@ DROP VIEW IF EXISTS pharmacy.fake_database_mock_table;
 DROP TABLE IF EXISTS pharmacy.fake_database_mock_table;
 CREATE VIEW pharmacy.fake_database_mock_table AS SELECT * FROM mock_domain.fake_database_mock_table;
 
-DROP VIEW IF EXISTS pharmacy_non_phi.fake_database_mock_table;
-DROP TABLE IF EXISTS pharmacy_non_phi.fake_database_mock_table;
-CREATE VIEW pharmacy_non_phi.fake_database_mock_table AS SELECT * FROM mock_domain.fake_database_mock_table;
-
 DROP VIEW IF EXISTS benefits.fake_database_mock_table;
 DROP TABLE IF EXISTS benefits.fake_database_mock_table;
 CREATE VIEW benefits.fake_database_mock_table AS SELECT * FROM mock_domain.fake_database_mock_table;
-
-DROP VIEW IF EXISTS benefits_non_phi.fake_database_mock_table;
-DROP TABLE IF EXISTS benefits_non_phi.fake_database_mock_table;
-CREATE VIEW benefits_non_phi.fake_database_mock_table AS SELECT * FROM mock_domain.fake_database_mock_table;

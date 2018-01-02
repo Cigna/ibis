@@ -13,16 +13,6 @@ INSERT OVERWRITE TABLE fake_view_open.fake_database_mock_table PARTITION(incr_in
 
 msck repair table fake_view_open.fake_database_mock_table;
 
-DROP VIEW IF EXISTS fake_view_open_non_phi.fake_database_mock_table;
-CREATE DATABASE IF NOT EXISTS fake_view_open_non_phi;
-CREATE  TABLE IF NOT EXISTS fake_view_open_non_phi.fake_database_mock_table like mock_domain.fake_database_mock_table;
-
-INSERT OVERWRITE TABLE fake_view_open_non_phi.fake_database_mock_table PARTITION(incr_ingest_timestamp) select * from mock_domain.fake_database_mock_table ;
-
-INSERT OVERWRITE TABLE fake_view_open_non_phi.fake_database_mock_table PARTITION(incr_ingest_timestamp) select * from mock_domain.fake_database_mock_table where ingest_timestamp > '2017-07-23 17:41:40';
-
-msck repair table fake_view_open_non_phi.fake_database_mock_table;
-
 DROP VIEW IF EXISTS fake_view_im.fake_database_mock_table;
 CREATE DATABASE IF NOT EXISTS fake_view_im;
 CREATE  TABLE IF NOT EXISTS fake_view_im.fake_database_mock_table like mock_domain.fake_database_mock_table;
@@ -32,13 +22,3 @@ INSERT OVERWRITE TABLE fake_view_im.fake_database_mock_table PARTITION(incr_inge
 INSERT OVERWRITE TABLE fake_view_im.fake_database_mock_table PARTITION(incr_ingest_timestamp) select * from mock_domain.fake_database_mock_table where ingest_timestamp > '2017-07-23 17:41:40';
 
 msck repair table fake_view_im.fake_database_mock_table;
-
-DROP VIEW IF EXISTS fake_view_im_non_phi.fake_database_mock_table;
-CREATE DATABASE IF NOT EXISTS fake_view_im_non_phi;
-CREATE  TABLE IF NOT EXISTS fake_view_im_non_phi.fake_database_mock_table like mock_domain.fake_database_mock_table;
-
-INSERT OVERWRITE TABLE fake_view_im_non_phi.fake_database_mock_table PARTITION(incr_ingest_timestamp) select * from mock_domain.fake_database_mock_table ;
-
-INSERT OVERWRITE TABLE fake_view_im_non_phi.fake_database_mock_table PARTITION(incr_ingest_timestamp) select * from mock_domain.fake_database_mock_table where ingest_timestamp > '2017-07-23 17:41:40';
-
-msck repair table fake_view_im_non_phi.fake_database_mock_table;
