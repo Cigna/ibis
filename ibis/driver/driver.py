@@ -468,9 +468,8 @@ class Driver(object):
             db_name - database name, reingest - boolean to reingest tables
         """
         db_name = db_name[0]
-        if db_name.lower().startswith('pdm') or db_name.lower().endswith("_i")\
-                or db_name.lower() == 'ibis':
-            raise ValueError("Cannot wipe Podium or Ibis database")
+        if db_name.lower().endswith("_i") or db_name.lower() == 'ibis':
+            raise ValueError("Cannot wipe Ibis database")
         domain = self.cfg_mgr.domains_list
         domain = domain.split(",")
         if db_name in domain:

@@ -107,10 +107,6 @@ class ConfigManager(object):
         self.hdfs = config.get('Directories', 'hdfs')
         self.hdfsmodel = config.get('Directories', 'hdfsmodel')
         self.workdir = config.get('Directories', 'workdir')
-        self.check_shell_dir = config.get('Directories',
-                                          'checks_balance_shell_dir')
-        self.check_shell_name = config.get('Directories',
-                                           'checks_balance_shell_name')
         self.kite_shell_name = config.get('Directories', 'kite_shell_name')
         self.kite_shell_dir = config.get('Directories', 'kite_shell_dir')
 

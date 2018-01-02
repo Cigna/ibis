@@ -995,20 +995,11 @@ class DriverFunctionsTest(unittest.TestCase):
         m_wipe_pvs.assert_called_once_with('fake_view_im', False)
 
     @patch.object(PvsInventory, 'wipe_pvs_env', autospec=True)
-    def test_wipe_pvs_env_driver_pdm(self, m_wipe_pvs):
-        """test wipe_pvs_driver with domain starting with pdm
-        and ending with _i"""
-        with self.assertRaises(ValueError) as context:
-            self.driver.wipe_pvs_env_driver(['pdm_test_i'], False)
-        self.assertTrue('Cannot wipe Podium or Ibis database' in
-                        str(context.exception))
-
-    @patch.object(PvsInventory, 'wipe_pvs_env', autospec=True)
     def test_wipe_pvs_env_driver_ibis(self, m_wipe_pvs):
         """test wipe_pvs_driver with domain as ibis"""
         with self.assertRaises(ValueError) as context:
             self.driver.wipe_pvs_env_driver(['ibis'], False)
-        self.assertTrue('Cannot wipe Podium or Ibis database' in
+        self.assertTrue('Cannot wipe Ibis database' in
                         str(context.exception))
 
     @patch.object(PvsInventory, 'wipe_pvs_env', autospec=True)
