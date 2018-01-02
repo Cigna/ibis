@@ -18,7 +18,7 @@ class DSLParserTest(unittest.TestCase):
         self.cfg_mgr = ConfigManager(UNIT_TEST_ENV)
         self.cfg_mgr.requests_dir = BASE_DIR
         self.dsl_parser = DSLParser(
-            self.cfg_mgr, ['import_prep', 'import', 'avro', 'podium_profile'],
+            self.cfg_mgr, ['import_prep', 'import', 'avro'],
             self.cfg_mgr.requests_dir)
         self.cfg_mgr.hadoop_credstore_password_disable = False
 

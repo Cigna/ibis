@@ -101,18 +101,14 @@ class ConfigManager(object):
             'Directories', 'custom_scripts_shell')
         self.custom_scripts_hql = config.get(
             'Directories', 'custom_scripts_hql')
-        self.podium_ds_dir = self.base_dir + config.get(
-            'Directories', 'podium_ds_dir')
         self.requests_dir = config.get('Directories', 'requests_dir')
         self.export_hdfs_root = config.get('Directories', 'export_hdfs_root')
         self.root_hdfs_saves = config.get('Directories', 'root_hdfs_saves')
         self.hdfs = config.get('Directories', 'hdfs')
         self.hdfsmodel = config.get('Directories', 'hdfsmodel')
         self.workdir = config.get('Directories', 'workdir')
-        self.pod_shell_dir = config.get('Directories', 'pod_shell_dir')
         self.check_shell_dir = config.get('Directories',
                                           'checks_balance_shell_dir')
-        self.pod_shell_name = config.get('Directories', 'pod_shell_name')
         self.check_shell_name = config.get('Directories',
                                            'checks_balance_shell_name')
         self.kite_shell_name = config.get('Directories', 'kite_shell_name')
