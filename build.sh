@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # install Requirements
-pip install -r requirements.pip
+pip install -r ./ibis/requirements.pip
 
 echo "*************"
 pip show impyla
