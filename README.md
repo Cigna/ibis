@@ -344,3 +344,11 @@ locations:
 4. Bhaskar Teja
 5. Dileep Barla
 6. Samuel Underhill
+7. Shivakumar Athreya
+
+## Contribute
+Source Code: https://github.com/cigna/ibis
+Issue Tracker: https://github.com/Cigna/ibis/issues
+
+## License
+The project is licensed under the Apache 2 license.
