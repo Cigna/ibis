@@ -45,6 +45,10 @@ run_unit_tests() {
 	coverage report
 	coverage xml
 	coverage html -d coverage-report
+	rm -rf $cur_dir/test_logs
+	rm -rf $cur_dir/test_workflows-git
+	rm -rf $cur_dir/test_files
+	
 	mv $ibis_home/test_logs $cur_dir/
 	mv $ibis_home/test_workflows-git $cur_dir/
 	mv $ibis_home/test_files $cur_dir/
@@ -72,7 +76,6 @@ check_security(){
 build_egg(){
 
 	#Build the egg
-	rm -rf $cur_dir/dist
 	
 	cd $ibis_home
 	python2.7 $ibis_home/setup.py bdist_egg
@@ -82,6 +85,9 @@ build_egg(){
 		echo ' build failed'
 		exit 1
 	fi
+	rm -rf $cur_dir/dist
+	rm -rf $cur_dir/opensource_ibis.egg-info
+	rm -rf $cur_dir/build
 	mv $ibis_home/dist $cur_dir
 	mv $ibis_home/opensource_ibis.egg-info $cur_dir
 	mv $ibis_home/build $cur_dir
