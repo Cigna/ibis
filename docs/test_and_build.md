@@ -17,11 +17,17 @@ To build the code, navigate to the ibis_build folder and use the following:
 ```sh build.sh <Argument1: ibis_home> <Argument2 : Execution option>```
 
 Argument 1 : Needs to be IBIS home directory path
+
 Argument 2 : Below are the acceptable argument values
+
              Blank to have Tests, Code check and Build process to execute
+             
              skip-all-test - Skip all validation and create Egg
+             
              skip-code-check - Skip code style check
+             
              skip-build - Run all validations and skip build process
+             
 
 In the ibis_build folder, it would now create the egg, coverage report and the 
 ibis.tar.gz file
