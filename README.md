@@ -345,6 +345,7 @@ locations:
 5. Dileep Barla
 6. Samuel Underhill
 7. Shivakumar Athreya
+8. Manindhar Krishnamurthy
 
 ## Contribute
 Source Code: https://github.com/cigna/ibis
