@@ -108,8 +108,9 @@ main() {
     else
         echo 'Argument 1 is not a IBIS direcotry ' $ibis_home
         echo '========================ATTENTION===================================='
-        echo 'Argument 1 : needs to be IBIS home directory path'
-        echo 'Argument 2 : Needs to be blank or if provided has to the below'
+        echo 'Argument 1 : Needs to be IBIS home directory path'
+		echo 'Argument 2 : Below are the acceptable argument values'
+		echo '			   Blank to have Tests, Code check and Build process to execute'
         echo '             skip-all-test - Skip all validation and create Egg'
         echo '             skip-code-check - Skip code style check'
         echo '             skip-build - Run all validations and skip build process'
@@ -133,8 +134,9 @@ main() {
 		check_security
 	else
 		echo '========================ATTENTION===================================='
-		echo 'Argument 1 : needs to be IBIS home directory path'
-		echo 'Argument 2 : Needs to be blank or if provided has to the below'
+		echo 'Argument 1 : Needs to be IBIS home directory path'
+		echo 'Argument 2 : Below are the acceptable argument values'
+		echo '			   Blank to have Tests, Code check and Build process to execute'
 		echo '             skip-all-test - Skip all validation and create Egg'
 		echo '             skip-code-check - Skip code style check'
 		echo '             skip-build - Run all validations and skip build process'
