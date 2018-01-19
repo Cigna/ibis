@@ -8,6 +8,17 @@ echo 'Argument 2 : Execution option: ' $args
 export ibis_home=$ibis_home
 export cur_dir=$cur_dir
 
+print_args(){
+        echo '========================ATTENTION===================================='
+        echo 'Argument 1 : Needs to be IBIS home directory path'
+		echo 'Argument 2 : Below are the acceptable argument values'
+		echo '			   Blank to have Tests, Code check and Build process to execute'
+        echo '             skip-all-test - Skip all validation and create Egg'
+        echo '             skip-code-check - Skip code style check'
+        echo '             skip-build - Run all validations and skip build process'
+        echo '====================================================================='
+}
+
 setup_env() {
 	# install Requirements 
 	# pip install -r $ibis_home/requirements.pip
@@ -107,14 +118,7 @@ main() {
         setup_env
     else
         echo 'Argument 1 is not a IBIS direcotry ' $ibis_home
-        echo '========================ATTENTION===================================='
-        echo 'Argument 1 : Needs to be IBIS home directory path'
-		echo 'Argument 2 : Below are the acceptable argument values'
-		echo '			   Blank to have Tests, Code check and Build process to execute'
-        echo '             skip-all-test - Skip all validation and create Egg'
-        echo '             skip-code-check - Skip code style check'
-        echo '             skip-build - Run all validations and skip build process'
-        echo '====================================================================='
+		print_args
         exit 1
     fi
 	
@@ -133,14 +137,8 @@ main() {
 		check_code_quality
 		check_security
 	else
-		echo '========================ATTENTION===================================='
-		echo 'Argument 1 : Needs to be IBIS home directory path'
-		echo 'Argument 2 : Below are the acceptable argument values'
-		echo '			   Blank to have Tests, Code check and Build process to execute'
-		echo '             skip-all-test - Skip all validation and create Egg'
-		echo '             skip-code-check - Skip code style check'
-		echo '             skip-build - Run all validations and skip build process'
-		echo '====================================================================='
+		print_args
+		exit 1
 	fi
 
 }
