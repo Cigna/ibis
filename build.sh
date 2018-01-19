@@ -3,8 +3,8 @@
 ibis_home=$1
 args=$2
 cur_dir=`pwd`
-echo 'ibis_home ' $ibis_home
-echo 'args' $args
+echo 'Argument 1 : ibis_home: ' $ibis_home
+echo 'Argument 2 : Execution option: ' $args
 export ibis_home=$ibis_home
 export cur_dir=$cur_dir
 
@@ -103,8 +103,19 @@ build_egg(){
 
 main() {
 
-	echo 'inside' $ibis_home
-	setup_env
+    if [ -e "$ibis_home/setup.py" ]; then
+        setup_env
+    else
+        echo 'Argument 1 is not a IBIS direcotry ' $ibis_home
+        echo '========================ATTENTION===================================='
+        echo 'Argument 1 : needs to be IBIS home directory path'
+        echo 'Argument 2 : Needs to be blank or if provided has to the below'
+        echo '             skip-all-test - Skip all validation and create Egg'
+        echo '             skip-code-check - Skip code style check'
+        echo '             skip-build - Run all validations and skip build process'
+        echo '====================================================================='
+        exit 1
+    fi
 	
 	if [ "${args}" == "" ]; then
 		run_unit_tests
