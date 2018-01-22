@@ -21,7 +21,7 @@ Follow the below 3 step:-
    
       ```git clone <repo> <directory>```
 
-      Clone the repository located at <repo> into the folder called ~<directory>! on the local machine.
+      Clone the repository located at ```<repo>``` into the folder called ```<directory>```.
 
 
 2. ## Run IBIS initial setup
