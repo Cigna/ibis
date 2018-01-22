@@ -88,7 +88,7 @@ db_env:int
 | Weight |Provide the size of the table (use your best judgement) on if it's light,medium or heavy. This is based on the number of columns and the number of rows.This effects how the workflow is generated and the number o tables that can be run in parallel|
 | Refresh Frequency |Only needed for Production, the frequency that is needed. This is used for reporting in checks & balances and other dashboards. All scheduling is physically done through ESP. Possible values are ```none```, ```daily```, ```weekly```, ```monthly```, and ```quarterly```|
 | Check Column |If you need this table ingested incrementally, provide a check column that is used to split up the load. Note that this only works for some sources right now - check with the team first|
-| DB ENV |Ff you need to run multiple QA cycles then specify the QA cycle name(INT/PVS/SYS) the workflows will be created with corresponding filename |
+| DB ENV |If you need to run multiple QA cycles then specify the QA cycle name(INT/PVS/SYS) the workflows will be created with corresponding filename |
 
 
 #### Submit table(s) request that shows what's changed in staging_it_table
