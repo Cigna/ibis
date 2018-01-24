@@ -46,7 +46,7 @@ Follow the below 3 step:-
       
       Some other property files specifically used for [unit test and jenkins](/resources)
       
-      Refer [How to Update property file](docs/property_file_update.md)
+      Refer here [How to Update property file](docs/property_file_update.md)
 
 
 3. ## Build IBIS
