@@ -24,9 +24,30 @@ Follow the below 3 step:-
       Clone the repository located at ```<repo>``` into the folder called ```<directory>```.
 
 
-2. ## Run IBIS initial setup
+2. ## Run IBIS initial setup and update Env's property details
 
       To prepare the IBIS Env(create the required directories, DB and tables used by IBIS), run Env setup shell<more infor to come here>
+      
+      ```<initial setup command will come here>```
+      
+      **Environment property file**
+      
+      For IBIS to work and communicate with Hadoop(Sqoop, Hive and Oozie), following respective Env's property files should be updated:
+      
+      [prod property file](/resources/prod.properties)
+      
+      [int property file](/resources/int.properties)
+      
+      [dev property file](/resources/dev.properties)
+      
+      [pvs property file](/resources/pvs.properties)  --> Isolated PVS Env in INT. Refer [PVS](docs/ibis_features.md) for more details 
+      
+      [dev_pvs property file](/resources/dev_pvs.properties)  --> Isolated PVS Env in Dev
+      
+      Some other property files specifically used for [unit test and jenkins](/resources)
+      
+      Refer [How to Update property file](docs/property_file_update.md)
+
 
 3. ## Build IBIS
      Build BIS project to create the egg, coverage report and the packaged ibis.tar.gz file containing egg with the required IBIS supporting files
