@@ -15,27 +15,27 @@ Following are the list of property to be updated
 | Property | Update Required  | Description  |
 | :-   | :- | :- |
 |**[Database]**|||
-|host=fake.impala|Y|Update with the Impala host|
-|port=25003|Y|Port number|
+|host=fake.impala|Y|Update with the Impala host name|
+|port=25003|Y|Impala port number|
 |use_kerberos=True|Y|If kerberos is enabled "True" otherwise "False"|
 |it_table=ibis.prod_it_table|N|Created by the ibis setup shell|
-|it_table_export=ibis.prod_it_table_export|N|Created by the ibis setup shell|
+|it_table_export=ibis.prod_it_table_export|N|Created by the ibis setup shell. Stores all the table for ingestion|
 |staging_database=fake_staging_datbase|N|Created by the ibis setup shell|
 |checks_balances=ibis.checks_balances|N|Created by the ibis setup shell|
-|esp_ids_table=ibis.esp_ids|N|Created by the ibis setup shell|
+|esp_ids_table=ibis.esp_ids|N|Created by the ibis setup shell. Stores the Appl ID and frequency details|
 |staging_it_table=ibis.staging_it_table|N|Created by the ibis setup shell|
-|prod_it_table=ibis.prod_it_table|N|Created by the ibis setup shell|
+|prod_it_table=ibis.prod_it_table|N|Created by the ibis setup shell. It_Table for prod|
 |queue_name=ingestion|Y|Update with HDFS queue name|
 |edge_node=fake.edgenode|Y|Edge node address where the IBIS is installed|
-|freq_ingest=ibis.freq_ingest|N|Created by the ibis setup shell|
+|freq_ingest=ibis.freq_ingest|N|Created by the ibis setup shell. Table for PVS run frequency check  |
 |**[Workflows]**|||
-|workflow_host=fake.impala|Y|Update with the Impala host|
+|workflow_host=fake.impala|Y|Update with the Impala host name|
 |workflow_hive2_jdbc_url=jdbc:hive2://fake.hive:25006/default|Y|Update with the Hive jdbc URL|
 |git_workflows_dir=PROD|N|prod git's workflows directory |-
 |kerberos=fake.kerberos|Y|Realm entry in krb5.conf |
 |db_env=PROD|N||
 |hdfs_ingest_version=v14|Y|Increment this version whenever there is change in XML|
-|**[Directories]**|||
+|**[Directories]**||IBIS directories for request files, hql's and workflows|
 |logs=/logs/|N||
 |files=/files/|N||
 |saves=/opt/app/workflows/|N||
@@ -76,12 +76,12 @@ Following are the list of property to be updated
 |impala_workspace=/user/dev/oozie/workspaces/impala-adhoc|N||
 |**[ESP_ID]**|||
 |big_data=FAKE|Y|Update the ESP ID's first 4 letter's for example "GDBD" in Appl ID : GDBDD006|
-|frequencies_map=daily:D,biweekly:B,weekly:W,fortnightly:F,monthly:M,quarterly:Q,adhoc:A,onetime:O,mul-appls:X,yearly:Y|N||
+|frequencies_map=daily:D,biweekly:B,weekly:W,fortnightly:F,monthly:M,quarterly:Q,adhoc:A,onetime:O,mul-appls:X,yearly:Y|N|First letter of frequency is used in the Appl ID creations and its the letter in Appl ID|
 |environment_map=6|Y|Is an optional update. Its the last digit of the Appl ID used to identify the env in which ESP Appl is running, in this case '6' will be suffixed in the Appl ID : GDBDD006|
 |from_branch=prod|N||
 |**[Other]**|||
-|allowed_frequencies=000:none,101:daily,011:biweekly,100:weekly,110:fortnightly,010:monthly,001:quarterly,111:yearly|N||
-|vizoozie=vizoozie.properties|N||
+|allowed_frequencies=000:none,101:daily,011:biweekly,100:weekly,110:fortnightly,010:monthly,001:quarterly,111:yearly|N|All allowed frequencies for scheduling workflows|
+|vizoozie=vizoozie.properties|N|Property for all wokflows PDF's generated|
 |git_workflows_url=git@fake.git:fake_teamname/ibis-workflows.git|Y|Update with the Git workflow URL|
 |git_requests_url=git@fake.git:fake_teamname/ibis-requests.git|Y|Update with the Git request file URL|
 |max_table_per_workflow=5|Y|Maximum number of table per oozie workflow|

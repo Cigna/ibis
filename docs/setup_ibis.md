@@ -16,9 +16,9 @@ Follow the below 3 step:-
 
 1. ## Update IBIS Property file
 
-      For IBIS to work and communicate with Hadoop(Sqoop, Hive and Oozie), following respective Env's property files should be updated:
+      For IBIS to work and communicate with Hadoop(Sqoop, Hive and Oozie), following respective Env's property and corresponding job property files should be updated:
       
-      **Environment property file**
+      **A. Environment property file**
       
       [prod property file](/resources/prod.properties)
       
@@ -26,16 +26,25 @@ Follow the below 3 step:-
       
       [dev property file](/resources/dev.properties)
       
-      [pvs property file](/resources/pvs.properties)  --> Isolated PVS Env in INT. Refer [PVS](docs/ibis_features.md) for more details 
+      [pvs property file](/resources/pvs.properties)  --> Isolated PVS Env in INT goes with int job property file. Refer [PVS](docs/ibis_features.md) for more details 
       
-      [dev_pvs property file](/resources/dev_pvs.properties)  --> Isolated PVS Env in Dev
+      [dev_pvs property file](/resources/dev_pvs.properties)  --> Isolated PVS Env in Dev goes with dev job property file
       
       Some other property files specifically used for [unit test and jenkins](/resources)
       
       **Refer here [How to Update property file](docs/property_file_update.md)**
+      
+      **B. Environment's job property file**
+      
+      [prod job properties](/resources/templates/prod_job.properties)
+      
+      [int job properties](/resources/templates/int_job.properties)
+      
+      [dev job properties](/resources/templates/dev_job.properties)
+      
+      **Refer here [How to Update job's property file](docs/job_property_update.md)**
 
-
-2. ## Run IBIS initial setup
+2. ## Run IBIS one time setup
 
       To prepare the IBIS Env(create the required directories, DB and tables used by IBIS), run the following Env setup shell:
       
@@ -67,7 +76,9 @@ Follow the below 3 step:-
 
 - Unix like environment (Mac, Linux)
 
-- Python 2.7.4 + requirements.pip
+- Python 2.7.4+
+
+- requirements.pip (Is executed in IBIS one time setup)
 
 - graphviz dot (a yum install)
 
