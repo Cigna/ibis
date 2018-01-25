@@ -33,6 +33,8 @@ use SQOOP for efficiently transferring bulk data between Apache Hadoop and
 structured datastores such as relational databases (including Oracle, Teradata,
 SQL Server, and DB2).
 
+### Refer here on [How to setup IBIS?](/docs/setup_ibis.md)
+
 ## Purpose
 
 Creating XMLs is a painful process, especially when including many other steps
@@ -346,6 +348,7 @@ locations:
 6. Samuel Underhill
 7. Shivakumar Athreya
 8. Manindhar Krishnamurthy
+9. Iqbal Shaikh
 
 ## Contribute
 Source Code: https://github.com/cigna/ibis
