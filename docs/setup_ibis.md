@@ -14,25 +14,11 @@
 
 Follow the below 3 step:-
 
-1. ## Download(clone) IBIS project
+1. ## Update IBIS Property file
 
-  
-      Cloning the IBIS project to a specific folder
-   
-      ```git clone <repo> <directory>```
-
-      Clone the repository located at ```<repo>``` into the folder called ```<directory>```.
-
-
-2. ## Run IBIS initial setup and update Env's property details
-
-      To prepare the IBIS Env(create the required directories, DB and tables used by IBIS), run Env setup shell<more infor to come here>
-      
-      ```<initial setup command will come here>```
+      For IBIS to work and communicate with Hadoop(Sqoop, Hive and Oozie), following respective Env's property files should be updated:
       
       **Environment property file**
-      
-      For IBIS to work and communicate with Hadoop(Sqoop, Hive and Oozie), following respective Env's property files should be updated:
       
       [prod property file](/resources/prod.properties)
       
@@ -46,9 +32,16 @@ Follow the below 3 step:-
       
       Some other property files specifically used for [unit test and jenkins](/resources)
       
-      Refer here [How to Update property file](docs/property_file_update.md)
+      **Refer here [How to Update property file](docs/property_file_update.md)**
 
 
+2. ## Run IBIS initial setup
+
+      To prepare the IBIS Env(create the required directories, DB and tables used by IBIS), run the following Env setup shell:
+      
+      ```sh setup_ibis.sh```
+      
+      
 3. ## Build IBIS
      Build BIS project to create the egg, coverage report and the packaged ibis.tar.gz file containing egg with the required IBIS supporting files
    

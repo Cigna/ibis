@@ -85,7 +85,7 @@ db_env:int
 | Source Database Name |The name of the database you are connecting to|
 | Source Table Name |The name of the table you want to pull in|
 | Views |Where you have access to query and manipulate the dataset - if you need it in more than one place, seperate it by a pipe ```'```&#124;```'```  NOTE: this column is append only. To remove all of them, update with null and then add your views.|
-| Weight |Provide the size of the table (use your best judgement) on if it's light,medium or heavy. This is based on the number of columns and the number of rows.This effects how the workflow is generated and the number o tables that can be run in parallel|
+| Weight |Provide the size of the table (use your best judgement) on if it's '''light''','''medium''' or '''heavy'''. This is based on the number of columns and the number of rows.This effects how the workflow is generated and the number of tables that can be run in parallel. In the bakend values are translated (100 — light, 010 — medium, 001 — heavy) |
 | Refresh Frequency |Only needed for Production, the frequency that is needed. This is used for reporting in checks & balances and other dashboards. All scheduling is physically done through ESP. Possible values are ```none```, ```daily```, ```weekly```, ```monthly```, and ```quarterly```|
 | Check Column |If you need this table ingested incrementally, provide a check column that is used to split up the load. Note that this only works for some sources right now - check with the team first|
 | DB ENV |If you need to run multiple QA cycles then specify the QA cycle name(INT/PVS/SYS) the workflows will be created with corresponding filename |
