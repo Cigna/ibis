@@ -16,7 +16,7 @@ Follow the below 3 step:-
 
 1. ## Update IBIS Property file
 
-      For IBIS to work and communicate with Hadoop(Sqoop, Hive and Oozie), following respective Env's property and corresponding job property files should be updated:
+      For IBIS to work and communicate with Hadoop(Sqoop, Hive and Oozie), following respective Env's property, corresponding job property and configuration files should be updated:
       
       **A. Environment property file**
       
@@ -26,13 +26,13 @@ Follow the below 3 step:-
       
       [dev property file](/resources/dev.properties)
       
-      [pvs property file](/resources/pvs.properties)  --> Isolated PVS Env in INT goes with int job property file. Refer [PVS](docs/ibis_features.md) for more details 
+      [pvs property file](/resources/pvs.properties)  --> Isolated PVS Env in INT goes with int job property and configuration file. Refer [PVS](docs/ibis_features.md) for more details 
       
-      [dev_pvs property file](/resources/dev_pvs.properties)  --> Isolated PVS Env in Dev goes with dev job property file
+      [dev_pvs property file](/resources/dev_pvs.properties)  --> Isolated PVS Env in Dev goes with dev job property and configuration file
       
       Some other property files specifically used for [unit test and jenkins](/resources)
       
-      **Refer here [How to Update property file](docs/property_file_update.md)**
+      **Refer here [How to Update property file?](docs/property_file_update.md)**
       
       **B. Environment's job property file**
       
@@ -42,7 +42,17 @@ Follow the below 3 step:-
       
       [dev job properties](/resources/templates/dev_job.properties)
       
-      **Refer here [How to Update job's property file](docs/job_property_update.md)**
+      **Refer here [How to Update job's property file?](docs/job_property_update.md)**
+      
+      **C. Configuration properties**
+      
+      [prod configuration property file](/lib/ingest/prod/config_env.sh)
+      
+      [int configuration property file](/lib/ingest/int/config_env.sh)
+      
+      [dev configuration property file](/lib/ingest/dev/config_env.sh)
+      
+      **Refer here [How to Update configuration file?](docs/configuration_update.md)**      
 
 2. ## Run IBIS one time setup
 
