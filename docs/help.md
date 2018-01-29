@@ -178,7 +178,6 @@ Python 2.7.8
   --where WHERE         Used to provide a where statement
 
   --gen-esp-workflow GEN_ESP_WORKFLOW [GEN_ESP_WORKFLOW ...]
-
                         Create workflow(s) based on a list of ESP ids
                         separated by spaces.
 
@@ -209,7 +208,6 @@ Python 2.7.8
   --message MESSAGE     Provide description for bmrs
 
   --export              Export hadoop table to teradata. required: --db {db},
-
                         name of db you want to export, --table {table}, name
                         of table you want to export, --to {db}.{table}, name
                         of database and table to export to
