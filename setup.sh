@@ -1,63 +1,27 @@
 # !/bin/bash
 
 # Prerequisites:
-# 1. Unix like environment (Unix, Linux, Mac)
-# 2. Hadoop eco-systems
-# 3. Python 2.7
+# 1. Python 2.7 with PIP
+# 2. IBIS dependencies (refer IBIS's requirements.pip)
 #
 #
 # This setup.sh to be executed once when installing IBIS for the first time.
 # This script does the following:
-#	1. Validates the Operating System. Fails if it's not a Unix like 
-#	   environment (linx, AIX, Mac)
-#   2. Checks Hadoop installation.
-#	3. Checks the installed Python version. Fails if version is not as 2.7  
-#   4. Creates the required directories in the local file system and 
-#      in the HDFS as well.
-#   5. Installs Python's libraries required for IBIS
-#   6. Calls DDL statements to create a Hive database and with required 
+#   1. Creates required directories in the local file system and in the HDFS as well.
+#   2. Install python's libraries required for IBIS
+#   3. Calls DDL statements to create a Hive database and with required 
 #      audit and transactional tables.
 
-
-validate_os() {
-	unameOut="$(uname -s)"
-
-	case "${unameOut}" in
-	    Linux*)     os=Linux;;
-	    Darwin*)    os=Mac;;
-	    GNU*)       os=GNU;;
-	    FreeBSD*)   os=FreeBSD;;
-	    AIX*)       os=AIX;;
-	    *)          os="Unknown"
-	esac
-
-	echo "Operating System: $os"
-
-	if [ os == "Unknown" ]; then
-		echo "Error: Unsupported Operating System! Require a Unix like environment (Linux, Mac)"
-		exit 1
-	fi
-}
 
 execute_ddl() {
 	# Execute DDL statements
 	echo "Executing DDLs..."
-
-	# Calls config_env.sh to get Hive JDBC URL and Kerberos Pricipal 
-	source ./lib/ingest/$env/config_env.sh
-	
-	beeline /etc/hive/beeline.properties -u ${hive2_jdbc_url}\;principal=hive/${KERBEROS_PRINCIPAL} --hiveconf mapred.job.queue.name=$queueName --silent=true --showHeader=false --outputformat=csv2 -f './resources/ibis.hql'
-
-	if [ $? -ne 0 ]; then 
-		echo "Error: Not able to execute the DDL statements required for IBIS!"
-		exit $rc
-	fi
 }
 
 verify_hadoop_installation() {
 	hadoop version
 	rc=$?
-	if [ $rc -ne 0 ]; then echo "Error: Hadoop not found!"; exit $rc; fi
+	if [ $rc -ne 0 ]; then exit $rc; fi
 }
 
 validate_python_version() {
@@ -90,21 +54,13 @@ validate_python_version() {
 
 check_prerequisites() {
 	echo "Checking prerequisites..."
-	validate_os
 	verify_hadoop_installation
 	validate_python_version	
-	sudo yum groupinstall -y "development tools"
-	sudo yum install krb5-devel gcc zlib-devel gcc-c++ python-devel cyrus-sasl-devel openssl openssl-devel libffi-devel bzip2-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel snappy-devel expat-devel patch -y --skip-broken
-	sudo  yum --nogpgcheck -y install unzip sudo vim wget which tar gzip graphviz python-setuptools python-setuptools-devel shadow-utils git net-tools libXtst.x86_64
+
 }
 
 install_py_libs() {
-	sudo pip install -r ./requirements.pip
-	
-	if [ $? -ne 0 ]; then 
-		echo "Error: Couldn't install IBIS dependencies via PIP!"
-		exit 1
-	fi
+	python -m pip install -r ./requirements.pip
 }
 
 make_unix_dir() {
@@ -135,6 +91,7 @@ property_parser() {
 			make_unix_dir $2
 		fi
 	done
+
 }
 
 main() {
@@ -146,13 +103,13 @@ main() {
 	
 	# Prompts user for environment
 	echo
-	read -p "Specify the environment (dev/int/prod): " env
+	read -p "Specify the environment (dev/int/pvs/prod): " env
 	prop_file="./resources/$env.properties"
 	echo "Property File: $prop_file"
 
 	# Creates local and HDFS directories as mentioned in the properties
 	if [ -f "$prop_file" ]; then
-		# Parses IBIS properties to create required directories
+		# Parses IBIS properties
 		property_parser
 	else
 		echo "Error: Property file is not found!"
@@ -162,7 +119,7 @@ main() {
 	# Executes DDL statements
 	execute_ddl
  
- 	exit 0	
+	
 }
 
 main
