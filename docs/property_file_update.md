@@ -45,9 +45,6 @@ Following are the list of property to be updated
 |export_hdfs_root=/ibis/outbound/export/|N|HDFS  directory on HDFS, keep files to be exported under this folder|
 |custom_scripts_shell=/user/dev/oozie/workspaces/ibis/shell|N|HDFS location to keep the shells to be executed|
 |custom_scripts_hql=/user/dev/oozie/workspaces/ibis/hql|N|HDFS location to keep the HQL's to be executed|
-|hdfs=/user/fake_opendev/fake_open_framework/|Matt to confirm|Specific to Opensae|
-|hdfsmodel=/user/fake_opendev/fake_open_models/|Matt to confirm|Specific to Opensae|
-|workdir=/opt/app/fake_open/fake_open_framework/job_control/dynamic_wf/work/|Matt to confirm|Specific to Opensae|
 |kite_shell_dir=/user/dev/oozie/workspaces/ibis/lib/ingest/kite.sh#kite.sh|N||
 |kite_shell_name=kite.sh|N||
 |**[Templates]**|N||
@@ -85,8 +82,6 @@ Following are the list of property to be updated
 |git_workflows_url=git@fake.git:fake_teamname/ibis-workflows.git|Y|Update with the Git workflow URL|
 |git_requests_url=git@fake.git:fake_teamname/ibis-requests.git|Y|Update with the Git request file URL|
 |max_table_per_workflow=5|Y|Maximum number of table per oozie workflow|
-|sas_server=fake.sas.server|Matt to confirm|Specific to Opensae|
-|sas_command=exec bash /home/fake_open/scripts/fake_openSAS.sh|Matt to confirm|Specific to Opensae|
 |parallel_dryrun_procs=25|N|Oozie XML dryrun or test. Is an optional update field|
 |parallel_sqoop_procs=40|N|Number of parallel sqoop processes. Is an optional update field|
 |domain_suffix=_i|N|Suffixed to the domain(sqoop import master) database|

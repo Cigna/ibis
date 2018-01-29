@@ -104,9 +104,6 @@ class ConfigManager(object):
         self.requests_dir = config.get('Directories', 'requests_dir')
         self.export_hdfs_root = config.get('Directories', 'export_hdfs_root')
         self.root_hdfs_saves = config.get('Directories', 'root_hdfs_saves')
-        self.hdfs = config.get('Directories', 'hdfs')
-        self.hdfsmodel = config.get('Directories', 'hdfsmodel')
-        self.workdir = config.get('Directories', 'workdir')
         self.kite_shell_name = config.get('Directories', 'kite_shell_name')
         self.kite_shell_dir = config.get('Directories', 'kite_shell_dir')
 
@@ -181,8 +178,6 @@ class ConfigManager(object):
         self.git_requests_url = config.get('Other', 'git_requests_url')
         self.max_table_per_workflow = int(
             config.get('Other', 'max_table_per_workflow'))
-        self.sas_server = config.get('Other', 'sas_server')
-        self.sas_command = config.get('Other', 'sas_command')
         self.parallel_dryrun_procs = int(config.get(
             'Other', 'parallel_dryrun_procs'))
         self.parallel_sqoop_procs = int(config.get(
