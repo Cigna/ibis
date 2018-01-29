@@ -58,7 +58,7 @@ Follow the below 3 step:-
 
       To prepare the IBIS Env(create the required directories, DB and tables used by IBIS), run the following Env setup shell:
       
-      ```sh [setup.sh](setup.sh)```
+      ```sh [setup.sh](/setup.sh)```
       
       
 3. ## Build IBIS
