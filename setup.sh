@@ -16,6 +16,7 @@
 execute_ddl() {
 	# Execute DDL statements
 	echo "Executing DDLs..."
+	#TODO
 }
 
 verify_hadoop_installation() {
