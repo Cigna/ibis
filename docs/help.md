@@ -120,7 +120,8 @@ usage: cigna_im_ibis-1.9.4-py2.7.egg[-h] [--db DB] [--table TABLE]
                                     [--db-env DB_ENV] [--operation OPERATION]
 
 
-optional arguments:
+##optional arguments:
+
   -h, --help            show this help message and exit
   --db DB               Used to provide a database name
   --table TABLE         Used to provide a table name
