@@ -40,6 +40,10 @@ Data validation |	Validate the data was ingested correctly|	Row counts, DDL matc
 Map data types to valid Hadoop types|	Match, as close as possible, external data types to Hadoop data types|	Oracle has specific data types like NUMBER which don't exist in Hadoop. Map to a valid Hadoop type as best as possible (eg to DECIMAL) by grabbing from metadata tables. Other tools map everything directly as string - doesn't work for SAS!
 Isolated Env|Every different team is having separate team space for all source tables
 
+## Functionalities available in IBIS
+Command --help would list the IBIS Functionalities
+ [./ibis-shell --help](/docs/help.md)
+
 ## Behind the scenes
 
 Under the covers, IBIS manages the information required to pull in data sources
