@@ -22,7 +22,7 @@ To run unit tests, use the following:
 ```python ibis_test_suite.py```
 
 ## Code validation and Build process
-To build the code, navigate to the ibis_build(/ibis_build/) folder and use the following:
+To build the code, navigate to the [ibis_build](/ibis_build/) folder and use the following:
 
 
 ```sh build.sh <Argument1: ibis_home> <Argument2 : Execution option>```
