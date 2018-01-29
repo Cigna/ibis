@@ -14,110 +14,110 @@ Version 1.9.4
 
 Python 2.7.8
 
-usage: cigna_im_ibis-1.9.4-py2.7.egg [-h] [--db DB] [--table TABLE]
-[--frequency FREQUENCY]
+usage: cigna_im_ibis-1.9.4-py2.7.egg[-h] [--db DB] [--table TABLE]
+                                    [--frequency FREQUENCY]
 
-[--teamname TEAMNAME]
+                                    [--teamname TEAMNAME]
 
-[--activate ACTIVATE] --env ENV
+                                    [--activate ACTIVATE] --env ENV
 
-[--for-env FOR_ENV] [--checks-balances]
+                                    [--for-env FOR_ENV] [--checks-balances]
 
-[--submit-request SUBMIT_REQUEST]
+                                    [--submit-request SUBMIT_REQUEST]
 
-[--export-request EXPORT_REQUEST]
+                                    [--export-request EXPORT_REQUEST]
 
-[--submit-request-prod SUBMIT_REQUEST_PROD]
+                                    [--submit-request-prod SUBMIT_REQUEST_PROD]
 
-[--save-it-table]
+                                    [--save-it-table]
 
-[--update-it-table UPDATE_IT_TABLE]
+                                    [--update-it-table UPDATE_IT_TABLE]
 
-[--update-it-table-export UPDATE_IT_TABLE_EXPORT]
+                                    [--update-it-table-export UPDATE_IT_TABLE_EXPORT]
 
-[--run-job RUN_JOB] [--view]
+                                    [--run-job RUN_JOB] [--view]
 
-[--view-name VIEW_NAME]
+                                    [--view-name VIEW_NAME]
 
-[--select SELECT [SELECT ...]]
+                                    [--select SELECT [SELECT ...]]
 
-[--where WHERE]
+                                    [--where WHERE]
 
-[--gen-esp-workflow GEN_ESP_WORKFLOW [GEN_ESP_WORKFLOW ...]]
+                                    [--gen-esp-workflow GEN_ESP_WORKFLOW [GEN_ESP_WORKFLOW ...]]
 
-[--gen-esp-workflow-tables GEN_ESP_WORKFLOW_TABLES]
+                                    [--gen-esp-workflow-tables GEN_ESP_WORKFLOW_TABLES]
 
-[--gen-export-esp-workflow-tables GEN_EXPORT_ESP_WORKFLOW_TABLES]
+                                    [--gen-export-esp-workflow-tables GEN_EXPORT_ESP_WORKFLOW_TABLES]
 
-[--data-mask DATA_MASK]
+                                    [--data-mask DATA_MASK]
 
-[--gen-config-workflow GEN_CONFIG_WORKFLOW]
+                                    [--gen-config-workflow GEN_CONFIG_WORKFLOW]
 
-[--config-workflow-properties CONFIG_WORKFLOW_PROPERTIES]
+                                    [--config-workflow-properties CONFIG_WORKFLOW_PROPERTIES]
 
-[--queue-name QUEUE_NAME]
+                                    [--queue-name QUEUE_NAME]
 
-[--esp-id ESP_ID] [--message MESSAGE]
+                                    [--esp-id ESP_ID] [--message MESSAGE]
 
-[--export] [--to TO] [--auth-test]
+                                    [--export] [--to TO] [--auth-test]
 
-[--export-oracle] [--source-db SOURCE_DB]
+                                    [--export-oracle] [--source-db SOURCE_DB]
 
-[--source-table SOURCE_TABLE]
+                                    [--source-table SOURCE_TABLE]
 
-[--source-dir SOURCE_DIR]
+                                    [--source-dir SOURCE_DIR]
 
-[--jdbc-url JDBC_URL]
+                                    [--jdbc-url JDBC_URL]
 
-[--target-schema TARGET_SCHEMA]
+                                    [--target-schema TARGET_SCHEMA]
 
-[--target-table TARGET_TABLE]
+                                    [--target-table TARGET_TABLE]
 
-[--update-key [UPDATE_KEY [UPDATE_KEY ...]]]
+                                    [--update-key [UPDATE_KEY [UPDATE_KEY ...]]]
 
-[--user-name USER_NAME]
+                                    [--user-name USER_NAME]
 
-[--password-file PASSWORD_FILE]
+                                    [--password-file PASSWORD_FILE]
 
-[--pass-alias PASS_ALIAS]
+                                    [--pass-alias PASS_ALIAS]
 
-[--source-type SOURCE_TYPE]
+                                    [--source-type SOURCE_TYPE]
 
-[--source-schema SOURCE_SCHEMA]
+                                    [--source-schema SOURCE_SCHEMA]
 
-[--export_teradata]
+                                    [--export_teradata]
 
-[--gen-it-table GEN_IT_TABLE]
+                                    [--gen-it-table GEN_IT_TABLE]
 
-[--gen-qa-data-sampling GEN_QA_DATA_SAMPLING]
+                                    [--gen-qa-data-sampling GEN_QA_DATA_SAMPLING]
 
-[--parse-request-file PARSE_REQUEST_FILE]
+                                    [--parse-request-file PARSE_REQUEST_FILE]
 
-[--hive [HIVE [HIVE ...]]]
+                                    [--hive [HIVE [HIVE ...]]]
 
-[--shell [SHELL [SHELL ...]]]
+                                    [--shell [SHELL [SHELL ...]]]
 
-[--impala [IMPALA [IMPALA ...]]]
+                                    [--impala [IMPALA [IMPALA ...]]]
 
-[--gen-action [GEN_ACTION [GEN_ACTION ...]]]
+                                    [--gen-action [GEN_ACTION [GEN_ACTION ...]]]
 
-[--retrieve-backup] [--update-activator]
+                                    [--retrieve-backup] [--update-activator]
 
-[--wipe-pvs-env WIPE_PVS_ENV]
+                                    [--wipe-pvs-env WIPE_PVS_ENV]
 
-[--reingest-all] [--no-git]
+                                    [--reingest-all] [--no-git]
 
-[--no-dry-run] [--git-push GIT_PUSH]
+                                    [--no-dry-run] [--git-push GIT_PUSH]
 
-[--timeout TIMEOUT] [--ingest-version]
+                                    [--timeout TIMEOUT] [--ingest-version]
 
-[--skip-profile]
+                                    [--skip-profile]
 
-[--kite-ingest KITE_INGEST]
+                                    [--kite-ingest KITE_INGEST]
 
-[--delete-views [DELETE_VIEWS [DELETE_VIEWS ...]]]
+                                    [--delete-views [DELETE_VIEWS [DELETE_VIEWS ...]]]
 
-[--db-env DB_ENV] [--operation OPERATION]
+                                    [--db-env DB_ENV] [--operation OPERATION]
 
 
 optional arguments:
