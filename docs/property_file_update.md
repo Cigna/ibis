@@ -18,15 +18,15 @@ Following are the list of property to be updated
 |host=fake.impala|Y|Update with the Impala host name|
 |port=25003|Y|Impala port number|
 |use_kerberos=True|Y|If kerberos is enabled "True" otherwise "False"|
-|it_table=ibis.prod_it_table|N|Created by the ibis setup shell|
-|it_table_export=ibis.prod_it_table_export|N|Created by the ibis setup shell. Stores all the table for ingestion|
-|staging_database=fake_staging_datbase|N|Created by the ibis setup shell|
-|checks_balances=ibis.checks_balances|N|Created by the ibis setup shell|
-|esp_ids_table=ibis.esp_ids|N|Created by the ibis setup shell. Stores the Appl ID and frequency details|
-|staging_it_table=ibis.staging_it_table|N|Created by the ibis setup shell|
-|prod_it_table=ibis.prod_it_table|N|Created by the ibis setup shell. It_Table for prod|
-|queue_name=ingestion|Y|Update with HDFS queue name|
-|edge_node=fake.edgenode|Y|Edge node address where the IBIS is installed|
+|it_table=ibis.prod_it_table|N|Created by the ibis setup shell. Please match the table name with setup shell. Holds the entry for each table to be ingested|
+|it_table_export=ibis.prod_it_table_export|N|Created by the ibis setup shell. Please match the table name with setup shell. Holds the entry for each table to be exported|
+|staging_database=fake_staging_datbase|N|Created by the ibis setup shell. Please match the table name with setup shell. Temporarily Holds the data load of each table |
+|checks_balances=ibis.checks_balances|N|Created by the ibis setup shell. Please match the table name with setup shell. Holds the entry for each table load|
+|esp_ids_table=ibis.esp_ids|N|Created by the ibis setup shell. Please match the table name with setup shell. Stores the Appl ID and frequency details|
+|staging_it_table=ibis.staging_it_table|N|Created by the ibis setup shell. Please match the table name with setup shell. Stores tables to be ingested through schedule|
+|prod_it_table=ibis.prod_it_table|N|Created by the ibis setup shell. Please match the table name with setup shell. Holds the entry for each table to be ingested|
+|queue_name=ingestion|Y|Update with HDFS queue name for loading the table|
+|edge_node=fake.edgenode|Y|HDFS Edge node address where the IBIS workflow will be executed|
 |freq_ingest=ibis.freq_ingest|N|Created by the ibis setup shell. Table for PVS run frequency check  |
 |**[Workflows]**|||
 |workflow_host=fake.impala|Y|Update with the Impala host name|
@@ -34,31 +34,31 @@ Following are the list of property to be updated
 |git_workflows_dir=PROD|N|prod git's workflows directory |-
 |kerberos=fake.kerberos|Y|Realm entry in krb5.conf |
 |db_env=PROD|N||
-|hdfs_ingest_version=v14|Y|Increment this version whenever there is change in XML|
+|hdfs_ingest_version=v14|Y|Increment this version whenever there is change to workflow XML|
 |**[Directories]**||IBIS directories for request files, hql's and workflows|
-|logs=/logs/|N||
-|files=/files/|N||
-|saves=/opt/app/workflows/|N||
-|git_wf_local_dir=/workflows/workflows-git/|N||
-|requests_dir=/opt/app/ibis/requestFiles/|N||
-|root_hdfs_saves=mdm|N||
-|export_hdfs_root=/ibis/outbound/export/|N||
-|custom_scripts_shell=/user/dev/oozie/workspaces/ibis/shell|N||
-|custom_scripts_hql=/user/dev/oozie/workspaces/ibis/hql|N||
+|logs=/logs/|N| Logs location|
+|files=/files/|N| test files locations|
+|saves=/opt/app/workflows/|N| oozie property and ksh files location|
+|git_wf_local_dir=/workflows/workflows-git/|N|output files to be commited to git to be placed in this location|
+|requests_dir=/opt/app/ibis/requestFiles/|N|Request files to generate workflow will be placed in this location|
+|root_hdfs_saves=mdm|N|ingestion root directory on hdfs|
+|export_hdfs_root=/ibis/outbound/export/|N|HDFS  directory on HDFS, keep files to be exported under this folder|
+|custom_scripts_shell=/user/dev/oozie/workspaces/ibis/shell|N|HDFS location to keep the shells to be executed|
+|custom_scripts_hql=/user/dev/oozie/workspaces/ibis/hql|N|HDFS location to keep the HQL's to be executed|
 |hdfs=/user/fake_opendev/fake_open_framework/|Matt to confirm|Specific to Opensae|
 |hdfsmodel=/user/fake_opendev/fake_open_models/|Matt to confirm|Specific to Opensae|
 |workdir=/opt/app/fake_open/fake_open_framework/job_control/dynamic_wf/work/|Matt to confirm|Specific to Opensae|
 |kite_shell_dir=/user/dev/oozie/workspaces/ibis/lib/ingest/kite.sh#kite.sh|N||
 |kite_shell_name=kite.sh|N||
 |**[Templates]**|N||
-|start_workflow=start.xml.mako|N||
-|end_workflow=end.xml.mako|N||
-|export_end_workflow=export_end.xml.mako|N||
-|korn_shell=esp_template.ksh.mako|N||
-|job_properties=prod_job.properties|N||
-|sub_workflow=subworkflow.xml|N||
-|export_to_td=export_to_td.xml|N||
-|fake_end_workflow=fake_end.xml|N||
+|start_workflow=start.xml.mako|N| workflow start template|
+|end_workflow=end.xml.mako|N|workflow end template|
+|export_end_workflow=export_end.xml.mako|N|export workflow end template|
+|korn_shell=esp_template.ksh.mako|N|workflow KSH template|
+|job_properties=prod_job.properties|N|Job properties template|
+|sub_workflow=subworkflow.xml|N|Sub workflow template|
+|export_to_td=export_to_td.xml|N|teradata workflow template|
+|fake_end_workflow=fake_end.xml|N|workflow end template|
 |**[Mappers]**|||-
 |oracle_mappers=100:5,010:20,001:50|N|100:5,010:20,001:50 --> Size of table:Number of mappers |
 |teradata_mappers=100:2,010:5,001:8|N|Refer [table's weight parameter](docs/ibis_features.md) in request file for translation|
@@ -68,12 +68,12 @@ Following are the list of property to be updated
 |postgresql_mappers=100:2,010:15,001:20|N||
 |**[Oozie]**|||
 |oozie_url=http://fake.oozie:25007/oozie/v2/|Y|Update with the Oozie URL|
-|workspace=/user/dev/oozie/workspaces/ibis/workflows/|N||
+|workspace=/user/dev/oozie/workspaces/ibis/workflows/|N|HDFS location for workflows to be deployed|
 |hadoop_credstore_password_disable=False|Y|It should be "False" if jceks is used for storing password|
-|hql_workspace=/user/dev/oozie/workspaces/hive-adhoc|N||
-|hql_views_workspace=/user/dev/oozie/workspaces/ibis/hql|N||
-|shell_workspace=/user/dev/oozie/workspaces/shell-adhoc|N||
-|impala_workspace=/user/dev/oozie/workspaces/impala-adhoc|N||
+|hql_workspace=/user/dev/oozie/workspaces/hive-adhoc|N|HDFS location for HQL's by team to be deployed||
+|hql_views_workspace=/user/dev/oozie/workspaces/ibis/hql|N|HDFS location for HQl to be deployed||
+|shell_workspace=/user/dev/oozie/workspaces/shell-adhoc|N|HDFS location for shells to be deployed||
+|impala_workspace=/user/dev/oozie/workspaces/impala-adhoc|N|HDFS location for impala-scripts to be deployed||
 |**[ESP_ID]**|||
 |big_data=FAKE|Y|Update the ESP ID's first 4 letter's for example "GDBD" in Appl ID : GDBDD006|
 |frequencies_map=daily:D,biweekly:B,weekly:W,fortnightly:F,monthly:M,quarterly:Q,adhoc:A,onetime:O,mul-appls:X,yearly:Y|N|First letter of frequency is used in the Appl ID creations and its the letter in Appl ID|
