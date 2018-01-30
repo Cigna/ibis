@@ -16,13 +16,14 @@
 execute_ddl() {
 	# Execute DDL statements
 	echo "Executing DDLs..."
-	#TODO
+	source ./lib/ingest/$env/config_env.sh
+	beeline /etc/hive/beeline.properties -u ${hive2_jdbc_url}\;principal=hive/${KERBEROS_PRINCIPAL} --hiveconf mapred.job.queue.name=$queueName --silent=true --showHeader=false --outputformat=csv2 -f './resources/ibis.hql' 
 }
 
 verify_hadoop_installation() {
 	hadoop version
 	rc=$?
-	if [ $rc -ne 0 ]; then exit $rc; fi
+	if [ $rc -ne 0 ]; then echo "Error: Hadoop not found!"; exit $rc; fi
 }
 
 validate_python_version() {
@@ -62,6 +63,10 @@ check_prerequisites() {
 
 install_py_libs() {
 	python -m pip install -r ./requirements.pip
+	if [ $? -ne 0 ]; then 
+		echo "Error: Couldn't able to install IBIS dependencies via PIP!"
+		exit 1
+	fi
 }
 
 make_unix_dir() {
@@ -110,7 +115,7 @@ main() {
 
 	# Creates local and HDFS directories as mentioned in the properties
 	if [ -f "$prop_file" ]; then
-		# Parses IBIS properties
+		# Parses IBIS properties to create required directories
 		property_parser
 	else
 		echo "Error: Property file is not found!"
