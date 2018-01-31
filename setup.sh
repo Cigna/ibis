@@ -9,7 +9,7 @@
 # This setup.sh to be executed once when installing IBIS for the first time.
 # This script does the following:
 #	1. Validates the Operating System. Fails if it's not a Unix like 
-#	   environmet (linx, AIX, Mac)
+#	   environment (linx, AIX, Mac)
 #   2. Checks Hadoop installation.
 #	3. Checks the installed Python version. Fails if version is not as 2.7  
 #   4. Creates the required directories in the local file system and 
