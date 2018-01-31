@@ -1,17 +1,43 @@
 # !/bin/bash
 
 # Prerequisites:
-# 1. Python 2.7 with PIP
-# 2. IBIS dependencies (refer IBIS's requirements.pip)
+# 1. Unix like environment (Unix, Linux, Mac)
+# 2. Hadoop eco-systems
+# 3. Python 2.7
 #
 #
 # This setup.sh to be executed once when installing IBIS for the first time.
 # This script does the following:
-#   1. Creates required directories in the local file system and in the HDFS as well.
-#   2. Install python's libraries required for IBIS
-#   3. Calls DDL statements to create a Hive database and with required 
+#	1. Validates the Operating System. Fails if it's not a Unix like 
+#	   environmet (linx, AIX, Mac)
+#   2. Checks Hadoop installation.
+#	3. Checks the installed Python version. Fails if version is not as 2.7  
+#   4. Creates the required directories in the local file system and 
+#      in the HDFS as well.
+#   5. Installs Python's libraries required for IBIS
+#   6. Calls DDL statements to create a Hive database and with required 
 #      audit and transactional tables.
 
+
+validate_os() {
+	unameOut="$(uname -s)"
+
+	case "${unameOut}" in
+	    Linux*)     os=Linux;;
+	    Darwin*)    os=Mac;;
+	    GNU*)       os=GNU;;
+	    FreeBSD*)   os=FreeBSD;;
+	    AIX*)       os=AIX;;
+	    *)          os="Unknown"
+	esac
+
+	echo "Operating System: $os"
+
+	if [ os == "Unknown" ]; then
+		echo "Error: Unsupported Operating System! Require a Unix like environment (Linux, Mac)"
+		exit 1
+	fi
+}
 
 execute_ddl() {
 	# Execute DDL statements
@@ -20,7 +46,12 @@ execute_ddl() {
 	# Calls config_env.sh to get Hive JDBC URL and Kerberos Pricipal 
 	source ./lib/ingest/$env/config_env.sh
 	
-	beeline /etc/hive/beeline.properties -u ${hive2_jdbc_url}\;principal=hive/${KERBEROS_PRINCIPAL} --hiveconf mapred.job.queue.name=$queueName --silent=true --showHeader=false --outputformat=csv2 -f './resources/ibis.hql' 
+	beeline /etc/hive/beeline.properties -u ${hive2_jdbc_url}\;principal=hive/${KERBEROS_PRINCIPAL} --hiveconf mapred.job.queue.name=$queueName --silent=true --showHeader=false --outputformat=csv2 -f './resources/ibis.hql'
+
+	if [ $? -ne 0 ]; then 
+		echo "Error: Not able to execute the DDL statements required for IBIS!"
+		exit $rc
+	fi
 }
 
 verify_hadoop_installation() {
@@ -59,13 +90,14 @@ validate_python_version() {
 
 check_prerequisites() {
 	echo "Checking prerequisites..."
+	validate_os
 	verify_hadoop_installation
 	validate_python_version	
-
 }
 
 install_py_libs() {
 	python -m pip install -r ./requirements.pip
+	
 	if [ $? -ne 0 ]; then 
 		echo "Error: Couldn't able to install IBIS dependencies via PIP!"
 		exit 1
@@ -100,7 +132,6 @@ property_parser() {
 			make_unix_dir $2
 		fi
 	done
-
 }
 
 main() {
@@ -128,7 +159,7 @@ main() {
 	# Executes DDL statements
 	execute_ddl
  
-	
+ 	exit 0	
 }
 
 main
