@@ -16,7 +16,10 @@
 execute_ddl() {
 	# Execute DDL statements
 	echo "Executing DDLs..."
+
+	# Calls config_env.sh to get Hive JDBC URL and Kerberos Pricipal 
 	source ./lib/ingest/$env/config_env.sh
+	
 	beeline /etc/hive/beeline.properties -u ${hive2_jdbc_url}\;principal=hive/${KERBEROS_PRINCIPAL} --hiveconf mapred.job.queue.name=$queueName --silent=true --showHeader=false --outputformat=csv2 -f './resources/ibis.hql' 
 }
 
