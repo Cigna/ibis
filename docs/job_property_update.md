@@ -14,7 +14,7 @@ Following are the list of property to be updated
 
 | Property | Update Required  | Description  |
 | :-   | :- | :- |
-|nameNode=hdfs://nameservice1|N||
+|nameNode=hdfs://nameservice1|N|HDFS nameservice property in hdfs-site.xml |
 |jobTracker=fake.dev.jobtracker:8032|Y|Name node address where IBIS is installed|
 |queueName=ingestion|Y|Update with HDFS queue name|
 |oozie.use.system.libpath=true|N||

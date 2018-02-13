@@ -349,6 +349,7 @@ locations:
 7. Shivakumar Athreya
 8. Manindhar Krishnamurthy
 9. Iqbal Shaikh
+10. Senthil Nayagan
 
 ## Contribute
 Source Code: https://github.com/cigna/ibis
