@@ -10,7 +10,7 @@
 
 ```
 
-Following are the list of property to be updated
+Following are the list of properties to be updated
 
 | Property | Update Required  | Description  |
 | :-   | :- | :- |
