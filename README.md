@@ -83,8 +83,6 @@ ibis (this one!)
 
 ibis-workflows
 
-request-files
-
 ## Installation requirements
 Unix like environment (Mac, Linux)
 
