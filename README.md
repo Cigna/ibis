@@ -134,8 +134,7 @@ The number of threads that can be used to connect concurrently against the
 source system. Always check with the DBA on the max number that can be used!
 
 ## JDBC URL
-The JDBC URL connection string for the database. See the IBIS Confluence page
-on specifics for different source systems.
+The JDBC URL connection string for the database.
 
 ### DB Username
 The username that connects to the database
