@@ -313,9 +313,6 @@ the workflows will be created with corresponding filename
 
 ----------
 
-## Module Overview
-Info here
-
 ## Running unit tests
 To ensure that IBIS can be automatically deployed, has consistency and
 reliability, unit tests are a must. The development team follows TDD practices.
