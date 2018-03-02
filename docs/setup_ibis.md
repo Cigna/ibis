@@ -99,7 +99,6 @@ Follow the below 3 steps:-
 
 ### 2. Back-end tables (Hive/Impala)
 
-To create these tables, run: (created by initial setup step)
 `/resources/ibis.hql`
 
 ![Alt text](/resources/ibis-tables.png?raw=true)
