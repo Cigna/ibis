@@ -20,13 +20,13 @@ OOZIE_URL_DEV='http://fake.dev.oozie:25007/oozie'
 OOZIE_URL_INT='http://fake.int.oozie:25007/oozie'
 OOZIE_URL_PROD='http://fake.oozie:25007/oozie'
 
-if [[ $(hostname -s) = cilhdedd* ]]; then
+if [[ $(hostname -s) = dev* ]]; then
     # dev
     export OOZIE_URL=${OOZIE_URL_DEV}
-elif [[ $(hostname -s) = cilhdeds* ]]; then
+elif [[ $(hostname -s) = int* ]]; then
     # int
     export OOZIE_URL=${OOZIE_URL_INT}
-elif [[ $(hostname -s) = cilhdedp* ]]; then
+elif [[ $(hostname -s) = prod* ]]; then
     # prod
     export OOZIE_URL=${OOZIE_URL_PROD}
 else
