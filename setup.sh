@@ -99,7 +99,7 @@ install_py_libs() {
 	python -m pip install -r ./requirements.pip
 	
 	if [ $? -ne 0 ]; then 
-		echo "Error: Couldn't able to install IBIS dependencies via PIP!"
+		echo "Error: Couldn't install IBIS dependencies via PIP!"
 		exit 1
 	fi
 }
@@ -143,7 +143,7 @@ main() {
 	
 	# Prompts user for environment
 	echo
-	read -p "Specify the environment (dev/int/pvs/prod): " env
+	read -p "Specify the environment (dev/int/prod): " env
 	prop_file="./resources/$env.properties"
 	echo "Property File: $prop_file"
 
