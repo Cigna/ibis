@@ -50,7 +50,14 @@ Follow the below 3 steps:-
       
       **Refer here [How to Update configuration file?](docs/configuration_update.md)**      
 
-2. ## Run IBIS one time setup
+2. ## Run IBIS one time setup and install all system dependencies
+
+    # INSTALL SYSTEM DEPENDENCIES. Execute below to commands to install system dependencies. VENV WILL FAIL IF BUILT WITHOUT ZLIB SUPPORT AND CERTAIN DEPENDENCIES
+    
+    ```sudo yum groupinstall -y "development tools"```
+    
+    ```sudo yum install krb5-devel gcc zlib-devel gcc-c++ python-devel cyrus-sasl-devel openssl openssl-devel libffi-devel bzip2-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel snappy-devel expat-devel patch -y --skip-broken &&```
+
 
       To prepare the IBIS Env (create the required directories, DB and tables used by IBIS), run the following Env [setup shell](/setup.sh):
       
