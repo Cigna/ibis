@@ -98,7 +98,7 @@ check_prerequisites() {
 }
 
 install_py_libs() {
-	python -m pip install -r ./requirements.pip
+	sudo pip install -r ./requirements.pip
 	
 	if [ $? -ne 0 ]; then 
 		echo "Error: Couldn't install IBIS dependencies via PIP!"
