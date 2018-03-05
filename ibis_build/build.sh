@@ -29,9 +29,6 @@ setup_env() {
 	pip show thrift
 	echo "*************"
 	
-	pip install coverage
-	pip install pylint==1.6.4
-	pip install nose -I
 	pip install bandit
 	
 	mkdir -p ./test_logs
@@ -68,7 +65,6 @@ run_unit_tests() {
 check_code_quality() {
 
 	# Run codestyle and pylint to capture Code style violations
-	pip install pycodestyle
 	$( pycodestyle $ibis_home/ibis | tee  pep8.out ) ||  echo 'find issues' | exit -1
 	pepper8 -o pep8_report.html pep8.out
 	
