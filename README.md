@@ -61,6 +61,11 @@ Allows for data export to any RDBMS	|
 Creates automated incremental workflows |	Allows you to incrementally ingest data	| Based on a column, generate a where clause data ingestion that will ingest into partitions automatically
 Data validation |	Validate the data was ingested correctly|	Row counts, DDL match, data sampling and stores info in a QA log table
 Map data types to valid Hadoop types|	Match, as close as possible, external data types to Hadoop data types|	Oracle has specific data types like NUMBER which don't exist in Hadoop. Map to a valid Hadoop type as best as possible (eg to DECIMAL) by grabbing from metadata tables. Other tools map everything directly as string - doesn't work for SAS!
+Isolated Env - PVS |Every different team is having separate team space for all source tables. Workflows can be generated and schedulled without affeting any team.
+
+## Functionalities available in IBIS
+Command --help would list the IBIS Functionalities
+ [./ibis-shell --help](/docs/help.md)
 
 ## Architecture
 
@@ -125,60 +130,22 @@ check_column:TRANS_TIME
 db_env:int
 ```
 
-### Split-by
-The column used to allow the job to be run in parallel - the best type
-of column is a primary key or index
+| Parameter | Description  |
+| :--- | :--- |
+| Split-by |The column used to allow the job to be run in parallel - the best type of column is a primary key or index|
+| Mappers |The number of threads that can be used to connect concurrently against the source system. Always check with the DBA on the max number that can be used!|
+| JDBC URL |The JDBC URL connection string for the database. See the IBIS Confluence page on specifics for different source systems|
+| DB Username |The username that connects to the database|
+| Password File |The encrpyed password file alias and the location of the JCKS in HDFS - contact the Big Data team if you're unsure what this is or use the Data Lake 360 Dashboard|
+| Fetch Size |The number of batches to pull in at a given time; the default is 50,000. In case of OOM errors, reduce this in 10,000 increments|
+| Source Database Name |The name of the database you are connecting to|
+| Source Table Name |The name of the table you want to pull in|
+| Views |Where you have access to query and manipulate the dataset - if you need it in more than one place, seperate it by a pipe ```'```&#124;```'```  NOTE: this column is append only. To remove all of them, update with null and then add your views.|
+| Weight |Provide the size of the table (use your best judgement) on if it's '''light''','''medium''' or '''heavy'''. This is based on the number of columns and the number of rows.This effects how the workflow is generated and the number of tables that can be run in parallel. In the bakend values are translated (100 — light, 010 — medium, 001 — heavy) |
+| Refresh Frequency |Only needed for Production, the frequency that is needed. This is used for reporting in checks & balances and other dashboards. All scheduling is physically done through ESP. Possible values are ```none```, ```daily```, ```weekly```, ```monthly```, and ```quarterly```|
+| Check Column |If you need this table ingested incrementally, provide a check column that is used to split up the load. Note that this only works for some sources right now - check with the team first|
+| DB ENV |If you need to run multiple QA cycles then specify the QA cycle name(INT/PVS/SYS) the workflows will be created with corresponding filename |
 
-### Mappers
-The number of threads that can be used to connect concurrently against the
-source system. Always check with the DBA on the max number that can be used!
-
-## JDBC URL
-The JDBC URL connection string for the database.
-
-### DB Username
-The username that connects to the database
-
-### Password File
-The encrpyed password file alias and the location of the JCKS in HDFS - contact
-the Big Data team if you're unsure what this is or use the Data Lake 360 Dashboard
-
-### Fetch Size
-The number of batches to pull in at a given time; the default is 50,000. In
-case of OOM errors, reduce this in 10,000 increments.
-
-### Source Database Name
-The name of the database you are connecting to
-
-### Source Table Name
-The name of the table you want to pull in
-
-### Views
-Where you have access to query and manipulate the dataset - if you need it in
-more than one place, seperate it by a pipe ```|```
-
-NOTE: this column is append only. To remove all of them, update with null and then
-add your views.
-
-### Weight
-Provide the size of the table (use your best judgement) on if it's light,
-medium or heavy. This is based on the number of columns and the number of rows.
-This effects how the workflow is generated and the number o tables that
-can be run in parallel
-
-### Refresh Frequency
-Only needed for Production, the frequency that is needed. This is used for
-reporting in checks & balances and other dashboards. All scheduling is physically
-done through ESP. Possible values are ```none```, ```daily```, ```weekly```, ```monthly```, and ```quarterly```
-
-### Check Column
-If you need this table ingested incrementally, provide a check column that is used to 
-split up the load. Note that this only works for some sources right now - check
-with the team first
-
-### DB ENV
-if you need to run multiple QA cycles then specify the QA cycle name(INT/PVS/SYS)
-the workflows will be created with corresponding filename 
 
 #### Submit table(s) request that shows what's changed in staging_it_table
 
@@ -291,6 +258,17 @@ the workflows will be created with corresponding filename
 ----------
 
 ### PVS environment - automating loads in a lower Hadoop env for testing
+###### Example
+
+DB_name.Table_name is scheduled via ESP to refresh every Monday at 6pm.
+
+Team A wants it every Monday 
+Team B wants it every Month
+Team A will be able to run its APPL / JOB to pull the data into its team space every Monday
+
+Team B will be able to run its APPL / JOB to pull the data every month
+
+Because the data will just land in the IBIS base domain, nothing will effect the team's current PVS data. The APPL / JOBs that teams will need to run will be created based on the "views" column in IBIS. It is up to the team that wants the data to run the data to bring the data into their sandbox space.
 
 ##### Create ESP workflow from request file for PVS
 
