@@ -50,7 +50,7 @@ setup(
              '*.sh', '*.hql', '*.wld', '*txt', '*.feature'],
     },
     data_files=[('.', ['README.md', '__main__.py',
-                       'ibis_int_tests.py', 'behavior_tests.py'])],
+                       'behavior_tests.py'])],
 
     install_requires=ibis_deps,
     # setup_requires=ibis_deps,
