@@ -52,7 +52,7 @@ Follow the below 3 steps:-
 
 2. ## Run IBIS one time setup and install all system dependencies
 
-    # INSTALL SYSTEM DEPENDENCIES. Execute below to commands to install system dependencies. VENV WILL FAIL IF BUILT WITHOUT ZLIB SUPPORT AND CERTAIN DEPENDENCIES
+    ### INSTALL SYSTEM DEPENDENCIES. Execute below to commands to install system dependencies. VENV WILL FAIL IF BUILT WITHOUT ZLIB SUPPORT AND CERTAIN DEPENDENCIES
     
     ```sudo yum groupinstall -y "development tools"```
     
