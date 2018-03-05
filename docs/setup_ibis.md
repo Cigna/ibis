@@ -52,7 +52,9 @@ Follow the below 3 steps:-
 
 2. ## Run IBIS one time setup and install all system dependencies
 
-    #### INSTALL SYSTEM DEPENDENCIES. Execute below to commands to install system dependencies. VENV WILL FAIL IF BUILT WITHOUT ZLIB SUPPORT AND CERTAIN DEPENDENCIES
+    Setup.sh will execute below to commands to install system dependencies. VENV WILL FAIL IF BUILT WITHOUT ZLIB SUPPORT AND CERTAIN DEPENDENCIES.
+    
+    It is is recomemded to run the below two commands manually, if not done setup.sh will be installing all the dependencies. Below command is for RHEL, if you are not on RHEL you will need to install all the corresponding dependencies manually. 
     
     ```sudo yum groupinstall -y "development tools"```
     
