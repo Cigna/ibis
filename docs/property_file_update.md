@@ -58,7 +58,7 @@ Following are the list of properties to be updated
 |fake_end_workflow=fake_end.xml|N|workflow end template|
 |**[Mappers]**|||-
 |oracle_mappers=100:5,010:20,001:50|N|100:5,010:20,001:50 --> Size of table:Number of mappers |
-|teradata_mappers=100:2,010:5,001:8|N|Refer [table's weight parameter](/readme.md) in request file for translation|
+|teradata_mappers=100:2,010:5,001:8|N|Refer [table's weight parameter](/README.md) in request file for translation|
 |db2_mappers=100:2,010:15,001:20|N|Number of mappers can be updated, is an optional update as per the requirement |
 |sqlserver_mappers=100:2,010:15,001:20|N||
 |mysql_mappers=100:2,010:15,001:20|N||
@@ -85,5 +85,5 @@ Following are the list of properties to be updated
 |parallel_dryrun_procs=25|N|Oozie XML dryrun or test. Is an optional update field|
 |parallel_sqoop_procs=40|N|Number of parallel sqoop processes. Is an optional update field|
 |domain_suffix=_i|N|Suffixed to the domain(sqoop import master) database|
-|domains_list=pharmacy,client,customer,portal,logs,member,audit,call,claim,clinic,structure,provider,benefits|Y|Refer [table's views parameter](/readme.md) in request file|
+|domains_list=pharmacy,client,customer,portal,logs,member,audit,call,claim,clinic,structure,provider,benefits|Y|Refer [table's views parameter](ibis/README.md) in request file|
 |tearadata_server=fake.teradata:fake,fake.teradata2:fake,fake.teradata3:fake,fake.teradata4:fake|Y|Automatic split_by for teradata. In this case "fake.teradata:fake", server and table are separated by the colon where fake is the table name in IBIS DB which holds split by information of all table's in the given server |
