@@ -94,7 +94,7 @@ check_prerequisites() {
 	verify_hadoop_installation
 	validate_python_version	
 	sudo yum groupinstall -y "development tools"
-	sudo yum install krb5-devel gcc zlib-devel gcc-c++ python-devel cyrus-sasl-devel openssl openssl-devel libffi-devel bzip2-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel snappy-devel expat-devel patch -y --skip-broken &&
+	sudo yum install krb5-devel gcc zlib-devel gcc-c++ python-devel cyrus-sasl-devel openssl openssl-devel libffi-devel bzip2-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel snappy-devel expat-devel patch -y --skip-broken
 }
 
 install_py_libs() {
