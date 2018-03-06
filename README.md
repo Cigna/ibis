@@ -82,32 +82,6 @@ IBIS also has shell that allows you to run your workflow, when it's been created
 The goal is to make everything as automated as possible, so many items
 (workflows, request files) are all resolved around git.
 
-## Related git repos
-
-ibis (this one!)
-
-ibis-workflows
-
-## Installation requirements
-Unix like environment (Mac, Linux)
-
-Python 2.7 + requirements.pip
-
-graphviz dot (a yum install)
-
-Hadoop ecosystem (Oozie, Hive/Impala)
-
-Git repos
-
-Testing DBs for integration tests
-
-### Back-end tables (Hive/Impala)
-
-To create these tables, run: 
-`/resources/ibis.hql`
-
-![Alt text](/resources/ibis-tables.png?raw=true)
-
 ## Using the IBIS shell
 ### Command line interface
 
