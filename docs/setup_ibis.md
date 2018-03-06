@@ -97,7 +97,7 @@ Follow the below 3 steps:-
 
 - graphviz dot (a yum install)
 
-- Hadoop ecosystem (Oozie, Hive/Impala)
+- Hadoop ecosystem (Oozie, Hive/Impala, Sqoop)
 
 - Git repos
 
