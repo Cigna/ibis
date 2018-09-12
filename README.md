@@ -288,14 +288,8 @@ locations:
 
 1. Matt Wood
 2. Mohammad Quraishi
-3. Van Tu
-4. Bhaskar Teja
-5. Dileep Barla
-6. Samuel Underhill
-7. Shivakumar Athreya
-8. Manindhar Krishnamurthy
-9. Iqbal Shaikh
-10. Senthil Nayagan
+3. Bhaskar Teja
+4. Dileep Barla
 
 ## Contribute
 Source Code: https://github.com/cigna/ibis
