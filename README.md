@@ -286,8 +286,8 @@ locations:
 
 ## Contributors
 
-1. Matt Wood
-2. Mohammad Quraishi
+1. Matt Wood - https://github.com/woodmaj
+2. Mohammad Quraishi - https://github.com/mquraishi
 
 ## Contribute
 Source Code: https://github.com/cigna/ibis
