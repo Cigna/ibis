@@ -288,8 +288,6 @@ locations:
 
 1. Matt Wood
 2. Mohammad Quraishi
-3. Bhaskar Teja
-4. Dileep Barla
 
 ## Contribute
 Source Code: https://github.com/cigna/ibis
