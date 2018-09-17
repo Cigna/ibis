@@ -86,4 +86,4 @@ Following are the list of properties to be updated
 |parallel_sqoop_procs=40|N|Number of parallel sqoop processes. Is an optional update field|
 |domain_suffix=_i|N|Suffixed to the domain(sqoop import master) database|
 |domains_list=pharmacy,client,customer,portal,logs,member,audit,call,claim,clinic,structure,provider,benefits|Y|Refer [table's views parameter](/README.md) in request file|
-|tearadata_server=fake.teradata:fake,fake.teradata2:fake,fake.teradata3:fake,fake.teradata4:fake|Y|Automatic split_by for teradata. In this case "fake.teradata:fake", server and table are separated by the colon where fake is the table name in IBIS DB which holds split by information of all table's in the given server |
+|teradata_server=fake.teradata:fake,fake.teradata2:fake,fake.teradata3:fake,fake.teradata4:fake|Y|Automatic split_by for teradata. In this case "fake.teradata:fake", server and table are separated by the colon where fake is the table name in IBIS DB which holds split by information of all table's in the given server |
