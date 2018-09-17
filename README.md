@@ -14,8 +14,8 @@
 
 ## Get your data in the Lake!
 
-IBIS is workflow creation-engine that abstracts the Hadoop internals of ingesting RDBMS data. 
-All you need to do is create a request file containing information about a table that you want to query, 
+IBIS is workflow creation-engine that abstracts the Hadoop internals of ingesting RDBMS data.
+All you need to do is create a request file containing information about a table that you want to query,
 and IBIS will:
 1. manage the information required to create the workflow;
 2. generate Oozie workflows, following current ingestion processes and standards to make the ingestion as performant as possible;
@@ -56,12 +56,12 @@ Auto generating Oozie workflows |	Automatically creates XML workflows |	No manua
 Generate non ingestion workflows through "building blocks" |	Given hive and shell scripts, IBIS generates oozie workflow	| Automate running any type of script in the Data Lake
 Group tables based on schedule	| Group workflows into subworkflows based on schedule |	Tables with similar schedule can be kicked off using ESP by triggering one workflow.
 Use Parquet |	Store data in Parquet |	Efficient storage + fast queries!
-Follows Lambda Architecture	| Storing data in the base layer, as immutable data	
+Follows Lambda Architecture	| Storing data in the base layer, as immutable data
 Allows for data export to any RDBMS	|
 Creates automated incremental workflows |	Allows you to incrementally ingest data	| Based on a column, generate a where clause data ingestion that will ingest into partitions automatically
 Data validation |	Validate the data was ingested correctly|	Row counts, DDL match, data sampling and stores info in a QA log table
 Map data types to valid Hadoop types|	Match, as close as possible, external data types to Hadoop data types|	Oracle has specific data types like NUMBER which don't exist in Hadoop. Map to a valid Hadoop type as best as possible (eg to DECIMAL) by grabbing from metadata tables. Other tools map everything directly as string - doesn't work for SAS!
-Isolated Env - PVS |Every different team is having separate team space for all source tables. Workflows can be generated and schedulled without affeting any team.
+Isolated Env - custom ENV |Every different team is having separate team space for all source tables. Workflows can be generated and schedulled without affeting any team.
 
 ## Functionalities available in IBIS
 Command --help would list the IBIS Functionalities
@@ -118,7 +118,7 @@ db_env:int
 | Weight |Provide the size of the table (use your best judgement) on if it's '''light''','''medium''' or '''heavy'''. This is based on the number of columns and the number of rows.This effects how the workflow is generated and the number of tables that can be run in parallel. In the bakend values are translated (100 — light, 010 — medium, 001 — heavy) |
 | Refresh Frequency |Only needed for Production, the frequency that is needed. This is used for reporting in checks & balances and other dashboards. All scheduling is physically done through ESP. Possible values are ```none```, ```daily```, ```weekly```, ```monthly```, and ```quarterly```|
 | Check Column |If you need this table ingested incrementally, provide a check column that is used to split up the load. Note that this only works for some sources right now - check with the team first|
-| DB ENV |If you need to run multiple QA cycles then specify the QA cycle name(INT/PVS/SYS) the workflows will be created with corresponding filename |
+| DB ENV |If you need to run multiple QA cycles then specify the QA cycle name(DEV/CUSTOM-ENV/PROD) the workflows will be created with corresponding filename |
 
 
 #### Submit table(s) request that shows what's changed in staging_it_table
@@ -228,37 +228,6 @@ db_env:int
 
 ##### Save all records or that of specific source in it-table to a file
 ```ibis-shell --save-it-table --source-type sqlserver```
-
-----------
-
-### PVS environment - automating loads in a lower Hadoop env for testing
-###### Example
-
-DB_name.Table_name is scheduled via ESP to refresh every Monday at 6pm.
-
-Team A wants it every Monday 
-Team B wants it every Month
-Team A will be able to run its APPL / JOB to pull the data into its team space every Monday
-
-Team B will be able to run its APPL / JOB to pull the data every month
-
-Because the data will just land in the IBIS base domain, nothing will effect the team's current PVS data. The APPL / JOBs that teams will need to run will be created based on the "views" column in IBIS. It is up to the team that wants the data to run the data to bring the data into their sandbox space.
-
-##### Create ESP workflow from request file for PVS
-
-```ibis-shell  --env <env> --gen-esp-workflow-tables <requestFiles>```
-
-----------
-
-##### Wipe team space and reingest tables if given
-
-```ibis-shell  --env <env> --wipe-pvs-env <db_name> --reingest-all(optional if you want to ingest all the tables in database)```
-
-----------
-
-##### Update the Activate flag and frequency for pvs esp run
-
-```ibis-shell  --env <env> --update-activator --table <table> --teamname <db_name> --activate <yes/no> --frequency <run_frequency>```
 
 ----------
 
