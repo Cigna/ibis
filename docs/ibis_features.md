@@ -33,7 +33,7 @@ Auto generating Oozie workflows |	Automatically creates XML workflows |	No manua
 Generate non ingestion workflows through "building blocks" |	Given hive and shell scripts, IBIS generates oozie workflow	| Automate running any type of script in the Data Lake
 Group tables based on schedule	| Group workflows into subworkflows based on schedule |	Tables with similar schedule can be kicked off using ESP by triggering one workflow.
 Use Parquet |	Store data in Parquet |	Efficient storage + fast queries!
-Follows Lambda Architecture	| Storing data in the base layer, as immutable data	
+Follows Lambda Architecture	| Storing data in the base layer, as immutable data
 Allows for data export to any RDBMS	|
 Creates automated incremental workflows |	Allows you to incrementally ingest data	| Based on a column, generate a where clause data ingestion that will ingest into partitions automatically
 Data validation |	Validate the data was ingested correctly|	Row counts, DDL match, data sampling and stores info in a QA log table
@@ -92,7 +92,7 @@ db_env:int
 | Weight |Provide the size of the table (use your best judgement) on if it's '''light''','''medium''' or '''heavy'''. This is based on the number of columns and the number of rows.This effects how the workflow is generated and the number of tables that can be run in parallel. In the bakend values are translated (100 — light, 010 — medium, 001 — heavy) |
 | Refresh Frequency |Only needed for Production, the frequency that is needed. This is used for reporting in checks & balances and other dashboards. All scheduling is physically done through ESP. Possible values are ```none```, ```daily```, ```weekly```, ```monthly```, and ```quarterly```|
 | Check Column |If you need this table ingested incrementally, provide a check column that is used to split up the load. Note that this only works for some sources right now - check with the team first|
-| DB ENV |If you need to run multiple QA cycles then specify the QA cycle name(INT/PVS/SYS) the workflows will be created with corresponding filename |
+| DB ENV |If you need to run multiple QA cycles then specify the QA cycle name(INT/PERF/SYS) the workflows will be created with corresponding filename |
 
 
 #### Submit table(s) request that shows what's changed in staging_it_table
@@ -205,20 +205,20 @@ db_env:int
 
 ----------
 
-### PVS environment - automating loads in a lower Hadoop env for testing
+### PERF environment - automating loads in a lower Hadoop env for testing
 ###### Example
 
 DB_name.Table_name is scheduled via ESP to refresh every Monday at 6pm.
 
-Team A wants it every Monday 
+Team A wants it every Monday
 Team B wants it every Month
 Team A will be able to run its APPL / JOB to pull the data into its team space every Monday
 
 Team B will be able to run its APPL / JOB to pull the data every month
 
-Because the data will just land in the IBIS base domain, nothing will effect the team's current PVS data. The APPL / JOBs that teams will need to run will be created based on the "views" column in IBIS. It is up to the team that wants the data to run the data to bring the data into their sandbox space.
+Because the data will just land in the IBIS base domain, nothing will effect the team's current PERF data. The APPL / JOBs that teams will need to run will be created based on the "views" column in IBIS. It is up to the team that wants the data to run the data to bring the data into their sandbox space.
 
-##### Create ESP workflow from request file for PVS
+##### Create ESP workflow from request file for PERF
 
 ```ibis-shell  --env <env> --gen-esp-workflow-tables <requestFiles>```
 

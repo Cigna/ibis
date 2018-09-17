@@ -27,7 +27,7 @@ Following are the list of properties to be updated
 |prod_it_table=ibis.prod_it_table|N|Created by the ibis setup shell. Please match the table name with setup shell. Holds the entry for each table to be ingested|
 |queue_name=ingestion|Y|Update with HDFS queue name for loading the table|
 |edge_node=fake.edgenode|Y|HDFS Edge node address where the IBIS workflow will be executed|
-|freq_ingest=ibis.freq_ingest|N|Created by the ibis setup shell. Table for PVS run frequency check  |
+|freq_ingest=ibis.freq_ingest|N|Created by the ibis setup shell. Table for PERF run frequency check  |
 |**[Workflows]**|||
 |workflow_host=fake.impala|Y|Update with the Impala host name|
 |workflow_hive2_jdbc_url=jdbc:hive2://fake.hive:25006/default|Y|Update with the Hive jdbc URL|

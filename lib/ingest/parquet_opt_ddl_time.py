@@ -777,7 +777,7 @@ class ConnectionManager(object):
                     view_full_name=view_full_name,
                     ingest_date=self.partition_name)
 
-            if self.ibis_env == 'PVS' and len(only_domain) < 1:
+            if self.ibis_env == 'PERF' and len(only_domain) < 1:
                 try:
                     try:
                         ImpalaConnect.run_query(
@@ -956,7 +956,7 @@ class ConnectionManager(object):
                     views_hql += "msck repair table `{0}`;\n\n".format(
                         view_full_name)
 
-            elif self.ibis_env == 'PVS' and len(only_domain) > 0:
+            elif self.ibis_env == 'PERF' and len(only_domain) > 0:
                 views_hql = (
                     'DROP VIEW IF EXISTS {view_full_name};\n'
                     'DROP TABLE IF EXISTS {view_full_name};\n'
@@ -1007,7 +1007,7 @@ class ConnectionManager(object):
                 'SET mapreduce.map.memory.mb=8000;\n'
                 'SET mapreduce.reduce.memory.mb=16000;\n'
             )
-            if self.ibis_env == 'PVS':
+            if self.ibis_env == 'PERF':
                 create_view_hql += 'SET hive.exec.dynamic.partition.mode='\
                     'nonstrict;\n\n'
             create_view_hql = create_view_hql.format(
@@ -1019,7 +1019,7 @@ class ConnectionManager(object):
             domain = set(domain).intersection(view_list)
             domain = list(domain)
 
-            if self.ibis_env == 'PVS':
+            if self.ibis_env == 'PERF':
                 for view_name in view_list:
                     if len(view_list) != len(domain) and\
                             len(domain) > 0 and domain[0]:
@@ -1072,7 +1072,7 @@ def main():
         os.environ['db_username'],
         os.environ['password_file'],
         os.environ['views'],
-        os.environ['PVS_ENV'],
+        os.environ['PERF_ENV'],
         os.environ['DOMAIN_LIST'],
         os.environ['IMPALA_HOST'],
         ingest_time,

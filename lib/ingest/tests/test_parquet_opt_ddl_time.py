@@ -511,7 +511,7 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
         conn_mgr = ConnectionManager(
             'fake_database', 'mock_table', 'dbo', 'mock_domain', jdbcurl,
             'mock_connection_factories', 'mock_db_username',
-            'mock_password_file', 'fake_view_open|fake_view_im|pharmacy', 'PVS',
+            'mock_password_file', 'fake_view_open|fake_view_im|pharmacy', 'PERF',
             'pharmacy', 'impala_host_name', '2016-01-01 16:47:56',
             'mock_hdfs_loc', 'jars_test', 'hive_jdbc_url', 'ingestion')
         conn_mgr.ddl_types.get_create_hql.return_value = 'mock_create_hql'
@@ -553,7 +553,7 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
         conn_mgr = ConnectionManager(
             'fake_database', 'mock_table', 'dbo', 'mock_domain', jdbcurl,
             'mock_connection_factories', 'mock_db_username',
-            'mock_password_file', 'fake_view_open|fake_view_im', 'PVS', 'domain',
+            'mock_password_file', 'fake_view_open|fake_view_im', 'PERF', 'domain',
             'impala_host_name', '2016-01-01 16:47:56',
             'mock_hdfs_loc', 'jars_test', 'hive_jdbc_url', 'ingestion')
         conn_mgr.ddl_types.get_create_hql.return_value = 'mock_create_hql'
@@ -611,7 +611,7 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
         conn_mgr = ConnectionManager(
             'fake_database', 'mock_table', 'dbo', 'mock_domain', jdbcurl,
             'mock_connection_factories', 'mock_db_username',
-            'mock_password_file', 'fake_view_open|fake_view_im', 'PVS',
+            'mock_password_file', 'fake_view_open|fake_view_im', 'PERF',
             'domain', 'impala_host_name', '2016-01-01 16:47:56',
             'mock_hdfs_loc', 'jars_test', 'hive_jdbc_url', 'ingestion')
         conn_mgr.ddl_types.get_create_hql.return_value = 'mock_create_hql'
@@ -655,7 +655,7 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
         conn_mgr = ConnectionManager(
             'fake_database', 'mock_table', 'dbo', 'mock_domain', jdbcurl,
             'mock_connection_factories', 'mock_db_username',
-            'mock_password_file', 'fake_view_open|fake_view_im|pharmacy', 'PVS',
+            'mock_password_file', 'fake_view_open|fake_view_im|pharmacy', 'PERF',
             'pharmacy', 'impala_host_name', '2016-01-01 16:47:56',
             'mock_hdfs_loc', 'jars_test', 'hive_jdbc_url', 'ingestion')
         conn_mgr.ddl_types.get_create_hql.return_value = 'mock_create_hql'
@@ -701,7 +701,7 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
         conn_mgr = ConnectionManager(
             'fake_database', 'mock_table', 'dbo', 'mock_domain', jdbcurl,
             'mock_connection_factories', 'mock_db_username',
-            'mock_password_file', 'fake_view_open|fake_view_im|pharmacy', 'PVS',
+            'mock_password_file', 'fake_view_open|fake_view_im|pharmacy', 'PERF',
             'pharmacy', 'impala_host_name', '2016-01-01 16:47:56',
             'mock_hdfs_loc', 'jars_test', 'hive_jdbc_url', 'ingestion')
         conn_mgr.ddl_types.get_create_hql.return_value = 'mock_create_hql'
@@ -736,7 +736,7 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
         conn_mgr = ConnectionManager(
             'fake_database', 'mock_table', 'dbo', 'mock_domain', jdbcurl,
             'mock_connection_factories', 'mock_db_username',
-            'mock_password_file', 'pharmacy|benefits', 'PVS',
+            'mock_password_file', 'pharmacy|benefits', 'PERF',
             'pharmacy,benefits,claim', 'impala_host_name',
             '2016-01-01 16:47:56',
             'mock_hdfs_loc', 'jars_test', 'hive_jdbc_url', 'ingestion')
