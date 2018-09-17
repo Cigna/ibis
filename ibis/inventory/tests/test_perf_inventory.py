@@ -1,11 +1,11 @@
-"""Tests for perf_inventory"""
+"""Tests for pvs_inventory"""
 import os
 import unittest
 import getpass
 
 from mock import patch, Mock
 
-from ibis.inventory.perf_inventory import PerfInventory
+from ibis.inventory.pvs_inventory import PvsInventory
 from ibis.settings import UNIT_TEST_ENV
 from ibis.utilities.config_manager import ConfigManager
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -14,44 +14,44 @@ mock_wipe_table = [['mock_view_nm|mock_team', 'mock_src_tbl',
                     'mock_src_db', 'mock_full_table']]
 
 
-class PerfInventoryTest(unittest.TestCase):
+class PvsInventoryTest(unittest.TestCase):
 
-    """Tests the functionality of the PerfInventory class"""
+    """Tests the functionality of the PvsInventory class"""
 
     def setUp(self):
         """Set Up."""
-        self.perf_inventory = PerfInventory(ConfigManager(UNIT_TEST_ENV))
+        self.pvs_inventory = PvsInventory(ConfigManager(UNIT_TEST_ENV))
         self.cfg_mgr = ConfigManager(UNIT_TEST_ENV)
 
-    @patch.object(PerfInventory, 'run_ingest_hql')
-    @patch.object(PerfInventory, 'run_query')
-    @patch.object(PerfInventory, 'get_rows')
-    @patch.object(PerfInventory, 'reingest_hql')
-    def test_wipe_perf_env(self, m_reingest_hql, m_get_rows, m_run_query,
+    @patch.object(PvsInventory, 'run_ingest_hql')
+    @patch.object(PvsInventory, 'run_query')
+    @patch.object(PvsInventory, 'get_rows')
+    @patch.object(PvsInventory, 'reingest_hql')
+    def test_wipe_pvs_env(self, m_reingest_hql, m_get_rows, m_run_query,
                           m_run_hql):
-        """test wipe_perf_env"""
+        """test wipe_pvs_env"""
         m_get_rows.return_value = mock_wipe_table
         m_reingest_hql.return_value = 'abc.hql'
-        self.perf_inventory.wipe_perf_env('mock_view_nm', True)
+        self.pvs_inventory.wipe_pvs_env('mock_view_nm', True)
         get_row = ("select views, source_table_name, source_database_name, "
                    "full_table_name from ibis.dev_it_table where views "
                    "like '%mock_view_nm%';")
         m_get_rows.assert_called_once_with(get_row)
         m_run_hql.assert_called_once_with('abc.hql')
 
-    @patch.object(PerfInventory, 'run_query')
-    @patch.object(PerfInventory, 'get_rows')
-    def test_wipe_perf_env_noreingest(self, m_get_rows, m_run_query):
-        """ test wipe_perf_env without reingest"""
-        self.perf_inventory.wipe_perf_env('test_team', False)
+    @patch.object(PvsInventory, 'run_query')
+    @patch.object(PvsInventory, 'get_rows')
+    def test_wipe_pvs_env_noreingest(self, m_get_rows, m_run_query):
+        """ test wipe_pvs_env without reingest"""
+        self.pvs_inventory.wipe_pvs_env('test_team', False)
         query = ' create database test_team '
         m_run_query.assert_called_with(query)
 
-    @patch.object(PerfInventory, 'run_query')
+    @patch.object(PvsInventory, 'run_query')
     def test_insert_freq_ingest(self, m_run_query):
         """ test insert in freq_ingest table without activator
         """
-        self.perf_inventory.insert_freq_ingest(['fake_view_im'],
+        self.pvs_inventory.insert_freq_ingest(['fake_view_im'],
                                               ['weekly'],
                                               ['fake_database_mock_table'],
                                               ['default'])
@@ -61,12 +61,12 @@ class PerfInventoryTest(unittest.TestCase):
         freq_ingest = "ibis.freq_ingest"
         m_run_query.assert_called_once_with(insert_query, freq_ingest)
 
-    @patch.object(PerfInventory, 'run_query')
-    @patch.object(PerfInventory, 'get_rows')
+    @patch.object(PvsInventory, 'run_query')
+    @patch.object(PvsInventory, 'get_rows')
     def test_insert_freq_ingest_wd(self, m_get_rows, m_run_query):
         """ test insert in freq_ingest table with activator
         """
-        self.perf_inventory.insert_freq_ingest(['fake_view_im'],
+        self.pvs_inventory.insert_freq_ingest(['fake_view_im'],
                                               ['weekly'],
                                               ['fake_database_mock_table'],
                                               ['no'])
@@ -79,13 +79,13 @@ class PerfInventoryTest(unittest.TestCase):
         m_get_rows.assert_called_once_with(get_row)
         m_run_query.assert_called_once_with(insert_query, freq_ingest)
 
-    @patch.object(PerfInventory, 'run_query', autospec=True)
+    @patch.object(PvsInventory, 'run_query', autospec=True)
     def test_reingest_hql(self, m_run_query):
         """test reingest HQL"""
         file_name = 'test_view_{0}_full_src_table.hql'.format(
             getpass.getuser())
         expected_hql_nm = os.path.join(self.cfg_mgr.files, file_name)
-        actual_hql_nm = self.perf_inventory.reingest_hql('test_view',
+        actual_hql_nm = self.pvs_inventory.reingest_hql('test_view',
                                                         'src_table',
                                                         'src_db',
                                                         'full_table')
@@ -98,7 +98,7 @@ class PerfInventoryTest(unittest.TestCase):
         self.assertTrue(expected_hql_nm, actual_hql_nm)
         self.assertTrue(expected_hql, actual_hql)
 
-    @patch('ibis.inventory.perf_inventory.subprocess.Popen')
+    @patch('ibis.inventory.pvs_inventory.subprocess.Popen')
     def test_run_ingest_hql_p(self, mock_subproc_popen):
         """test run_ingest_hql"""
         process_mock = Mock()
@@ -106,7 +106,7 @@ class PerfInventoryTest(unittest.TestCase):
                  'returncode':  0}
         process_mock.configure_mock(**attrs)
         mock_subproc_popen.return_value = process_mock
-        self.perf_inventory.run_ingest_hql('abc.hql')
+        self.pvs_inventory.run_ingest_hql('abc.hql')
         jdbc_url = "-u 'jdbc:hive2://test-fake.hive:25006/default'"
         expected_value = ['beeline', '/etc/hive/beeline.properties',
                           jdbc_url,
@@ -114,7 +114,7 @@ class PerfInventoryTest(unittest.TestCase):
         expected_value = " ".join(expected_value)
         mock_subproc_popen.assert_called_once_with(expected_value, shell=True)
 
-    @patch('ibis.inventory.perf_inventory.subprocess.Popen')
+    @patch('ibis.inventory.pvs_inventory.subprocess.Popen')
     def test_run_ingest_hql_n(self, mock_subproc_popen):
         """test run_ingest_hq else partl"""
         process_mock = Mock()
@@ -122,7 +122,7 @@ class PerfInventoryTest(unittest.TestCase):
                  'returncode':  1}
         process_mock.configure_mock(**attrs)
         mock_subproc_popen.return_value = process_mock
-        self.perf_inventory.run_ingest_hql('abc.hql')
+        self.pvs_inventory.run_ingest_hql('abc.hql')
         jdbc_url = "-u 'jdbc:hive2://test-fake.hive:25006/default'"
         expected_value = ['beeline', '/etc/hive/beeline.properties',
                           jdbc_url,
