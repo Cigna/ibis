@@ -735,9 +735,9 @@ class TeradataTable(SourceTable):
 
         server_name = filter(lambda server: server.lower() in
                              self.jdbc_url.lower(),
-                             self.cfg_mgr.tearadata_server)
+                             self.cfg_mgr.teradata_server)
         if server_name:
-            server_name = self.cfg_mgr.tearadata_server[server_name[0]]
+            server_name = self.cfg_mgr.teradata_server[server_name[0]]
             hdfs_query = """ select columnname from ibis.teradata_split_{0} \
             where lower(databasename) = '{1}' and lower(tablename) = '{2}'"""
             hdfs_query = hdfs_query.format(server_name, db.lower(),

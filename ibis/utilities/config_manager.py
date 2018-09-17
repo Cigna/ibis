@@ -183,8 +183,8 @@ class ConfigManager(object):
         self.parallel_sqoop_procs = int(config.get(
             'Other', 'parallel_sqoop_procs'))
         self.domain_suffix = config.get('Other', 'domain_suffix')
-        self.tearadata_server = self.gen_dict(
-            config.get('Other', 'tearadata_server'))
+        self.teradata_server = self.gen_dict(
+            config.get('Other', 'teradata_server'))
 
         self.domains_list = config.get('Other', 'domains_list')
 
