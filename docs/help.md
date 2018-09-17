@@ -103,7 +103,7 @@ Python 2.7.8
 
                                     [--retrieve-backup] [--update-activator]
 
-                                    [--wipe-pvs-env WIPE_PERF_ENV]
+                                    [--wipe-perf-env WIPE_PERF_ENV]
 
                                     [--reingest-all] [--no-git]
 
@@ -313,11 +313,11 @@ Python 2.7.8
   --update-activator    provide team frequency, Activator(yes/no), team name
                         and full table name
 
-  --wipe-pvs-env WIPE_PERF_ENV
+  --wipe-perf-env WIPE_PERF_ENV
                         Provide the team_name or database name for dropping
                         all tables
 
-  --reingest-all        Use this option with wipe-pvs-env to reingest all
+  --reingest-all        Use this option with wipe-perf-env to reingest all
                         tables
 
   --no-git              Not saving workflow to git

@@ -227,12 +227,12 @@ def main():
                         'team name and full table name')
 
     # Drop all the table from selected database
-    parser.add_argument('--wipe-pvs-env', nargs=1, type=str,
+    parser.add_argument('--wipe-perf-env', nargs=1, type=str,
                         help='Provide the team_name or database '
                         'name for dropping all tables')
 
     parser.add_argument('--reingest-all', action='store_true',
-                        help='Use this option with wipe-pvs-env to '
+                        help='Use this option with wipe-perf-env to '
                         'reingest all tables')
 
     # Not saving workflows to git
@@ -265,7 +265,7 @@ def main():
         'export': export,
         'gen_esp_workflow_tables': gen_esp_workflow_tables,
         'update_activator': update_activator,
-        'wipe_pvs_env': wipe_pvs_env,
+        'wipe_perf_env': wipe_perf_env,
         'gen_esp_workflow': gen_esp_workflow,
         'gen_config_workflow': gen_config_workflow,
         'retrieve_backup': retrieve_backup,
@@ -395,10 +395,10 @@ def update_activator(args):
                                      args.activate)
 
 
-def wipe_pvs_env(args):
+def wipe_perf_env(args):
     """Drop all the tables of the selected database and reingest
      all the tables"""
-    driver.wipe_pvs_env_driver(args.wipe_pvs_env,
+    driver.wipe_perf_env_driver(args.wipe_perf_env,
                                args.reingest_all)
 
 

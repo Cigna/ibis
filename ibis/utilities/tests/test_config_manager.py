@@ -22,9 +22,9 @@ class ConfigManagerTest(unittest.TestCase):
         self.assertTrue(isinstance(_, ConfigManager))
 
     @patch.object(ConfigManager, 'create_path', autospec=True)
-    def test_dev_pvs_props(self, m_set):
-        """test dev_pvs properties file"""
-        _ = ConfigManager('dev_pvs', 'dev_pvs', True)
+    def test_dev_perf_props(self, m_set):
+        """test dev_perf properties file"""
+        _ = ConfigManager('dev_perf', 'dev_perf', True)
         self.assertTrue(isinstance(_, ConfigManager))
 
     @patch.object(ConfigManager, 'create_path', autospec=True)
@@ -46,9 +46,9 @@ class ConfigManagerTest(unittest.TestCase):
         self.assertTrue(isinstance(_, ConfigManager))
 
     @patch.object(ConfigManager, 'create_path', autospec=True)
-    def test_pvs_props(self, m_set):
-        """test pvs properties file"""
-        _ = ConfigManager('pvs', 'dev', True)
+    def test_perf_props(self, m_set):
+        """test perf properties file"""
+        _ = ConfigManager('perf', 'dev', True)
         self.assertTrue(isinstance(_, ConfigManager))
 
     @patch.object(ConfigManager, 'create_path', autospec=True)

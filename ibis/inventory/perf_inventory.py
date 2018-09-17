@@ -1,4 +1,4 @@
-"""Pvs itTable hql creation and freq_ingest table update"""
+"""Perf itTable hql creation and freq_ingest table update"""
 import os
 import subprocess
 import getpass
@@ -10,7 +10,7 @@ from ibis.model.table import ItTable
 from ibis.utilities.utilities import Utilities
 
 
-class PvsInventory(Inventory):
+class PerfInventory(Inventory):
 
     def __init__(self, cfg_mgr):
         self.cfg_mgr = cfg_mgr
@@ -20,8 +20,8 @@ class PvsInventory(Inventory):
         self.table = self.cfg_mgr.it_table
         self.freq_ingest_table = self.cfg_mgr.freq_ingest
 
-    def save_pvs_hql(self, table):
-        """creates pvs view hql"""
+    def save_perf_hql(self, table):
+        """creates perf view hql"""
         all_file = []
         all_views = table.views_list
         domain = self.cfg_mgr.domains_list
@@ -147,7 +147,7 @@ class PvsInventory(Inventory):
                                            table=self.freq_ingest_table)
             self.run_query(insert_qry, self.freq_ingest_table)
 
-    def wipe_pvs_env(self, db_name, reingest):
+    def wipe_perf_env(self, db_name, reingest):
         """
         method to wipe hdfs_database specified in db_name
         reingest specifies if team space needs to be populated

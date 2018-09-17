@@ -14,7 +14,7 @@ from ibis.inventory.esp_ids_inventory import ESPInventory
 from ibis.inventory.export_it_inventory import ExportITInventory
 from ibis.inventory.inventory import Inventory
 from ibis.inventory.it_inventory import ITInventory
-from ibis.inventory.pvs_inventory import PvsInventory
+from ibis.inventory.perf_inventory import PerfInventory
 from ibis.inventory.request_inventory import RequestInventory, \
     REQUIRED_FIELDS, OPTIONAL_FIELDS, REQUIRED_FIELDS_EXPORT,\
     OPTIONAL_FIELDS_EXPORT
@@ -40,7 +40,7 @@ class Driver(object):
         self.cfg_mgr = cfg_mgr
         self.workflow_gen = None
         self.inventory = Inventory(self.cfg_mgr)
-        self.pvs_inventory = PvsInventory(self.cfg_mgr)
+        self.perf_inventory = PerfInventory(self.cfg_mgr)
         self.req_inventory = RequestInventory(self.cfg_mgr)
         self.it_inventory = ITInventory(self.cfg_mgr)
         self.export_it_inventory = ExportITInventory(self.cfg_mgr)
@@ -459,10 +459,10 @@ class Driver(object):
         if frequency is None and activate is None:
             raise ValueError("Either of frequency or activate column must "
                              "contain value")
-        self.pvs_inventory.insert_freq_ingest(team_name, frequency, table,
+        self.perf_inventory.insert_freq_ingest(team_name, frequency, table,
                                               activate)
 
-    def wipe_pvs_env_driver(self, db_name, reingest):
+    def wipe_perf_env_driver(self, db_name, reingest):
         """used to wipe tables from database
         Args:
             db_name - database name, reingest - boolean to reingest tables
@@ -476,7 +476,7 @@ class Driver(object):
             raise ValueError("Team name provided is Domain, please \
              provide your team name")
         else:
-            self.pvs_inventory.wipe_pvs_env(db_name, reingest)
+            self.perf_inventory.wipe_perf_env(db_name, reingest)
 
     def gen_kite_workflow(self, request_file):
         required_keys = ['source_database_name', 'source_table_name',
@@ -753,8 +753,8 @@ class Driver(object):
             workflow_names = []
             # Generate workflow(s)
             for table in tables:
-                if self.cfg_mgr.env.lower() == 'pvs' or \
-                        self.cfg_mgr.env.lower() == 'dev_pvs':
+                if self.cfg_mgr.env.lower() == 'perf' or \
+                        self.cfg_mgr.env.lower() == 'dev_perf':
                     all_views = table.views_list
                     domain = self.cfg_mgr.domains_list
                     domain = domain.split(",")
@@ -767,13 +767,13 @@ class Driver(object):
                         for view_nm in all_views:
                             if domain[0] == view_nm.lower():
                                 continue
-                            self.pvs_inventory.insert_freq_ingest([view_nm],
+                            self.perf_inventory.insert_freq_ingest([view_nm],
                                                                   [freq],
                                                                   [full_tb_nm],
                                                                   ['default'])
                     elif len(all_views) != len(domain):
                         for view_nm in all_views:
-                            self.pvs_inventory.insert_freq_ingest([view_nm],
+                            self.perf_inventory.insert_freq_ingest([view_nm],
                                                                   [freq],
                                                                   [full_tb_nm],
                                                                   ['default'])
@@ -784,10 +784,10 @@ class Driver(object):
                 gen_files = self.gen_schedule_request([table], wf_name,
                                                       appl_id)
                 git_files += gen_files
-                if self.cfg_mgr.env.lower() == 'pvs' or \
-                        self.cfg_mgr.env.lower() == 'dev_pvs'and\
+                if self.cfg_mgr.env.lower() == 'perf' or \
+                        self.cfg_mgr.env.lower() == 'dev_perf'and\
                         len(all_views) != len(domain):
-                    hql_name = self.pvs_inventory.save_pvs_hql(table)
+                    hql_name = self.perf_inventory.save_perf_hql(table)
                     git_files.extend(hql_name)
                 generated_workflows.append([table, wf_name])
                 _msg = 'Generated workflow {path}{file_name}.xml\n'

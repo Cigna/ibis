@@ -14,7 +14,7 @@ from ibis.inventory.tests.test_request_inventory \
 from ibis.inventory.tests.test_inventory import InventoryFunctionsTest
 from ibis.inventory.tests.test_it_inventory import ITInventoryFunctionsTest
 from ibis.inventory.tests.test_cb_inventory import CBInventoryFunctionsTest
-from ibis.inventory.tests.test_pvs_inventory import PvsInventoryTest
+from ibis.inventory.tests.test_perf_inventory import PerfInventoryTest
 from ibis.inventory.tests.test_esp_ids_inventory \
     import ESPInventoryFunctionsTest
 from ibis.model.tests.test_shell_action import ShellActionFunctionsTest
@@ -91,7 +91,7 @@ if __name__ == '__main__':
                            SSHActionFunctionsTest, ImpalaUtilsFunctionsTest,
                            TestChecksBalancesExportManager, DSLParserTest,
                            PyHDFSTest, ImportPrepFunctionsTest, GitCmdTest,
-                           PvsInventoryTest, Test_freq_ingest]
+                           PerfInventoryTest, Test_freq_ingest]
 
     # test_classes_to_run = []
     loader = unittest.TestLoader()

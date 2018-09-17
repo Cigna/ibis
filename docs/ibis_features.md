@@ -226,11 +226,11 @@ Because the data will just land in the IBIS base domain, nothing will effect the
 
 ##### Wipe team space and reingest tables if given
 
-```ibis-shell  --env <env> --wipe-pvs-env <db_name> --reingest-all(optional if you want to ingest all the tables in database)```
+```ibis-shell  --env <env> --wipe-perf-env <db_name> --reingest-all(optional if you want to ingest all the tables in database)```
 
 ----------
 
-##### Update the Activate flag and frequency for pvs esp run
+##### Update the Activate flag and frequency for perf esp run
 
 ```ibis-shell  --env <env> --update-activator --table <table> --teamname <db_name> --activate <yes/no> --frequency <run_frequency>```
 

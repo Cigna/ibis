@@ -60,10 +60,10 @@ class CacheTable(object):
         schema_record = self.get_schema()
 
         with open('it_table_env.sh', 'wb') as fileh:
-            pvs_env = 'NOT_PERF'
-            if 'pvs_it_table' in self.it_table:
-                pvs_env = 'PERF'
-            line = env_template.format('PERF_ENV', pvs_env)
+            perf_env = 'NOT_PERF'
+            if 'perf_it_table' in self.it_table:
+                perf_env = 'PERF'
+            line = env_template.format('PERF_ENV', perf_env)
             fileh.write(line)
 
             for schema, column_value in izip(schema_record, table_props):

@@ -493,8 +493,8 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
 
     @patch.object(ConnectionManager, 'get_schema', autospec=True)
     @patch('lib.ingest.parquet_opt_ddl_time.ImpalaConnect', autospec=True)
-    def test_create_externaltable_pvs(self, mock_impala_conn, m_get_schema):
-        """test  pvs views with domain"""
+    def test_create_externaltable_perf(self, mock_impala_conn, m_get_schema):
+        """test  perf views with domain"""
         jdbcurl = ('jdbc:sqlserver://fake.sqlserver:1433;database=fake_database;encrypt=true;'
                    'trustServerCertificate=true')
 
@@ -517,7 +517,7 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
         conn_mgr.ddl_types.get_create_hql.return_value = 'mock_create_hql'
         view_hql, impl_txt, views_info_txt = \
             conn_mgr.create_externaltable('incremental')
-        with open(BASE_DIR + '/expected/views_sqlserver_pvs.hql',
+        with open(BASE_DIR + '/expected/views_sqlserver_perf.hql',
                   'r') as file_h:
             expected_view_hql = file_h.read()
 
@@ -535,8 +535,8 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
 
     @patch.object(ConnectionManager, 'get_schema', autospec=True)
     @patch('lib.ingest.parquet_opt_ddl_time.ImpalaConnect', autospec=True)
-    def test_create_externaltable_pvs_wd(self, mock_impala_conn, m_get_schema):
-        """test pvs views without domain """
+    def test_create_externaltable_perf_wd(self, mock_impala_conn, m_get_schema):
+        """test perf views without domain """
         jdbcurl = ('jdbc:sqlserver://fake.sqlserver:1433;database=fake_database;encrypt=true;'
                    'trustServerCertificate=true')
 
@@ -559,7 +559,7 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
         conn_mgr.ddl_types.get_create_hql.return_value = 'mock_create_hql'
         view_hql, impl_txt, views_info_txt = \
             conn_mgr.create_externaltable('incremental')
-        with open(BASE_DIR + '/expected/views_sqlserver_pvs_nodomain.hql',
+        with open(BASE_DIR + '/expected/views_sqlserver_perf_nodomain.hql',
                   'r') as file_h:
             expected_view_hql = file_h.read()
 
@@ -577,8 +577,8 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
 
     @patch.object(ConnectionManager, 'get_schema', autospec=True)
     @patch('lib.ingest.parquet_opt_ddl_time.ImpalaConnect', autospec=True)
-    def test_create_externaltable_pvs_fwd(self, mock_impala_conn, m_get_schema):
-        """test pvs views team frequency check without domain"""
+    def test_create_externaltable_perf_fwd(self, mock_impala_conn, m_get_schema):
+        """test perf views team frequency check without domain"""
         jdbcurl = ('jdbc:sqlserver://fake.sqlserver:1433;database=fake_database;encrypt=true;'
                    'trustServerCertificate=true')
 
@@ -618,7 +618,7 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
         view_hql, impl_txt, views_info_txt = \
             conn_mgr.create_externaltable('incremental')
 
-        with open(BASE_DIR + '/expected/views_sqlserver_pvs_nodomain_fwd.hql',
+        with open(BASE_DIR + '/expected/views_sqlserver_perf_nodomain_fwd.hql',
                   'r') as file_h:
             expected_view_hql = file_h.read()
 
@@ -636,8 +636,8 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
 
     @patch.object(ConnectionManager, 'get_schema', autospec=True)
     @patch('lib.ingest.parquet_opt_ddl_time.ImpalaConnect', autospec=True)
-    def test_create_externaltable_pvs_fd(self, mock_impala_conn, m_get_schema):
-        """test pvs views team frequency check with domain"""
+    def test_create_externaltable_perf_fd(self, mock_impala_conn, m_get_schema):
+        """test perf views team frequency check with domain"""
         jdbcurl = ('jdbc:sqlserver://fake.sqlserver:1433;database=fake_database;encrypt=true;'
                    'trustServerCertificate=true')
 
@@ -662,7 +662,7 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
         view_hql, impl_txt, views_info_txt = \
             conn_mgr.create_externaltable('incremental')
 
-        with open(BASE_DIR + '/expected/views_sqlserver_pvs_fd.hql',
+        with open(BASE_DIR + '/expected/views_sqlserver_perf_fd.hql',
                   'r') as file_h:
             expected_view_hql = file_h.read()
 
@@ -681,8 +681,8 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
 
     @patch.object(ConnectionManager, 'get_schema', autospec=True)
     @patch('lib.ingest.parquet_opt_ddl_time.ImpalaConnect', autospec=True)
-    def test_create_externaltable_pvs_fdm(self, mock_impala_conn, m_get_schema):
-        """test pvs views team frequency check monthly, full load
+    def test_create_externaltable_perf_fdm(self, mock_impala_conn, m_get_schema):
+        """test perf views team frequency check monthly, full load
         with domain"""
         jdbcurl = ('jdbc:sqlserver://fake.sqlserver:1433;database=fake_database;encrypt=true;'
                    'trustServerCertificate=true')
@@ -708,7 +708,7 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
         view_hql, impl_txt, views_info_txt = \
             conn_mgr.create_externaltable('full_load')
 
-        with open(BASE_DIR + '/expected/views_sqlserver_pvs_fd.hql',
+        with open(BASE_DIR + '/expected/views_sqlserver_perf_fd.hql',
                   'r') as file_h:
             expected_view_hql = file_h.read()
 
@@ -726,8 +726,8 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
             expected_views_info_txt, views_info_txt))
 
     @patch.object(ConnectionManager, 'get_schema', autospec=True)
-    def test_create_externaltable_pvs_domain(self, m_get_schema):
-        """test pvs views with only domain"""
+    def test_create_externaltable_perf_domain(self, m_get_schema):
+        """test perf views with only domain"""
         jdbcurl = ('jdbc:sqlserver://fake.sqlserver:1433;database=fake_database;encrypt=true;'
                    'trustServerCertificate=true')
 
@@ -744,7 +744,7 @@ class ParquetOptTimeFunctionsTest(unittest.TestCase):
         view_hql, impl_txt, views_info_txt = \
             conn_mgr.create_externaltable('full_load')
 
-        with open(BASE_DIR + '/expected/views_sqlserver_pvs_domain.hql',
+        with open(BASE_DIR + '/expected/views_sqlserver_perf_domain.hql',
                   'r') as file_h:
             expected_view_hql = file_h.read()
 

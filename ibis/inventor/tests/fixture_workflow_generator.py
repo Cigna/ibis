@@ -310,7 +310,7 @@ heavy_3_prop = {
     'source_database_name': 'fake_database', 'source_table_name': 'heavy_3',
     'esp_appl_id': 'test_esp_appl_id', 'esp_group': '',
     'check_column': 'test_incr_column'}
-heavy_3_prop_pvs = {
+heavy_3_prop_perf = {
     'full_table_name': 'fake_domain.fake_database_fake_prof_tablename', 'domain': 'test',
     'target_dir': 'mdm/test/fake_database/fake_prof_tablename', 'split_by': '',
     'mappers': 10, 'db_env': 'dev',
@@ -601,7 +601,7 @@ mock_esp_tables_02 = [
      'db_username': 'fake_username',
      'jdbcurl': 'jdbc:oracle:thin:@//fake.oracle:1521/fake_servicename', 'views': 'fake_view_open|client'}]
 
-mock_esp_tbl_pvs_domain = [
+mock_esp_tbl_perf_domain = [
     {'load': '000100', 'mappers': 2, 'domain': 'fake_domain',
      'target_dir': 'mdm/fake_domain/fake_database/fake_prog_tablename',
      'password_file': 'jceks://hdfs/user/dev/fake.passwords.'
