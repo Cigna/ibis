@@ -14,7 +14,7 @@ Version 1.9.4
 
 Python 2.7.8
 
-## usage: cigna_im_ibis-1.9.4-py2.7.egg[-h] [--db DB] [--table TABLE]
+## usage: COM_TEAM_ibis-1.9.4-py2.7.egg[-h] [--db DB] [--table TABLE]
                                     [--frequency FREQUENCY]
 
                                     [--teamname TEAMNAME]
