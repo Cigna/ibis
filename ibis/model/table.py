@@ -562,9 +562,7 @@ class ItTable(object):
     @views.setter
     def views(self, val):
         """setter for views"""
-        _domains = ['pharmacy', 'client', 'customer', 'portal', 'logs',
-                    'member', 'audit', 'call', 'claim', 'clinic', 'structure',
-                    'provider', 'benefits', 'opportunities']
+        _domains = ['domain1', 'domain2', 'domain3']
         _views = self.views_list
         new_views = self.views_helper(val)
 

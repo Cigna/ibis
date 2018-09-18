@@ -419,7 +419,7 @@ class DriverFunctionsTest(unittest.TestCase):
                           'r') as file_h:
                     expected_hql = file_h.read()
                 self.assertTrue(expected_hql, actual_hql)
-        self.assertEquals(len(git_files), 23)
+        self.assertEquals(len(git_files), 26)
         self.assertIn('Generated', msg)
         self.assertIn('workflow:', msg)
         self.assertIn('subworkflow:', msg)
@@ -508,7 +508,7 @@ class DriverFunctionsTest(unittest.TestCase):
         m_gen_incr.return_value = []
         self.cfg_mgr.env = 'perf'
         status, msg, git_files = self.driver.gen_prod_workflow('FAKED001')
-        self.assertEquals(len(git_files), 35)
+        self.assertEquals(len(git_files), 40)
         self.assertIn('Generated', msg)
         self.assertIn('workflow:', msg)
         self.assertIn('subworkflow:', msg)
@@ -545,7 +545,7 @@ class DriverFunctionsTest(unittest.TestCase):
         m_get_t_esp.return_value = _mock_esp_tables_01
         self.cfg_mgr.env = 'perf'
         status, msg, git_files = self.driver.gen_prod_workflow('FAKED001')
-        self.assertEquals(len(git_files), 45)
+        self.assertEquals(len(git_files), 51)
         self.assertIn('Generated', msg)
         self.assertIn('workflow:', msg)
         self.assertIn('subworkflow:', msg)
@@ -1006,7 +1006,7 @@ class DriverFunctionsTest(unittest.TestCase):
     def test_wipe_perf_env_driver_domain(self, m_wipe_perf):
         """test wipe_perf_driver with team name as domain"""
         with self.assertRaises(ValueError) as context:
-            self.driver.wipe_perf_env_driver(['pharmacy'], False)
+            self.driver.wipe_perf_env_driver(['domain1'], False)
         self.assertTrue('Team name provided is Domain, please \
              provide your team name' in str(context.exception))
 

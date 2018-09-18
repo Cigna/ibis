@@ -30,4 +30,4 @@ Following are the list of property to be updated
 |export CHK_BAL_EXP_DIR=/user/dev/data/checks_balances_export|N|Table directory to store Checks and balances for the Export load|
 |export CHK_BAL_AUDIT_DIR=/user/dev/data/checks_balances_audit|N|Table directory to store Checks and balances Audit for the import load|
 |export EXPORT_HDFS_ROOT=/ibis/outbound/export/|N|Export directory for the table|
-|export DOMAIN_LIST=pharmacy,client,customer,portal,logs,member,audit,call,claim,clinic,structure,provider,benefits|Y|List of domains to store the ingested table. Refer [table's views parameter](docs/ibis_features.md) in request file|
+|export DOMAIN_LIST=domain1,domain2,domain3|Y|List of domains to store the ingested table. Refer [table's views parameter](docs/ibis_features.md) in request file|
