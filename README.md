@@ -253,11 +253,6 @@ locations:
  - Any “.ksh” will get moved to /opt/app/esp/
  - Any “.job.properties” will get moved to /opt/app/workflows/
 
-## Contributors
-
-1. Matt Wood - https://github.com/woodmaj
-2. Mohammad Quraishi - https://github.com/mquraishi
-
 ## Contribute
 Source Code: https://github.com/cigna/ibis
 Issue Tracker: https://github.com/Cigna/ibis/issues
