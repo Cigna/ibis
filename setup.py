@@ -55,9 +55,6 @@ setup(
     install_requires=ibis_deps,
     # setup_requires=ibis_deps,
     include_package_data=True,
-
-    author="Big Data Analytics & Shared Services Team (Hadoop)",
-    author_email="fake_email",
     description="Ibis: Workflow and Ingestion Made Easy",
     keywords="hadoop oozie workflows bigdata ingest",
     cmdclass={
