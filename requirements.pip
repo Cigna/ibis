@@ -27,5 +27,4 @@ flask==0.11.1
 lettuce==0.2.23
 kazoo==2.2.1
 prettytable==0.7.2
-jenkinsapi==0.2.23
 defusedxml==0.5.0
