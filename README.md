@@ -121,10 +121,10 @@ db_env:int
 | DB ENV |If you need to run multiple QA cycles then specify the QA cycle name(DEV/CUSTOM-ENV/PROD) the workflows will be created with corresponding filename |
 
 
-#### Submit table(s) request that shows what's changed in staging_it_table
+#### Submit table(s) request to generate ingestion workflow
 
 ```
-ibis-shell --submit-request-prod <path to requestfile.txt> --env prod
+ibis-shell --submit-request <path to requestfile.txt> --env prod
 ```
 
 > Sample Content of requestfile.txt
@@ -209,11 +209,11 @@ ibis-shell --update-it-table <path to tables.txt> --env prod
         fetch_size:                                     <---- No value given. Just ignores
         hold:0
         esp_appl_id:null                                <---- set null to empty the column value
-        views:fake_view_im|fake_view_open                              <---- Pipe(|) seperated values
+        views:fake_view_im|fake_view_open               <---- Pipe(|) seperated values
         esp_group:magic_table
-        check_column:fake_nd_tablename_NUM                            <---- Sqoop incremental column
-        source_database_name:fake_database        (mandatory)
-        source_table_name:fake_client_tablename           (mandatory)
+        check_column:fake_nd_tablename_NUM              <---- Sqoop incremental column
+        source_database_name:fake_database                    (mandatory)
+        source_table_name:fake_client_tablename               (mandatory)
 
 ----------
 

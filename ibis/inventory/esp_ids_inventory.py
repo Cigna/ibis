@@ -123,7 +123,7 @@ class ESPInventory(Inventory):
                          'yearly': 'Once in 6 months'}
             ksh_name = '{domain}_{db}_{freq}'.format(domain=domain, db=db_name,
                                                      freq=freq)
-            # Adding group name only if this exists for magic tables
+
             if group:
                 ksh_name = '{esp_group}_{freq}'.format(esp_group=group,
                                                        freq=freq)
