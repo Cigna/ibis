@@ -12,45 +12,7 @@
 # REPO_HOME - directory where this file is present
 REPO_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-# export git
-export GIT_EXEC_PATH=/opt/app/ibis/ibis_lib/git/libexec/git-core
-export PATH=${GIT_EXEC_PATH}:${PATH}
-
-OOZIE_URL_DEV='http://fake.dev.oozie:25007/oozie'
-OOZIE_URL_INT='http://fake.int.oozie:25007/oozie'
-OOZIE_URL_PROD='http://fake.oozie:25007/oozie'
-
-if [[ $(hostname -s) = dev* ]]; then
-    # dev
-    export OOZIE_URL=${OOZIE_URL_DEV}
-elif [[ $(hostname -s) = int* ]]; then
-    # int
-    export OOZIE_URL=${OOZIE_URL_INT}
-elif [[ $(hostname -s) = prod* ]]; then
-    # prod
-    export OOZIE_URL=${OOZIE_URL_PROD}
-else
-    if [ -z ${ENV+x} ]
-    then
-        echo -e "\tError: environment variable 'ENV' not set\n\tDo this -> export ENV='dev'"
-        exit 1
-    elif [ ${ENV} == 'dev' ]
-    then
-        # dev
-        export OOZIE_URL=${OOZIE_URL_DEV}
-    elif [ ${ENV} == 'int' ]
-    then
-        # int
-        export OOZIE_URL=${OOZIE_URL_INT}
-    elif [ ${ENV} == 'prod' ]
-    then
-        # prod
-        export OOZIE_URL=${OOZIE_URL_PROD}
-    else
-        echo -e "Error: Environment variable OOZIE_URL not set!"
-        exit 1
-    fi
-fi
+export OOZIE_URL='http://fake.dev.oozie:25007/oozie'
 
 source "$REPO_HOME"/ibis_version.sh
 

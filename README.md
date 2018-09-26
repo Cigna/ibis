@@ -51,17 +51,17 @@ single configuration file, also called the "Request file".
 
 | What | Function  | How is this useful?  |
 | :---:   | :-: | :-: |
-Split by | Provides an automated split by for Teradata, SQL Server, and DB2 | Without the automated split by, on a per table basis, you need to find a column that enables parrallel executuion of an ingestion
+Split by | Provides an automated split by for Teradata, SQL Server, and DB2 | Without the automated split by, on a per table basis, you need to find a column that enables parallel execution of an ingestion
 Auto generating Oozie workflows |	Automatically creates XML workflows |	No manual XML creation
 Generate non ingestion workflows through "building blocks" |	Given hive and shell scripts, IBIS generates oozie workflow	| Automate running any type of script in the Data Lake
 Group tables based on schedule	| Group workflows into subworkflows based on schedule |	Tables with similar schedule can be kicked off using ESP by triggering one workflow.
 Use Parquet |	Store data in Parquet |	Efficient storage + fast queries!
 Follows Lambda Architecture	| Storing data in the base layer, as immutable data
-Allows for data export to any RDBMS	|
+Allows for data export to any RDBMS	|   Allows to export data from hive to oracle, db2, sqlserver, mysql, Teradata | For generating reports based on exported data to RDBMS
 Creates automated incremental workflows |	Allows you to incrementally ingest data	| Based on a column, generate a where clause data ingestion that will ingest into partitions automatically
 Data validation |	Validate the data was ingested correctly|	Row counts, DDL match, data sampling and stores info in a QA log table
 Map data types to valid Hadoop types|	Match, as close as possible, external data types to Hadoop data types|	Oracle has specific data types like NUMBER which don't exist in Hadoop. Map to a valid Hadoop type as best as possible (eg to DECIMAL) by grabbing from metadata tables. Other tools map everything directly as string - doesn't work for SAS!
-Isolated Env - custom ENV |Every different team is having separate team space for all source tables. Workflows can be generated and schedulled without affeting any team.
+Isolated Env - custom ENV |Every different team is having separate team space for all source tables. Workflows can be generated and scheduled without affecting any team.
 
 ## Functionalities available in IBIS
 Command --help would list the IBIS Functionalities
@@ -110,7 +110,7 @@ db_env:int
 | Mappers |The number of threads that can be used to connect concurrently against the source system. Always check with the DBA on the max number that can be used!|
 | JDBC URL |The JDBC URL connection string for the database. See the IBIS Confluence page on specifics for different source systems|
 | DB Username |The username that connects to the database|
-| Password File |The encrpyed password file alias and the location of the JCKS in HDFS - contact the Big Data team if you're unsure what this is or use the Data Lake 360 Dashboard|
+| Password File |The encrypted password file alias and the location of the JCEKS in HDFS - contact the Big Data team if you're unsure what this is or use the Data Lake 360 Dashboard|
 | Fetch Size |The number of batches to pull in at a given time; the default is 50,000. In case of OOM errors, reduce this in 10,000 increments|
 | Source Database Name |The name of the database you are connecting to|
 | Source Table Name |The name of the table you want to pull in|

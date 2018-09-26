@@ -128,9 +128,9 @@ class ITInventoryFunctionsTest(unittest.TestCase):
         self.assertEquals([], result)
 
     @patch.object(ITInventory, 'get_rows',
-                  side_effect=[[('call',), ('member',)], []])
+                  side_effect=[[('call',), ('domain1',)], []])
     def test_get_domains(self, mock_rows):
-        self.assertEquals(self.inventory.get_domains(), ['call', 'member'])
+        self.assertEquals(self.inventory.get_domains(), ['call', 'domain1'])
         self.assertEquals(self.inventory.get_domains(), [])
 
     @patch.object(ITInventory, 'get_rows', autospec=True)
@@ -147,7 +147,7 @@ class ITInventoryFunctionsTest(unittest.TestCase):
         mock_rows.side_effect = [mock_claim_tbl, []]
         result = self.inventory.get_all_tables_for_domain('claim')
         self.assertEquals(result, mock_claim_tbl_dict)
-        result = self.inventory.get_all_tables_for_domain('member')
+        result = self.inventory.get_all_tables_for_domain('domain1')
         self.assertEquals(result, [])
 
     @patch.object(ITInventory, 'get_rows', autospec=True)
