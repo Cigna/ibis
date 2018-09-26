@@ -31,7 +31,6 @@ Following are the list of properties to be updated
 |**[Workflows]**|||
 |workflow_host=fake.impala|Y|Update with the Impala host name|
 |workflow_hive2_jdbc_url=jdbc:hive2://fake.hive:25006/default|Y|Update with the Hive jdbc URL|
-|git_workflows_dir=PROD|N|prod git's workflows directory |-
 |kerberos=fake.kerberos|Y|Realm entry in krb5.conf |
 |db_env=PROD|N||
 |hdfs_ingest_version=v14|Y|Increment this version whenever there is change to workflow XML|
@@ -39,7 +38,6 @@ Following are the list of properties to be updated
 |logs=/logs/|N| Logs location|
 |files=/files/|N| test files locations|
 |saves=/opt/app/workflows/|N| oozie property and ksh files location|
-|git_wf_local_dir=/workflows/workflows-git/|N|output files to be commited to git to be placed in this location|
 |requests_dir=/opt/app/ibis/requestFiles/|N|Request files to generate workflow will be placed in this location|
 |root_hdfs_saves=mdm|N|ingestion root directory on hdfs|
 |export_hdfs_root=/ibis/outbound/export/|N|HDFS  directory on HDFS, keep files to be exported under this folder|
@@ -79,8 +77,6 @@ Following are the list of properties to be updated
 |**[Other]**|||
 |allowed_frequencies=000:none,101:daily,011:biweekly,100:weekly,110:fortnightly,010:monthly,001:quarterly,111:yearly|N|All allowed frequencies for scheduling workflows|
 |vizoozie=vizoozie.properties|N|Property for all wokflows PDF's generated|
-|git_workflows_url=git@fake.git:fake_teamname/ibis-workflows.git|Y|Update with the Git workflow URL|
-|git_requests_url=git@fake.git:fake_teamname/ibis-requests.git|Y|Update with the Git request file URL|
 |max_table_per_workflow=5|Y|Maximum number of table per oozie workflow|
 |parallel_dryrun_procs=25|N|Oozie XML dryrun or test. Is an optional update field|
 |parallel_sqoop_procs=40|N|Number of parallel sqoop processes. Is an optional update field|

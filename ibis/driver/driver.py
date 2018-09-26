@@ -1270,8 +1270,6 @@ class Driver(object):
             wf_props = self.cfg_mgr.read_config_wf_props(
                 config_workflow_properties)
             # override the values
-            self.cfg_mgr.git_workflows_url = wf_props.get(
-                'Workflows', 'git_workflows_url')
             self.cfg_mgr.custom_scripts_hql = wf_props.get(
                 'Workflows', 'custom_scripts_hql')
             self.cfg_mgr.custom_scripts_shell = wf_props.get(

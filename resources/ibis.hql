@@ -31,18 +31,8 @@ CREATE TABLE IF NOT EXISTS ibis.int_tests_it_table (full_table_name STRING,    d
 -- integration tests - it table export
 CREATE TABLE IF NOT EXISTS ibis.int_tests_it_table_export ( full_table_name STRING,source_dir STRING, mappers INT, jdbcurl STRING, connection_factories STRING, db_username STRING, password_file STRING,  frequency STRING,  fetch_size INT, target_schema STRING,  target_table STRING, staging_database STRING  )   PARTITIONED BY (  source_database_name STRING, source_table_name STRING,    db_env STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' STORED AS TEXTFILE LOCATION 'hdfs://nameservice1/user/dev/data/ibis/int_tests_it_table_export';
 
---pha_table
-CREATE TABLE IF NOT EXISTS imdw_dev.it_table (   full_table_name STRING,    domain STRING,    target_dir STRING,    split_by STRING,    mappers INT,    jdbcurl STRING,    connection_factories STRING,    db_username STRING,    password_file STRING,    load STRING,    fetch_size INT,    hold INT,    esp_appl_id STRING,    views STRING,    esp_group STRING,    check_column STRING, source_schema_name STRING, sql_query STRING, actions STRING) PARTITIONED BY (source_database_name string,    source_table_name string, db_env STRING)  ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' STORED AS TEXTFILE LOCATION 'hdfs://nameservice1/user/dev/data/ibis/imdw_dev.it_table';
-
 -- table for logging qa action results
 CREATE TABLE IF NOT EXISTS ibis.qa_resultsv2 (log_time TIMESTAMP, table_name STRING, log STRING, status STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY '|'  STORED AS TEXTFILE LOCATION 'hdfs://nameservice1/user/hive/warehouse/ibis.db/qa_resultsv2';
-
--- staging_it_table
--- this table is a sort of staging table to it_table
-CREATE TABLE IF NOT EXISTS ibis.staging_it_table (requestor STRING, request_time timestamp, desc STRING, resolved BOOLEAN, dirty_column STRING, esp_group STRING, full_table_name STRING,    domain STRING,    target_dir STRING,    split_by STRING,    mappers INT,    jdbcurl STRING,    connection_factories STRING,    db_username STRING,    password_file STRING,    load STRING,    fetch_size INT,    hold INT, esp_appl_id STRING, views STRING, source_database_name STRING,    source_table_name STRING,    check_column STRING,    source_schema_name STRING,  sql_query STRING,   actions STRING) PARTITIONED BY (resolve_id STRING) STORED AS PARQUET LOCATION 'hdfs://nameservice1/user/dev/data/ibis/staging_it_table';
-
--- staging_it_table - integration tests
-CREATE TABLE IF NOT EXISTS ibis.staging_it_table (requestor STRING, request_time timestamp, desc STRING, resolved BOOLEAN, dirty_column STRING, esp_group STRING, full_table_name STRING,    domain STRING,    target_dir STRING,    split_by STRING,    mappers INT,    jdbcurl STRING,    connection_factories STRING,    db_username STRING,    password_file STRING,    load STRING,    fetch_size INT,    hold INT, esp_appl_id STRING, views STRING, source_database_name STRING,    source_table_name STRING,    check_column STRING,    source_schema_name STRING,  sql_query STRING,   actions STRING) PARTITIONED BY (resolve_id STRING) STORED AS PARQUET LOCATION 'hdfs://nameservice1/user/dev/data/ibis/staging_it_table';
 
 -- prod_it_table_export : table for logging export table entry
 CREATE TABLE IF NOT EXISTS ibis.prod_it_table_export ( full_table_name STRING,source_dir STRING, mappers INT, jdbcurl STRING, connection_factories STRING, db_username STRING, password_file STRING,  frequency STRING,  fetch_size INT, target_schema STRING,  target_table STRING, staging_database STRING  )   PARTITIONED BY (  source_database_name STRING, source_table_name STRING,    db_env STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' STORED AS TEXTFILE LOCATION 'hdfs://nameservice1/user/dev/data/ibis/prod_it_table_export';
@@ -62,7 +52,7 @@ CREATE TABLE IF NOT EXISTS ibis.qa_export_results ( log_time TIMESTAMP,  table_n
 --table for freq_ingest
 CREATE TABLE IF NOT EXISTS `ibis.freq_ingest`(   `frequency` string,   `activate` string) PARTITIONED BY (   `view_name` string,   `full_table_name` string)  STORED AS TEXTFILE  LOCATION 'hdfs://nameservice1/user/dev/data/ibis/freq_ingest';
 
--- table for teradata split_by replace {0} with servername 
+-- table for teradata split_by replace {0} with servername
 CREATE TABLE IF NOT EXISTS ibis.teradata_split_server1 (   databasename STRING,   tablename STRING,   indexnumber SMALLINT,   indextype CHAR(1),   uniqueflag CHAR(1),   columnname STRING,   columnposition SMALLINT,   columntyped STRING,   nullable CHAR(1),   rank1 STRING ) STORED AS TEXTFILE LOCATION 'hdfs://nameservice1/user/hive/warehouse/ibis.db/teradata_split_server1' TBLPROPERTIES ('totalSize'='136662', 'numRows'='2191', 'rawDataSize'='134471', 'COLUMN_STATS_ACCURATE'='true', 'numFiles'='1');
 CREATE TABLE IF NOT EXISTS ibis.teradata_split_server2 (   databasename STRING,   tablename STRING,   indexnumber SMALLINT,   indextype CHAR(1),   uniqueflag CHAR(1),   columnname STRING,   columnposition SMALLINT,   columntyped STRING,   nullable CHAR(1),   rank1 STRING ) STORED AS TEXTFILE LOCATION 'hdfs://nameservice1/user/hive/warehouse/ibis.db/teradata_split_server2' TBLPROPERTIES ('totalSize'='136662', 'numRows'='2191', 'rawDataSize'='134471', 'COLUMN_STATS_ACCURATE'='true', 'numFiles'='1');
 

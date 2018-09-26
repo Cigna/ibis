@@ -78,7 +78,6 @@ class ConfigManager(object):
         self.workflow_host = config.get('Workflows', 'workflow_host')
         self.workflow_hive2_jdbc_url = config.get(
             'Workflows', 'workflow_hive2_jdbc_url')
-        self.git_workflows_dir = config.get('Workflows', 'git_workflows_dir')
         self.default_db_env = config.get('Workflows', 'db_env').lower()
         self.kerberos = config.get('Workflows', 'kerberos')
         self.hdfs_ingest_version = config.get(
@@ -91,12 +90,8 @@ class ConfigManager(object):
         self.log_file = self.logs + '/ibis.log'
         self.files = self.base_dir + config.get('Directories', 'files') + \
             rand_dir_name + '/'
-        self.git_wf_local_dir = self.base_dir + \
-            config.get('Directories', 'git_wf_local_dir') + \
-            rand_dir_name + '/'
         self.create_path(self.logs)
         self.create_path(self.files)
-        self.create_path(self.git_wf_local_dir)
         self.custom_scripts_shell = config.get(
             'Directories', 'custom_scripts_shell')
         self.custom_scripts_hql = config.get(
@@ -174,8 +169,6 @@ class ConfigManager(object):
             config.get('Other', 'allowed_frequencies'))
         self.vizoozie = resource_filename('resources',
                                           config.get('Other', 'vizoozie'))
-        self.git_workflows_url = config.get('Other', 'git_workflows_url')
-        self.git_requests_url = config.get('Other', 'git_requests_url')
         self.max_table_per_workflow = int(
             config.get('Other', 'max_table_per_workflow'))
         self.parallel_dryrun_procs = int(config.get(
@@ -210,8 +203,6 @@ class ConfigManager(object):
             self.oozie_url = config.get('Oozie', 'oozie_url')
             self.kerberos = config.get('Workflows', 'kerberos')
             self.allowed_actions = config.get('Workflows', 'actions')
-            self.git_workflows_dir = config.get('Workflows',
-                                                'git_workflows_dir')
             self.hdfs_ingest_version = config.get('Workflows',
                                                   'hdfs_ingest_version')
             self.job_prop_template = resource_filename(
