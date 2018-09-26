@@ -123,7 +123,9 @@ db_env:int
 
 #### Submit table(s) request that shows what's changed in staging_it_table
 
-``` ibis-shell --submit-request-prod <path to requestfile.txt> --env prod```
+```
+ibis-shell --submit-request-prod <path to requestfile.txt> --env prod
+```
 
 > Sample Content of requestfile.txt
 
@@ -152,14 +154,18 @@ db_env:int
 
 #### Test Sqoop auth credentials
 
-``` ibis-shell --auth-test --env prod --source-db fake_database --source-table fake_dim_tablename
+```
+ibis-shell --auth-test --env prod --source-db fake_database --source-table fake_dim_tablename
                 --user-name fake_username --password-file /user/dev/fake.password.file
-                --jdbc-url jdbc:oracle:thin:@//fake.oracle:1521/fake_servicename ```
+                --jdbc-url jdbc:oracle:thin:@//fake.oracle:1521/fake_servicename
+```
 
 ----------
 #### Export request
 
-``` ibis-shell --export-request-prod <path to requestfile.txt> --env prod```
+```
+ibis-shell --export-request-prod <path to requestfile.txt> --env prod
+```
 
 > Sample Content of requestfile.txt
 
@@ -176,13 +182,17 @@ db_env:int
 -----------
 #### Run oozie job for provided table_workflow.xml. Note: just the file name without extension
 
-```ibis-shell --run-job table_workflow --env prod```
+```
+ibis-shell --run-job table_workflow --env prod
+```
 
 ----------
 
 #### Add table(s) to IT table
 
-```ibis-shell --update-it-table <path to tables.txt> --env prod```
+```
+ibis-shell --update-it-table <path to tables.txt> --env prod
+```
 
 > Sample Content of tables.txt
 
@@ -208,26 +218,34 @@ db_env:int
 ----------
 
 #### Creating a view
-``` ibis-shell --view --view-name <view_name> --db  <name> --table <name>  # Minimum
+```
+ibis-shell --view --view-name <view_name> --db  <name> --table <name>  # Minimum
         # OPTIONAL PARAMETERS: --select {cols} , --where {statement}
-        eg. ibis-shell --view --view-name myview --db  mydb --table mytable --select col1 col2 col3 --where 'Country=USA'```
+        eg. ibis-shell --view --view-name myview --db  mydb --table mytable --select col1 col2 col3 --where 'Country=USA'
+```
 
 ----------
 
 #### Create a workflow based on schedule/frequency
-```ibis-shell --gen-esp-workflows <frequency>  # frequency choices['weekly', 'monthly', 'quarterly', or 'biweekly']```
+```
+ibis-shell --gen-esp-workflows <frequency>  # frequency choices['weekly', 'monthly', 'quarterly', or 'biweekly']
+```
 
 ----------
 
 ##### Create workflows with subworkflows based on one or more filters
-```ibis-shell --gen-esp-workflow schedule=None database=None jdbc_source=None
+```
+ibis-shell --gen-esp-workflow schedule=None database=None jdbc_source=None
         # schedule choices - none, daily, biweekly, weekly, fortnightly, monthly, quarterly
-        jdbc_source choices - oracle, db2, teradata, sqlserver```
+        jdbc_source choices - oracle, db2, teradata, sqlserver
+```
 
 ----------
 
 ##### Save all records or that of specific source in it-table to a file
-```ibis-shell --save-it-table --source-type sqlserver```
+```
+ibis-shell --save-it-table --source-type sqlserver
+```
 
 ----------
 
@@ -238,7 +256,9 @@ Unit tests are supposed to run under 10 - 15 seconds.
 To run unit tests, use the following:
 
 
-```python ibis_test_suite.py```
+```
+python ibis_test_suite.py
+```
 
 ## Viewing your workflows
 
@@ -257,5 +277,9 @@ locations:
 Source Code: https://github.com/cigna/ibis
 Issue Tracker: https://github.com/Cigna/ibis/issues
 
+## Contributors
+- Matthew Wood
+- Mohammad Quraishi
+
 ## License
-The project is licensed under the Apache 2 license.
+The project is licensed under the Apache 2 license
