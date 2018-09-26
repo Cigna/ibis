@@ -95,6 +95,7 @@ check_prerequisites() {
 	validate_python_version	
 	sudo yum groupinstall -y "development tools"
 	sudo yum install krb5-devel gcc zlib-devel gcc-c++ python-devel cyrus-sasl-devel openssl openssl-devel libffi-devel bzip2-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel snappy-devel expat-devel patch -y --skip-broken
+	sudo  yum --nogpgcheck -y install unzip sudo vim wget which tar gzip graphviz python-setuptools python-setuptools-devel shadow-utils git net-tools libXtst.x86_64
 }
 
 install_py_libs() {

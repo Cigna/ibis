@@ -107,7 +107,7 @@ Python 2.7.8
 
                                     [--reingest-all] [--no-git]
 
-                                    [--no-dry-run] [--git-push GIT_PUSH]
+                                    [--no-dry-run] 
 
                                     [--timeout TIMEOUT] [--ingest-version]
 
@@ -323,8 +323,6 @@ Python 2.7.8
   --no-git              Not saving workflow to git
 
   --no-dry-run          Dont dry run workflow
-
-  --git-push GIT_PUSH   Push the given file directly into Git-Workflows
 
   --timeout TIMEOUT     Timeout duration for auto split by
 

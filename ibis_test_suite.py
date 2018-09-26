@@ -34,8 +34,6 @@ from ibis.utilities.tests.test_it_table_generation \
 from ibis.utilities.tests.test_config_manager import ConfigManagerTest
 from ibis.utilities.tests.test_file_parser import FileParserTest
 from ibis.utilities.tests.test_sqoop_auth_check import AuthTestTest
-from ibis.utilities.tests.test_gitlab import GitlabAPITest
-from ibis.utilities.tests.test_git_helper import GitCmdTest
 from lib.ingest.tests.test_checks_and_balances_export \
     import TestChecksBalancesExportManager
 from lib.ingest.tests.test_parquet_opt_ddl_time \
@@ -85,12 +83,12 @@ if __name__ == '__main__':
                            DriverFunctionsTest, WorkflowGeneratorFunctionsTest,
                            ESPInventoryFunctionsTest,
                            CBInventoryFunctionsTest, ConfigManagerTest,
-                           AuthTestTest, GitlabAPITest,
+                           AuthTestTest, 
                            ZookeeperLocksFunctionsTest,
                            MainFunctionsTest, SubWFActionFunctionsTest,
                            SSHActionFunctionsTest, ImpalaUtilsFunctionsTest,
                            TestChecksBalancesExportManager, DSLParserTest,
-                           PyHDFSTest, ImportPrepFunctionsTest, GitCmdTest,
+                           PyHDFSTest, ImportPrepFunctionsTest,
                            PerfInventoryTest, Test_freq_ingest]
 
     # test_classes_to_run = []

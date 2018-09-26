@@ -2,17 +2,13 @@
 import os
 import string
 import subprocess
-import shutil
 import itertools
-import types
 import getpass
 import re
 import requests
 from mako.template import Template
 from ibis.custom_logging import get_logger
 from ibis.utilities.oozie_helper import OozieAPi
-from ibis.utilities.gitlab import GitlabAPI
-from ibis.utilities.git_helper import GitCmd
 
 try:
     # available only on linux
@@ -30,8 +26,6 @@ class Utilities(object):
         self.cfg_mgr = cfg_mgr
         self.logger = get_logger(self.cfg_mgr)
         self.oozie_api = OozieAPi(self.cfg_mgr)
-        self.gitlab_api = GitlabAPI(self.cfg_mgr)
-        self.git_cmd_ibis_wf = None
 
     def get_lines_from_file(self, file_name):
         """Returns lines from a file"""
@@ -338,33 +332,6 @@ class Utilities(object):
             status = True
         return status
 
-    def _copy_files_git_repo(self, commit_files):
-        """Copy files to git repo for commiting later"""
-        saved_location = self.cfg_mgr.files
-        environment = self.cfg_mgr.git_workflows_dir
-        files_to_copy = []
-        if isinstance(commit_files, types.StringTypes):
-            # Create a list with joining file name to copy
-            # and the file extensions
-            file_extensions = ['.xml', '_job.properties', '.pdf', '.ksh',
-                               '.hql']
-            for file_extension in file_extensions:
-                files_to_copy.append(commit_files + file_extension)
-        elif isinstance(commit_files, types.ListType):
-            files_to_copy = commit_files
-
-        for new_file in files_to_copy:
-            # Copy the files generated to the git location
-            if os.path.isfile(saved_location + new_file):
-                gen_file = os.path.join(saved_location, new_file)
-                gen_file_dst = os.path.join(self.git_cmd_ibis_wf.git_dir,
-                                            environment, new_file)
-                shutil.copy2(gen_file, gen_file_dst)
-                # Change permissions on the ones installed in
-                # /opt/app/workflows
-                # so that they can be used by ESP
-                subprocess.call(['chmod', '777', gen_file])
-
     def save_to_git(self, commit_files, branch_name, message):
         """Commit files and push
         Args:
@@ -372,38 +339,11 @@ class Utilities(object):
             branch_name: name of the branch to be commited under
             message: commit message
         """
-        if not os.path.exists(self.git_cmd_ibis_wf.git_dir):
-            os.makedirs(self.git_cmd_ibis_wf.git_dir)
-
-        if branch_name == 'master':
-            raise ValueError("Cannot commit to Master branch!")
-
-        # clone repo
-        clone_success = self.git_cmd_ibis_wf.clone_repo()
-        if not clone_success:
-            raise ValueError("Failed to clone repo")
-
-        # checkout branch to commit
-        remote_branch_exists = self.git_cmd_ibis_wf.checkout_branch(
-            self.cfg_mgr.from_branch, branch_name)
-        # create dir for the first time when repo is empty
-        directory = os.path.join(self.git_cmd_ibis_wf.git_dir,
-                                 self.cfg_mgr.env.upper())
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-        # change files
-        self._copy_files_git_repo(commit_files)
-        # commit and push
-        success = self.git_cmd_ibis_wf.commit_files_push(
-            branch_name, message, remote_branch_exists)
-        if success:
-            self.logger.info("Branch: {0} pushed to {1}".format(
-                branch_name, self.git_cmd_ibis_wf.git_url))
-        return success
+#    To-do: to clean directories for git
 
     def cleanup_git_dir(self):
         """removes cloned git repo"""
-        subprocess.call(['rm', '-rf', self.git_cmd_ibis_wf.git_dir])
+#    To-do: to clean directories for git
 
     def save_workflow(self, commit_files, branch_name,
                       message='Ibis submitting workflows'):
@@ -414,37 +354,12 @@ class Utilities(object):
             branch_name: name of the branch to be commited under
             message: commit message
         """
-        self.git_cmd_ibis_wf = GitCmd(
-            self.cfg_mgr, self.cfg_mgr.git_wf_local_dir,
-            self.cfg_mgr.git_workflows_url)
-        self.cleanup_git_dir()
-        success = self.save_to_git(commit_files, branch_name, message)
-
-        if success:
-            _, merge_title, merge_url = \
-                self.gitlab_api.make_workflows_merge_request(branch_name)
-            msg = ("Now follow the URL below to approve the "
-                   "merge request: '{0}', so you can run workflow on Hue\n"
-                   "Go here: {1}")
-            msg = msg.format(merge_title, merge_url)
-            self.logger.info(Utilities.print_box_msg(msg))
-        else:
-            msg = ("The workflow is the same as last time it was generated. "
-                   "Nothing has changed!")
-            self.logger.warning(Utilities.print_box_msg(msg))
-        # Remove the git location because it causes issues
-        # (even with changing permissions)
-        self.cleanup_git_dir()
+#    To-do: to save files to git
 
     def save_config_workflow(self, commit_files, branch_name, message):
         """Commit files to git repo for config based workflows"""
 
-        self.git_cmd_ibis_wf = GitCmd(
-            self.cfg_mgr, self.cfg_mgr.git_wf_local_dir,
-            self.cfg_mgr.git_workflows_url)
-        self.cleanup_git_dir()
-        _ = self.save_to_git(commit_files, branch_name, message)
-        self.cleanup_git_dir()
+#    To-do: to save files to git
 
     @classmethod
     def print_box_msg(cls, msg, border_char='#'):
