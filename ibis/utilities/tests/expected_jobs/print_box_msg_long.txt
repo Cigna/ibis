@@ -1,7 +1,7 @@
 ###################################################################################################################
 #                                                                                                                 #
 #    Now request production support team to approve the merge request: 'Auto-ibis-merge-request:                  #
-#       int_m40506_20170919_11_23_38', so you can run workflow on Hue                                             #
+#       int_NAME_20170919_11_23_38', so you can run workflow on Hue                                               #
 #    Go here: http://fake.git.url/ibis-workflows/merge_requests/9026/diffs                                        #
 #    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been              #
 #       the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of         #
