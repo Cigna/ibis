@@ -252,8 +252,7 @@ ibis-shell --save-it-table --source-type sqlserver
 ## Running unit tests
 To ensure that IBIS can be automatically deployed, has consistency and
 reliability, unit tests are a must. The development team follows TDD practices.
-Unit tests are supposed to run under 10 - 15 seconds.
-To run unit tests, use the following:
+To run unit tests, run the following:
 
 
 ```
