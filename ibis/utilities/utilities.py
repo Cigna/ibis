@@ -332,35 +332,6 @@ class Utilities(object):
             status = True
         return status
 
-    def save_to_git(self, commit_files, branch_name, message):
-        """Commit files and push
-        Args:
-            commit_files: either file or list of files to be commited
-            branch_name: name of the branch to be commited under
-            message: commit message
-        """
-#    To-do: to clean directories for git
-
-    def cleanup_git_dir(self):
-        """removes cloned git repo"""
-#    To-do: to clean directories for git
-
-    def save_workflow(self, commit_files, branch_name,
-                      message='Ibis submitting workflows'):
-        """Given a workflow name or a list of files in the workflows directory,
-        copy the file(s) to the git repository directory and push to git
-        Args:
-            commit_files: either file or list of files to be commited
-            branch_name: name of the branch to be commited under
-            message: commit message
-        """
-#    To-do: to save files to git
-
-    def save_config_workflow(self, commit_files, branch_name, message):
-        """Commit files to git repo for config based workflows"""
-
-#    To-do: to save files to git
-
     @classmethod
     def print_box_msg(cls, msg, border_char='#'):
         """Returns a visually appealing message

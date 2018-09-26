@@ -387,7 +387,6 @@ class DriverFunctionsTest(unittest.TestCase):
            autospec=True)
     @patch('ibis.utilities.utilities.Utilities.dryrun_workflow',
            autospec=True)
-    @patch.object(Utilities, 'save_workflow', autospec=True)
     @patch.object(ITInventory, 'get_all_tables_for_esp', autospec=True)
     @patch.object(ESPInventory, 'get_tables_by_id', autospec=True)
     @patch('ibis.inventory.inventory.Inventory._connect', autospec=True)
@@ -397,7 +396,7 @@ class DriverFunctionsTest(unittest.TestCase):
     @patch.object(PerfInventory, 'insert_freq_ingest', autospec=True)
     def test_gen_prod_workflow(self, m_freq_ingest, m_convert_pdf,
                                m_v_xml, m_eval, m_c,
-                               m_get_id, m_get_t_esp, m_save, m_dryrun,
+                               m_get_id, m_get_t_esp, m_dryrun,
                                m_put_w, m_sqoop_cache, m_sqoop_cache_view,
                                m_dryrun_all):
         """ Tests generate_prod_workflows with 3 tables. One light,
@@ -435,7 +434,6 @@ class DriverFunctionsTest(unittest.TestCase):
            autospec=True)
     @patch('ibis.utilities.utilities.Utilities.dryrun_workflow',
            autospec=True)
-    @patch.object(Utilities, 'save_workflow', autospec=True)
     @patch.object(ITInventory, 'get_all_tables_for_esp', autospec=True)
     @patch.object(ESPInventory, 'get_tables_by_id', autospec=True)
     @patch('ibis.inventory.inventory.Inventory._connect', autospec=True)
@@ -445,7 +443,7 @@ class DriverFunctionsTest(unittest.TestCase):
     @patch.object(PerfInventory, 'insert_freq_ingest', autospec=True)
     def test_gen_prod_workflow_perf_nodomain(self, m_freq_ingest, m_convert_pdf,
                                             m_v_xml, m_eval, m_c,
-                                            m_get_id, m_get_t_esp, m_save,
+                                            m_get_id, m_get_t_esp,
                                             m_dryrun, m_put_w, m_sqoop_cache,
                                             m_sqoop_cache_view, m_dryrun_all):
         """ Tests generate_prod_workflows with 3 tables. One light,
@@ -484,7 +482,6 @@ class DriverFunctionsTest(unittest.TestCase):
     @patch('ibis.utilities.utilities.Utilities.put_dry_workflow',
            autospec=True)
     @patch('ibis.utilities.utilities.Utilities.dryrun_workflow', autospec=True)
-    @patch.object(Utilities, 'save_workflow', autospec=True)
     @patch.object(ITInventory, 'get_all_tables_for_esp', autospec=True)
     @patch.object(ESPInventory, 'get_tables_by_id', autospec=True)
     @patch('ibis.inventory.inventory.Inventory._connect', autospec=True)
@@ -495,7 +492,7 @@ class DriverFunctionsTest(unittest.TestCase):
     @patch.object(PerfInventory, 'insert_freq_ingest', autospec=True)
     def test_gen_prod_workflow_2(self, m_freq_ingest, m_gen_incr,
                                  m_convert_pdf, m_v_xml,
-                                 m_eval, m_c, m_get_id, m_get_t_esp, m_save,
+                                 m_eval, m_c, m_get_id, m_get_t_esp,
                                  m_dryrun, m_put_w, m_sqoop_cache,
                                  m_sqoop_cache_view, m_dryrun_all):
         """ Tests generate_prod_workflows with five tables. 3 heavy,
@@ -523,7 +520,6 @@ class DriverFunctionsTest(unittest.TestCase):
     @patch('ibis.utilities.utilities.Utilities.put_dry_workflow',
            autospec=True)
     @patch('ibis.utilities.utilities.Utilities.dryrun_workflow', autospec=True)
-    @patch.object(Utilities, 'save_workflow', autospec=True)
     @patch.object(ITInventory, 'get_all_tables_for_esp', autospec=True)
     @patch.object(ESPInventory, 'get_tables_by_id', autospec=True)
     @patch('ibis.inventory.inventory.Inventory._connect', autospec=True)
@@ -533,7 +529,7 @@ class DriverFunctionsTest(unittest.TestCase):
     @patch.object(PerfInventory, 'insert_freq_ingest', autospec=True)
     def test_gen_prod_workflow_3(self, m_freq_ingest, m_convert_pdf,
                                  m_v_xml, m_eval, m_c,
-                                 m_get_id, m_get_t_esp, m_save, m_dryrun,
+                                 m_get_id, m_get_t_esp, m_dryrun,
                                  m_put_w, m_sqoop_cache, m_sqoop_cache_view,
                                  m_dryrun_all):
         """ Tests generate_prod_workflows with 6 tables. Two light,
@@ -824,13 +820,11 @@ class DriverFunctionsTest(unittest.TestCase):
         mock_update.return_value = (True, 'Update Success')
         self.assertTrue(self.driver.gen_prod_workflow_tables(file_h))
 
-    @patch.object(Utilities, 'save_workflow', autospec=True)
     @patch('ibis.driver.driver.Driver.update_it_table_export')
     @patch('ibis.driver.driver.RequestInventory.get_available_requests_export',
            autospec=True)
     def test_export_request(self, mock_get_available_requests,
-                            mock_upate,
-                            mock_save):
+                            mock_upate):
         mock_get_available_requests.return_value = \
             ([ItTableExport(heavy_3_prop_exp, self.cfg_mgr)], [])
         request_file = open(
@@ -839,8 +833,7 @@ class DriverFunctionsTest(unittest.TestCase):
         status, _ = self.driver.export_request(request_file, False)
         self.assertTrue(status)
 
-    @patch.object(Utilities, 'save_workflow', autospec=True)
-    def test_export_oracle(self, mock_save):
+    def test_export_oracle(self):
         self.driver.export_oracle("source_table_name",
                                   "source_database_name",
                                   "source_dir", "jdbc_url",
@@ -849,8 +842,7 @@ class DriverFunctionsTest(unittest.TestCase):
                                   "target_database_name",
                                   "user_name", "password_alias")
 
-    @patch.object(Utilities, 'save_workflow', autospec=True)
-    def test_export_teradata(self, mock_save):
+    def test_export_teradata(self):
         self.driver.export_teradata("source_table_name",
                                     "source_database_name",
                                     "source_dir", "jdbc_url",

@@ -435,9 +435,6 @@ class Driver(object):
                     'Dryrun failed. Fix the workflow!', border_char='x')
                 raise ValueError(_err)
 
-            if not no_git:
-                branch = self._get_off_cycle_branch_name(wf_name)
-                self.utilities.save_workflow(gen_files, branch)
             self._print_table_wf_map()
             status = True
         else:
@@ -497,8 +494,6 @@ class Driver(object):
         # self.utilities.dryrun_workflow(wf_name)
         gen_files += [wf_name + '.xml', wf_name + '_job.properties',
                       wf_name + '.ksh']
-        self.utilities.save_workflow(gen_files, wf_name,
-                                     message='Ibis submitting kite workflow')
         return gen_files
 
     def run_oozie_job(self, workflow_name):
@@ -813,10 +808,6 @@ class Driver(object):
                 appl_id, tables, workflow_names)
             git_files.append(wld_file)
             self.utilities.chmod_files(git_files)
-            if not no_git:
-                self.utilities.save_workflow(
-                    git_files, appl_id,
-                    message='Ibis submitting esp workflows')
             status = True
         except Exception:
             err_msg = "Error generating workflow for " \
@@ -922,10 +913,6 @@ class Driver(object):
         msg = msg.format(workflow=workflow_name, loc=self.cfg_mgr.files)
         self.logger.info(msg)
 
-        branch = self._get_off_cycle_branch_name(workflow_name)
-        file_name = workflow_name
-        self.utilities.save_workflow(file_name, branch)
-
     def export_oracle(self, source_table_name, source_database_name,
                       source_dir, jdbc_url,
                       update_key, target_table_name, target_database_name,
@@ -964,10 +951,6 @@ class Driver(object):
         msg = msg.format(workflow=workflow_name, loc=self.cfg_mgr.files)
         self.logger.info(msg)
 
-        branch = workflow_name
-        file_name = workflow_name
-        self.utilities.save_workflow(file_name, branch)
-
     def export_teradata(self, source_table_name, source_database_name,
                         source_dir, jdbc_url, target_table_name,
                         target_database_name, user_name, password_alias):
@@ -1003,10 +986,6 @@ class Driver(object):
         msg += 'Workflow {workflow}.xml generated to {loc}.'
         msg = msg.format(workflow=workflow_name, loc=self.cfg_mgr.files)
         self.logger.info(msg)
-
-        branch = workflow_name
-        file_name = workflow_name
-        self.utilities.save_workflow(file_name, branch)
 
     def gen_it_table_with_split_by(self, tables_fh, timeout):
         """Given a list of tables, and an IT table request skeleton.
@@ -1321,6 +1300,3 @@ class Driver(object):
                      wf_name + '.ksh', wf_name + '_props_job.xml']
         # include custom scripts
         gen_files += wf_gen.action_builder.custom_action_scripts
-        branch = self.cfg_mgr.env.lower()
-        self.utilities.save_config_workflow(
-            gen_files, branch, message='Ibis submitting config workflows')
