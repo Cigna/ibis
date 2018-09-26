@@ -260,21 +260,8 @@ To run unit tests, use the following:
 python ibis_test_suite.py
 ```
 
-## Viewing your workflows
-
-When your workflows have been generated, they will be checked into a branch
-in the ibis-workflows git project. Having these merged and deployed happens
-automatically. You can view your files on the Edge Node, in the following
-locations:
-
- - Any “.xml” will get moved to HDFS: /user/dev/oozie/workspaces/ibis/workflows/
- - Any “.hql” will get moved to HDFS: /user/dev/oozie/workspaces/ibis/hql/
- - Any “.sh” will get moved to HDFS: /user/dev/oozie/workspaces/ibis/shell/
- - Any “.ksh” will get moved to /opt/app/esp/
- - Any “.job.properties” will get moved to /opt/app/workflows/
-
 ## Contribute
-Source Code: https://github.com/cigna/ibis
+Source Code: https://github.com/Cigna/ibis
 Issue Tracker: https://github.com/Cigna/ibis/issues
 
 ## Contributors
