@@ -261,8 +261,8 @@ python ibis_test_suite.py
 ```
 
 ## Contribute
-Source Code: https://github.com/Cigna/ibis
-Issue Tracker: https://github.com/Cigna/ibis/issues
+- Source Code: https://github.com/Cigna/ibis
+- Issue Tracker: https://github.com/Cigna/ibis/issues
 
 ## Contributors
 - Matthew Wood
