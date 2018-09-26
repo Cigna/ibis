@@ -240,7 +240,7 @@ class DB2TableTest(unittest.TestCase):
         split_by_obj = Get_Auto_Split(self.cfg_mgr)
         result = split_by_obj.get_split_by_column(table_obj)
         print "Result: ", result
-        self.assertEquals(result, "CLIENT_BEN_PLAN_KEY")
+        self.assertEquals(result, "KEY")
 
     @patch.object(SourceTable, 'eval', autospec=True)
     def test_get_split_by_DB2_int(self, mock1):
@@ -268,7 +268,7 @@ class DB2TableTest(unittest.TestCase):
         split_by_obj = Get_Auto_Split(self.cfg_mgr)
         result = split_by_obj.get_split_by_column(table_obj)
         print "Result: ", result
-        self.assertEquals(result, "CLIENT_BEN_PLAN_KEY")
+        self.assertEquals(result, "KEY")
 
     @patch.object(SourceTable, 'eval', autospec=True)
     def test_get_split_by_DB2_noTable(self, mock1):
@@ -288,7 +288,7 @@ class DB2TableTest(unittest.TestCase):
         split_by_obj = Get_Auto_Split(self.cfg_mgr)
         result = split_by_obj.get_split_by_column(table_obj)
         print "Result: ", result
-        self.assertEquals(result, "CLIENT_BEN_PLAN_KEY")
+        self.assertEquals(result, "KEY")
 
     @patch.object(SourceTable, 'eval', autospec=True)
     def test_get_split_by_DB2_errEvalTable_IntCol(self, mock1):
@@ -311,7 +311,7 @@ class DB2TableTest(unittest.TestCase):
         split_by_obj = Get_Auto_Split(self.cfg_mgr)
         result = split_by_obj.get_split_by_column(table_obj)
         print "Result: ", result
-        self.assertEquals(result, "CLIENT_BEN_PLAN_KEY")
+        self.assertEquals(result, "KEY")
 
     @patch.object(SourceTable, 'eval', autospec=True)
     def test_get_split_by_DB2_errEvalTable_NoIntCol(self, mock1):
@@ -552,7 +552,7 @@ class TeradataTableTest(unittest.TestCase):
     @patch.object(ITInventory, 'get_rows', autospec=True)
     @patch.object(SourceTable, 'eval', autospec=True)
     def test_get_split_by_teradata_pk(self, mock1, mock2):
-        mock2.return_value = [['CLIENT_BEN_PLAN_KEY']]
+        mock2.return_value = [['KEY']]
         with open(BASE_DIR + '/fixtures/td_primary_eval_mock.txt',
                   'r') as file_h:
             sqoop_eval_output = file_h.read()
@@ -560,7 +560,7 @@ class TeradataTableTest(unittest.TestCase):
         table_obj = ItTable(self.mock_claim_tbl_dict[0], self.cfg_mgr)
         split_by_obj = Get_Auto_Split(self.cfg_mgr)
         result = split_by_obj.get_split_by_column(table_obj)
-        self.assertEquals(result, "CLIENT_BEN_PLAN_KEY")
+        self.assertEquals(result, "KEY")
 
     @patch.object(ITInventory, 'get_rows', autospec=True)
     @patch.object(SourceTable, 'eval', autospec=True)
