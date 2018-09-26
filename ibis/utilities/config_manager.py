@@ -34,10 +34,10 @@ class ConfigManager(object):
 
         # This is the base dir of this particular file
         # for example:
-        # /Users/C51647/Desktop/ibis/dist/Ibis-0.3.0-py2.7.egg
+        # /Users/USERNAME/Desktop/ibis/dist/Ibis-0.3.0-py2.7.egg
         # /ibis/utilities/config_manager.pyc
         # we then take up a few knotches, to just get
-        # /Users/C51647/Desktop/ibis/
+        # /Users/USERNAME/Desktop/ibis/
         # This allows us to not have multiple property files for Jenkins
         # (for their different envs)
         # Going forward, we want to make this part of all the properties
