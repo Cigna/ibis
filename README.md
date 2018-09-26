@@ -265,7 +265,7 @@ python ibis_test_suite.py
 
 ## Contributors
 - Matthew Wood
-- Bhaskar Teja Yernei
+- Bhaskar Teja Yerneni
 - Mohammad Quraishi
 
 ## License
