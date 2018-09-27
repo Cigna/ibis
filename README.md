@@ -268,5 +268,7 @@ python ibis_test_suite.py
 - Bhaskar Teja Yerneni
 - Mohammad Quraishi
 
+## Logo by Sam Menza
+
 ## License
 The project is licensed under the Apache 2 license
