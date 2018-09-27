@@ -10,7 +10,7 @@ and IBIS will:
 2. generate Oozie workflows, following current ingestion processes and standards to make the ingestion as performant as possible;
 3. creates file that simplify the scheduling of the job through ESP; and
 4. allow easy execution of the workflow to populate the Data Lake of the RDBMS source
-![Ibis Logo](../docs/ibis_wo_logo.png) <br/>
+<br>![Ibis Logo](../docs/ibis_wo_logo.png) </br>
 The IBIS framework wraps the Hadoop stack technology Oozie, an XML-based workflow scheduler
 system used to manage Apache Hadoop jobs (Oozie Workflow jobs are Directed
 Acyclical Graphs (DAGs) of actions).
