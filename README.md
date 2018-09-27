@@ -1,14 +1,3 @@
-```
- ▄█  ▀█████████▄   ▄█     ▄████████
-███    ███    ███ ███    ███    ███
-███▌   ███    ███ ███▌   ███    █▀
-███▌  ▄███▄▄▄██▀  ███▌   ███
-███▌ ▀▀███▀▀▀██▄  ███▌ ▀███████████
-███    ███    ██▄ ███           ███
-███    ███    ███ ███     ▄█    ███
-█▀   ▄█████████▀  █▀    ▄████████▀
-
-```
 
 # IBIS
 
@@ -22,10 +11,15 @@ and IBIS will:
 3. creates file that simplify the scheduling of the job through ESP; and
 4. allow easy execution of the workflow to populate the Data Lake of the RDBMS source
 
+![Ibis Logo](file:///docs/ibis_wo_logo.png)
+
+![Alt text](docs/ibis_wo_logo.png?raw=true "Title")
+
+![Optional Text](../docs/ibis_wo_logo.png)
+
 The IBIS framework wraps the Hadoop stack technology Oozie, an XML-based workflow scheduler
 system used to manage Apache Hadoop jobs (Oozie Workflow jobs are Directed
 Acyclical Graphs (DAGs) of actions).
-
 
 We support creating "config-based" workflows from any of the standard Oozie
 actions - such as Hive, Shell and Impala. The main use of IBIS is to
@@ -271,3 +265,15 @@ python ibis_test_suite.py
 
 ## License
 The project is licensed under the Apache 2 license
+
+```
+ ▄█  ▀█████████▄   ▄█     ▄████████
+███    ███    ███ ███    ███    ███
+███▌   ███    ███ ███▌   ███    █▀
+███▌  ▄███▄▄▄██▀  ███▌   ███
+███▌ ▀▀███▀▀▀██▄  ███▌ ▀███████████
+███    ███    ██▄ ███           ███
+███    ███    ███ ███     ▄█    ███
+█▀   ▄█████████▀  █▀    ▄████████▀
+
+```
