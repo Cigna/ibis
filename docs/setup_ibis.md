@@ -24,19 +24,19 @@ Follow the below 3 steps:-
 
       Some other property files specifically used for [unit test](/resources)
       
-      **Refer here [How to Update property file?](docs/property_file_update.md)**
+      **Refer here [How to Update property file?](/docs/property_file_update.md)**
       
       **B. Environment's job property file**
       
       [dev job properties](/resources/templates/dev_job.properties)
       
-      **Refer here [How to Update job's property file?](docs/job_property_update.md)**
+      **Refer here [How to Update job's property file?](/docs/job_property_update.md)**
       
       **C. Configuration properties**
       
       [dev configuration property file](/lib/ingest/dev/config_env.sh)
       
-      **Refer here [How to Update configuration file?](docs/configuration_update.md)**      
+      **Refer here [How to Update configuration file?](/docs/configuration_update.md)**      
 
 2. ## Run IBIS one time setup and install all system dependencies
 
