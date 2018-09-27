@@ -5,6 +5,7 @@
 
 IBIS is a workflow creation-engine that abstracts the Hadoop internals of ingesting RDBMS data.
 <br>![Ibis Logo](/docs/ibis_wo_logo.png)
+
 All you need to do is create a request file containing information about a table that you want to query,
 and IBIS will:
 1. manage the information required to create the workflow;
