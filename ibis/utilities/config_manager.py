@@ -16,10 +16,7 @@ class ConfigManager(object):
     def __init__(self, environment, *args):
         """Init."""
 
-        if environment == "JENKINS":
-            self.env = "dev"
-        else:
-            self.env = environment.lower()
+        self.env = environment.lower()
 
         self.for_env = None
         if args:
@@ -38,12 +35,8 @@ class ConfigManager(object):
         # /ibis/utilities/config_manager.pyc
         # we then take up a few knotches, to just get
         # /Users/USERNAME/Desktop/ibis/
-        # This allows us to not have multiple property files for Jenkins
+        # This allows us to not have multiple property files for testing
         # (for their different envs)
-        # Going forward, we want to make this part of all the properties
-        # files and have Jenkins build the files for us
-        # Going with this, check out the jenkins.properties file
-        # for how it's now not harded-coded paths
         curr_path = os.path.abspath(__file__)
         for _ in range(4):
             # cross platform path split
@@ -51,7 +44,7 @@ class ConfigManager(object):
         self.base_dir = curr_path
 
         # Used for selecting where workflows should be commited to with GIT
-        if environment in ["JENKINS", "UNIT_TEST", 'INT_TEST']:
+        if environment in ["UNIT_TEST", 'INT_TEST']:
             self.saves = self.base_dir + config.get('Directories', 'saves')
         else:
             self.saves = config.get('Directories', 'saves')
