@@ -20,31 +20,19 @@ Follow the below 3 steps:-
       
       **A. Environment property file**
       
-      [prod property file](/resources/prod.properties)
-      
-      [int property file](/resources/int.properties)
-      
       [dev property file](/resources/dev.properties)
 
-      Some other property files specifically used for [unit test and jenkins](/resources)
+      Some other property files specifically used for [unit test](/resources)
       
       **Refer here [How to Update property file?](docs/property_file_update.md)**
       
       **B. Environment's job property file**
-      
-      [prod job properties](/resources/templates/prod_job.properties)
-      
-      [int job properties](/resources/templates/int_job.properties)
       
       [dev job properties](/resources/templates/dev_job.properties)
       
       **Refer here [How to Update job's property file?](docs/job_property_update.md)**
       
       **C. Configuration properties**
-      
-      [prod configuration property file](/lib/ingest/prod/config_env.sh)
-      
-      [int configuration property file](/lib/ingest/int/config_env.sh)
       
       [dev configuration property file](/lib/ingest/dev/config_env.sh)
       
