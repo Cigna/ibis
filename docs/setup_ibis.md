@@ -70,7 +70,7 @@ Follow the below 3 steps:-
          skip-code-check - Skip code style check
          skip-build - Run all validations and skip build process
  ```        
- Refer [Test and Build](docs/test_and_build.md) for more details on building IBIS and running unit tests independently 
+ Refer [Test and Build](/docs/test_and_build.md) for more details on building IBIS and running unit tests independently 
 
  
 ## IBIS Dependencies and prerequisites for IBIS setup
