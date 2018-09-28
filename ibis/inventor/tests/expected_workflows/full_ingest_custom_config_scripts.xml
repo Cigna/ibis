@@ -1,0 +1,151 @@
+ <action name="fake_mem_tablename_import_prep">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>import_prep.sh</exec>
+            <env-var>source_database_name=fake_database</env-var>
+            <env-var>source_table_name=fake_mem_tablename</env-var>
+            <env-var>db_env=dev</env-var>
+            <env-var>target_dir=mdm/member/fake_database/fake_mem_tablename</env-var>
+            <env-var>it_table=ibis.dev_it_table</env-var>
+            <env-var>it_table_host=fake.workflow.host</env-var>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <env-var>hdfs_ingest_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/import_prep.sh#import_prep.sh</file>
+        </shell>
+        <ok to="fake_mem_tablename_import"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action name="fake_mem_tablename_import">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.4">
+            <configuration>
+                <property>
+                    <name>fs.hdfs.impl.disable.cache</name>
+                    <value>true</value>
+                </property>
+            </configuration>
+            <arg>import</arg>
+            <arg>-D oraoop.timestamp.string=false</arg>
+            <arg>-D hadoop.security.credential.provider.path=jceks://hdfs/user/dev/fake.passwords.jceks</arg>
+            <arg>--as-avrodatafile</arg>
+            <arg>--verbose</arg>
+            <arg>--connect</arg>
+            <arg>jdbc:oracle:thin:@//fake.oracle:1521/fake_servicename</arg>
+            <arg>--target-dir</arg>
+            <arg>/user/data/ingest/mdm/member/fake_database/fake_mem_tablename</arg>
+            <arg>--delete-target-dir</arg>
+            <arg>--table</arg>
+            <arg>FAKE_DATABASE.FAKE_MEM_TABLENAME</arg>
+            <arg>--username</arg>
+            <arg>fake_username</arg>
+            <arg>--password-alias</arg>
+            <arg>fake.password.alias</arg>
+            <arg>-m</arg>
+            <arg>10</arg>
+            <arg>--validate</arg>
+            <arg>--validator</arg>
+            <arg>org.apache.sqoop.validation.RowCountValidator</arg>
+            <arg>--validation-threshold</arg>
+            <arg>org.apache.sqoop.validation.AbsoluteValidationThreshold</arg>
+            <arg>--validation-failurehandler</arg>
+            <arg>org.apache.sqoop.validation.AbortOnFailureHandler</arg>
+            <arg>--map-column-java</arg>
+            <arg>TRANS_TIME=String</arg>
+            <arg>--fetch-size</arg>
+            <arg>50000</arg>
+            <arg>--direct</arg>
+        </sqoop>
+        <ok to="fake_mem_tablename_avro"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+
+    <action name="fake_mem_tablename_avro">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>avro_parquet.sh</exec>
+            <env-var>target_dir=mdm/member/fake_database/fake_mem_tablename</env-var>
+            <env-var>hive2_jdbc_url=${hive2_jdbc_url}</env-var>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <env-var>hdfs_ingest_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/avro_parquet.sh#avro_parquet.sh</file>
+        </shell>
+        <ok to="fake_mem_tablename_avro_parquet"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action cred="hive2" name="fake_mem_tablename_avro_parquet">
+        <hive2 xmlns="uri:oozie:hive2-action:0.1">
+            <jdbc-url>${hive2_jdbc_url}</jdbc-url>
+            <script>${nameNode}/user/data/mdm/member/fake_database/fake_mem_tablename/gen/avro_parquet.hql</script>
+        </hive2>
+        <ok to="fake_mem_tablename_quality_assurance"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action name="fake_mem_tablename_quality_assurance">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>quality_assurance.sh</exec>
+            <env-var>ingestion_type=full_ingest</env-var>
+            <env-var>target_dir=mdm/member/fake_database/fake_mem_tablename</env-var>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <env-var>hdfs_ingest_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/quality_assurance.sh#quality_assurance.sh</file>
+        </shell>
+        <ok to="fake_mem_tablename_hive_5"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action cred="hive2" name="fake_mem_tablename_hive_5">
+        <hive2 xmlns="uri:oozie:hive2-action:0.1">
+            <jdbc-url>${hive2_jdbc_url}</jdbc-url>
+            <script>${nameNode}/user/dev/oozie/workspaces/ibis/hql/DEV_hive_test.hql</script>
+        </hive2>
+        <ok to="fake_mem_tablename_qa_data_sampling"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action name="fake_mem_tablename_qa_data_sampling">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>quality_assurance.sh</exec>
+            <env-var>ingestion_type=full_ingest_qa_sampling</env-var>
+            <env-var>target_dir=mdm/member/fake_database/fake_mem_tablename</env-var>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <env-var>hdfs_ingest_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/quality_assurance.sh#quality_assurance.sh</file>
+        </shell>
+        <ok to="fake_mem_tablename_parquet_swap"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action name="fake_mem_tablename_parquet_swap">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>parquet_swap.sh</exec>
+            <env-var>target_dir=mdm/member/fake_database/fake_mem_tablename</env-var>
+            <env-var>hive2_jdbc_url=${hive2_jdbc_url}</env-var>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <env-var>hdfs_ingest_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/parquet_swap.sh#parquet_swap.sh</file>
+        </shell>
+        <ok to="fake_mem_tablename_parquet_live"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action cred="hive2" name="fake_mem_tablename_parquet_live">
+        <hive2 xmlns="uri:oozie:hive2-action:0.1">
+            <jdbc-url>${hive2_jdbc_url}</jdbc-url>
+            <script>${nameNode}/user/data/mdm/member/fake_database/fake_mem_tablename/gen/parquet_live.hql</script>
+        </hive2>
+        <ok to="fake_mem_tablename_refresh"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action name="fake_mem_tablename_refresh">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>impala_cleanup.sh</exec>
+            <env-var>target_dir=mdm/member/fake_database/fake_mem_tablename</env-var>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <env-var>hdfs_ingest_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/impala_cleanup.sh#impala_cleanup.sh</file>
+        </shell>
+        <ok to="fake_mem_tablename_shell_10"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action name="fake_mem_tablename_shell_10">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>shell_test.sh</exec>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/shell/shell_test.sh#shell_test.sh</file>
+        </shell>
+        <ok to="oozie_cb_ok"/>
+        <error to="oozie_cb_fail"/>
+    </action>

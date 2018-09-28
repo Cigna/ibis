@@ -1,0 +1,32 @@
+16/06/20 09:53:31 ERROR sqoop.ConnFactory: Could not load ManagerFactory com.cirro.sqoop.CirroManagerFactory (not found)
+16/06/20 09:53:31 WARN sqoop.ConnFactory: Parameter --driver is set to an explicit driver however appropriate connection manager is not being set (via --connection-manager). Sqoop is going to fall back to org.apache.sqoop.manager.GenericJdbcManager. Please specify explicitly which connection manager should be used next time.
+16/06/20 09:53:31 INFO manager.SqlManager: Using default fetchSize of 1000
+---------------------------------------------------------------------------------------------------------------------------------------------
+| COLUMN_NAME          | DATA_TYPE                          | DATA_LENGTH     | DATA_PRECISION   | DATA_SCALE  | NULLABLE   | CHAR_LENGTH   |
+---------------------------------------------------------------------------------------------------------------------------------------------
+| FAKE_COL_1           | NUMBER                             | 22              | (null)           | (null)      | Y          | 0             |
+| FAKE_COL_2           | NUMBER                             | 22              | 22               | 0           | Y          | 0             |
+| FAKE_COL_3           | NUMBER                             | 22              | (null)           | 0           | Y          | 0             |
+| FAKE_COL_4           | DATE                               | 7               | (null)           | (null)      | Y          | 0             |
+| FAKE_COL_5           | DATE                               | 7               | (null)           | (null)      | Y          | 0             |
+| FAKE_COL_6           | CHAR                               | 1               | (null)           | (null)      | Y          | 1             |
+| FAKE_COL_7           | DATE                               | 7               | (null)           | (null)      | Y          | 0             |
+| FAKE_COL_8           | VARCHAR2                           | 15              | (null)           | (null)      | Y          | 15            |
+| FAKE_COL_9           | VARCHAR2                           | 15              | (null)           | (null)      | Y          | 15            |
+| FAKE_COL_10          | VARCHAR2                           | 15              | (null)           | (null)      | Y          | 15            |
+| FAKE_COL_11          | VARCHAR2                           | 15              | (null)           | (null)      | Y          | 15            |
+| FAKE_COL_12          | ROWID                              | 10              | (null)           | (null)      | Y          | 0             |
+| FAKE_COL_13          | UROWID                             | 4000            | (null)           | (null)      | Y          | 0             |
+| FAKE_COL_14          | DATE                               | 7               | (null)           | (null)      | Y          | 0             |
+| FAKE_COL_15          | TIMESTAMP(6)                       | 11              | (null)           | 6           | Y          | 0             |
+| FAKE_COL_16          | RAW                                | 3               | (null)           | (null)      | Y          | 0             |
+| FAKE_COL_17          | LONG RAW                           | 0               | (null)           | (null)      | Y          | 0             |
+| FAKE_COL_18          | BLOB                               | 4000            | (null)           | (null)      | Y          | 0             |
+| FAKE_COL_19          | CLOB                               | 4000            | (null)           | (null)      | Y          | 0             |
+| FAKE_COL_20          | NCLOB                              | 4000            | (null)           | (null)      | Y          | 0             |
+| FAKE_COL_21          | FLOAT                              | 22              | 126              | (null)      | Y          | 0             |
+| FAKE_COL_22          | INTERVAL DAY(2) TO SECOND(6)       | 11              | 2                | 6           | Y          | 0             |
+| FAKE_COL_23          | INTERVAL YEAR(2) TO MONTH          | 5               | 2                | 0           | Y          | 0             |
+| FAKE_COL_24          | TIMESTAMP(6) WITH LOCAL TIME ZONE  | 11              | (null)           | 6           | Y          | 0             |
+| FAKE_COL_25          | TIMESTAMP(6) WITH TIME ZONE        | 13              | (null)           | 6           | Y          | 0             |
+---------------------------------------------------------------------------------------------------------------------------------------------

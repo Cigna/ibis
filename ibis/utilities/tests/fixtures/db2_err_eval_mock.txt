@@ -1,0 +1,28 @@
+17/10/01 21:35:05 DEBUG sqoop.ConnFactory: Instantiated ConnManager org.apache.sqoop.manager.Db2Manager@20a2f418
+17/10/01 21:35:06 DEBUG manager.SqlManager: No connection paramenters specified. Using regular API for making connection.
+17/10/01 21:35:06 DEBUG tool.EvalSqlTool: SQL query: Select FIRSTKEYCARD, FIRST2KEYCARD, FIRST3KEYCARD, FIRST4KEYCARD, FULLKEYCARD FROM SYSCAT.INDEXES WHERE (TABSCHEMA = 'APPDM') AND (TABNAME   = 'BLD_V2V_ALIGNMENT_RESULTS')
+17/10/01 21:35:06 WARN tool.EvalSqlTool: SQL exception executing statement: com.ibm.db2.jcc.am.SqlSyntaxErrorException: DB2 SQL Error: SQLCODE=-551, SQLSTATE=42501, SQLERRMC=fake_username;SELECT;SYSCAT.INDEXES, DRIVER=4.14.88
+        at com.ibm.db2.jcc.am.ed.a(ed.java:677)
+        at com.ibm.db2.jcc.am.ed.a(ed.java:60)
+        at com.ibm.db2.jcc.am.ed.a(ed.java:127)
+        at com.ibm.db2.jcc.am.oo.c(oo.java:2713)
+        at com.ibm.db2.jcc.am.oo.d(oo.java:2701)
+        at com.ibm.db2.jcc.am.oo.a(oo.java:2134)
+        at com.ibm.db2.jcc.am.po.a(po.java:7764)
+        at com.ibm.db2.jcc.t4.ab.h(ab.java:141)
+        at com.ibm.db2.jcc.t4.ab.b(ab.java:41)
+        at com.ibm.db2.jcc.t4.p.a(p.java:32)
+        at com.ibm.db2.jcc.t4.qb.i(qb.java:135)
+        at com.ibm.db2.jcc.am.oo.ib(oo.java:2103)
+        at com.ibm.db2.jcc.am.po.tc(po.java:3613)
+        at com.ibm.db2.jcc.am.po.b(po.java:4403)
+        at com.ibm.db2.jcc.am.po.jc(po.java:2809)
+        at com.ibm.db2.jcc.am.po.execute(po.java:2788)
+        at org.apache.sqoop.tool.EvalSqlTool.run(EvalSqlTool.java:68)
+        at org.apache.sqoop.Sqoop.run(Sqoop.java:147)
+        at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+        at org.apache.sqoop.Sqoop.runSqoop(Sqoop.java:183)
+        at org.apache.sqoop.Sqoop.runTool(Sqoop.java:234)
+        at org.apache.sqoop.Sqoop.runTool(Sqoop.java:243)
+        at org.apache.sqoop.Sqoop.main(Sqoop.java:252)
+

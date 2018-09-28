@@ -1,0 +1,33 @@
+<action name="table_name_sqoop_export">
+    <sqoop xmlns="uri:oozie:sqoop-action:0.4">
+        <configuration>
+            <property>
+                <name>fs.hdfs.impl.disable.cache</name>
+                <value>true</value>
+            </property>
+        </configuration>
+        <arg>export</arg>
+        <arg>-D org.apache.sqoop.export.text.dump_data_on_error=true</arg>
+        <arg>--verbose</arg>
+        <arg>--connect</arg>
+        <arg>jdbc_url@1.1.1.1:1521:woot</arg>
+        <arg>--username</arg>
+        <arg>user</arg>
+        <arg>--password-file</arg>
+        <arg>pass</arg>
+        <arg>--table</arg>
+        <arg>TARGET_DB.TARGET_TABLE</arg>
+        <arg>--export-dir</arg>
+        <arg>/tmp/src_table_clone</arg>
+        <arg>-m</arg>
+        <arg>10</arg>
+        <arg>--input-null-string</arg>
+        <arg>\\N</arg>
+        <arg>--input-null-non-string</arg>
+        <arg>\\N</arg>
+        <arg>--input-fields-terminated-by</arg>
+        <arg>|</arg>
+    </sqoop>
+    <ok to="oozie_cb_ok"/>
+    <error to="kill"/>
+</action>

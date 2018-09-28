@@ -1,0 +1,45 @@
+16/06/20 10:46:18 ERROR sqoop.ConnFactory: Could not load ManagerFactory com.cirro.sqoop.CirroManagerFactory (not found)
+16/06/20 10:46:18 WARN sqoop.ConnFactory: Parameter --driver is set to an explicit driver however appropriate connection manager is not being set (via --connection-manager). Sqoop is going to fall back to org.apache.sqoop.manager.GenericJdbcManager. Please specify explicitly which connection manager should be used next time.
+16/06/20 10:46:18 INFO manager.SqlManager: Using default fetchSize of 1000
+-----------------------------------------------------------------------------------------------------------------------------
+| NAME                 | COLTYPE  | LENGTH | SCALE  | TBNAME               | UPDATES | NAME                 | COLTYPE  | COLTYPE  |
+-----------------------------------------------------------------------------------------------------------------------------
+| FAKE_COL_1           | INTEGER  | 4      | 0      | CLIENT               | Y | FAKE_COL_1                 | INTEGER  | INTEGER  |
+| FAKE_COL_2           | INTEGER  | 4      | 0      | CLIENT               | Y | FAKE_COL_2                 | INTEGER  | INTEGER  |
+| FAKE_COL_3           | DATE     | 4      | 0      | CLIENT               | Y | FAKE_COL_3                 | DATE     | DATE     |
+| FAKE_COL_4           | DATE     | 4      | 0      | CLIENT               | Y | FAKE_COL_4                 | DATE     | DATE     |
+| FAKE_COL_5           | DATE     | 4      | 0      | CLIENT               | Y | FAKE_COL_5                 | DATE     | DATE     |
+| FAKE_COL_6           | CHAR     | 35     | 0      | CLIENT               | Y | FAKE_COL_6                 | CHAR     | CHAR     |
+| FAKE_COL_7           | CHAR     | 35     | 0      | CLIENT               | Y | FAKE_COL_7                 | CHAR     | CHAR     |
+| FAKE_COL_8           | CHAR     | 70     | 0      | CLIENT               | Y | FAKE_COL_8                 | CHAR     | CHAR     |
+| FAKE_COL_9           | CHAR     | 35     | 0      | CLIENT               | Y | FAKE_COL_9                 | CHAR     | CHAR     |
+| FAKE_COL_10          | CHAR     | 2      | 0      | CLIENT               | Y | FAKE_COL_10                | CHAR     | CHAR     |
+| FAKE_COL_11          | CHAR     | 9      | 0      | CLIENT               | Y | FAKE_COL_11                | CHAR     | CHAR     |
+| FAKE_COL_12          | CHAR     | 50     | 0      | CLIENT               | Y | FAKE_COL_12                | CHAR     | CHAR     |
+| FAKE_COL_13          | CHAR     | 12     | 0      | CLIENT               | Y | FAKE_COL_13                | CHAR     | CHAR     |
+| FAKE_COL_14          | CHAR     | 65     | 0      | CLIENT               | Y | FAKE_COL_14                | CHAR     | CHAR     |
+| FAKE_COL_15          | CHAR     | 2      | 0      | CLIENT               | Y | FAKE_COL_15                | CHAR     | CHAR     |
+| FAKE_COL_16          | SMALLINT | 2      | 0      | CLIENT               | Y | FAKE_COL_16                | SMALLINT | SMALLINT |
+| FAKE_COL_17          | CHAR     | 1      | 0      | CLIENT               | Y | FAKE_COL_17                | CHAR     | CHAR     |
+| FAKE_COL_18          | CHAR     | 1      | 0      | CLIENT               | Y | FAKE_COL_18                | CHAR     | CHAR     |
+| FAKE_COL_19          | CHAR     | 1      | 0      | CLIENT               | Y | FAKE_COL_19                | CHAR     | CHAR     |
+| FAKE_COL_20          | CHAR     | 1      | 0      | CLIENT               | Y | FAKE_COL_20                | CHAR     | CHAR     |
+| FAKE_COL_21          | CHAR     | 2      | 0      | CLIENT               | Y | FAKE_COL_21                | CHAR     | CHAR     |
+| FAKE_COL_22          | INTEGER  | 4      | 0      | CLIENT               | Y | FAKE_COL_22                | INTEGER  | INTEGER  |
+| FAKE_COL_23          | DECIMAL  | 10     | 2      | CLIENT               | Y | FAKE_COL_23                | DECIMAL  | DECIMAL  |
+| FAKE_COL_24          | INTEGER  | 4      | 0      | CLIENT               | Y | FAKE_COL_24                | INTEGER  | INTEGER  |
+| FAKE_COL_25          | CHAR     | 9      | 0      | CLIENT               | Y | FAKE_COL_25                | CHAR     | CHAR     |
+| FAKE_COL_26          | CHAR     | 1      | 0      | CLIENT               | Y | FAKE_COL_26                | CHAR     | CHAR     |
+| FAKE_COL_27          | DATE     | 4      | 0      | CLIENT               | Y | FAKE_COL_27                | DATE     | DATE     |
+| FAKE_COL_28          | SMALLINT | 2      | 0      | CLIENT               | Y | FAKE_COL_28                | SMALLINT | SMALLINT |
+| FAKE_COL_29          | CHAR     | 3      | 0      | CLIENT               | Y | FAKE_COL_29                | CHAR     | CHAR     |
+| FAKE_COL_30          | CHAR     | 3      | 0      | CLIENT               | Y | FAKE_COL_30                | CHAR     | CHAR     |
+| FAKE_COL_31          | CHAR     | 8      | 0      | CLIENT               | Y | FAKE_COL_31                | CHAR     | CHAR     |
+| FAKE_COL_32          | TIMESTMP | 10     | 6      | CLIENT               | Y | FAKE_COL_32                | TIMESTMP | TIMESTMP |
+| FAKE_COL_33          | CHAR     | 3      | 0      | CLIENT               | Y | FAKE_COL_33                | CHAR     | CHAR     |
+| FAKE_COL_34          | CHAR     | 1      | 0      | CLIENT               | Y | FAKE_COL_34                | CHAR     | CHAR     |
+| FAKE_COL_35          | CHAR     | 1      | 0      | CLIENT               | Y | FAKE_COL_35                | CHAR     | CHAR     |
+| FAKE_COL_36          | CHAR     | 4      | 0      | CLIENT               | Y | FAKE_COL_36                | CHAR     | CHAR     |
+| FAKE_COL_37          | CHAR     | 2      | 0      | CLIENT               | Y | FAKE_COL_36                | CHAR     | CHAR     |
+| FAKE_COL_38          | CHAR     | 2      | 0      | CLIENT               | Y | FAKE_COL_38                | CHAR     | CHAR     |
+-----------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# This script runs the IBIS shell. Python is required.
+#
+# This script assumes that the supporting library files for the Ibis shell are rooted in /opt/app/ibis
+#
+# The required directories are:
+# /opt/app/workflows/ -- location for worklflows that are generated
+# logs/ -- captures logs when Ibis is running
+# /opt/app/ibis/ -- containing ibis egg.
+
+# REPO_HOME - directory where this file is present
+REPO_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+export OOZIE_URL='http://fake.dev.oozie:25007/oozie'
+
+source "$REPO_HOME"/ibis_version.sh
+
+echo "Welcome to...
+
+ ▄█  ▀█████████▄   ▄█     ▄████████
+███    ███    ███ ███    ███    ███
+███▌   ███    ███ ███▌   ███    █▀
+███▌  ▄███▄▄▄██▀  ███▌   ███
+███▌ ▀▀███▀▀▀██▄  ███▌ ▀███████████
+███    ███    ██▄ ███           ███
+███    ███    ███ ███     ▄█    ███
+█▀   ▄█████████▀  █▀    ▄████████▀
+
+Version ${IBIS_VERSION}
+"
+
+IBIS_EGG_NAME="${IBIS_APP_NAME}-${IBIS_VERSION}-py2.7.egg"
+
+if [ "$1" = "--run-int-tests" ]; then
+    source ${REPO_HOME}/ibis_venv/bin/activate
+    python ${REPO_HOME}/"${IBIS_EGG_NAME}" "$@"
+    let IBIS_EXIT_STATUS=$?
+else
+    source "${REPO_HOME}"/ibis_venv/bin/activate && "${REPO_HOME}"/"${IBIS_EGG_NAME}" "$@"
+    let IBIS_EXIT_STATUS=$?
+    python --version
+fi
+
+if [ "${IBIS_EXIT_STATUS}" -gt 0 ]; then
+    echo -e "Ibis failed!"
+    exit 1
+fi
+
+deactivate

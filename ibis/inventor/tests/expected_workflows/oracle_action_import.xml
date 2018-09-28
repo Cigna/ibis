@@ -1,0 +1,39 @@
+    <action name="fake_mem_tablename_import">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.4">
+            <configuration>
+                <property>
+                    <name>fs.hdfs.impl.disable.cache</name>
+                    <value>true</value>
+                </property>
+            </configuration>
+            <arg>import</arg>
+            <arg>-D oraoop.timestamp.string=false</arg>
+            <arg>--verbose</arg>
+            <arg>--as-avrodatafile</arg>
+            <arg>--connect</arg>
+            <arg>jdbc:oracle:thin:@//fake.oracle:1521/fake_servicename</arg>
+            <arg>--target-dir</arg>
+            <arg>/user/data/ingest/mdm/member/fake_database/fake_mem_tablename</arg>
+            <arg>--delete-target-dir</arg>
+            <arg>--table</arg>
+            <arg>FAKE_DATABASE.FAKE_MEM_TABLENAME</arg>
+            <arg>--username</arg>
+            <arg>fake_username</arg>
+            <arg>--password-file</arg>
+            <arg>/user/dev/fake.password.file</arg>
+            <arg>-m</arg>
+            <arg>10</arg>
+            <arg>--validate</arg>
+            <arg>--validator</arg>
+            <arg>org.apache.sqoop.validation.RowCountValidator</arg>
+            <arg>--validation-threshold</arg>
+            <arg>org.apache.sqoop.validation.AbsoluteValidationThreshold</arg>
+            <arg>--validation-failurehandler</arg>
+            <arg>org.apache.sqoop.validation.AbortOnFailureHandler</arg>
+            <arg>--fetch-size</arg>
+            <arg>50000</arg>
+            <arg>--direct</arg>
+        </sqoop>
+        <ok to="fake_mem_tablename_avro"/>
+        <error to="kill"/>
+    </action>

@@ -1,0 +1,20 @@
+Warning: /opt/cloudera/parcels/CDH/lib/hcatalog does not exist! HCatalog jobs will fail.
+Please set $HCAT_HOME to the root of your HCatalog installation.
+Warning: /opt/cloudera/parcels/CDH-5.5.2-1.cdh5.5.2.p0.4/bin/../lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+--------------------------------------------------------------------------------------------------------------------
+| COLUMN_NAME          | DATA_TYPE            | DATA_LENGTH          | DATA_PRECISION       | DATA_SCALE           |
+--------------------------------------------------------------------------------------------------------------------
+| 1 | 2             | 2                    | (null)               | (null)               |
+| 2 | 2             | 2                    | (null)               | (null)               |
+| 3                  | 2             | 9                    | (null)               | (null)               |
+| 4          | 2               | 22                   | 13                   | 2                    |
+| 5                  | 2               | 22                   | 38                   | 0                    |
+| 6            | 2             | 15                   | (null)               | (null)               |
+| 7     | 2         | 11                   | (null)               | (null)               |
+| 7 | 2               | 22                   | (null)               | (null)               |
+| 7  | 2               | 22                   | 12                   | 2                    |
+| 7             | 2             | 60                   | (null)               | (null)               |
+| 7             | 2                 | 7                    | (null)               | (null)               |
+| 7 | 2             | 2                    | (null)               | (null)               |
+--------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,3 @@
+invalidate metadata mock_domain.fake_database_mock_table;
+invalidate metadata fake_view_open.fake_database_mock_table;
+invalidate metadata fake_view_im.fake_database_mock_table;

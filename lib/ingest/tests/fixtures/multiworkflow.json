@@ -1,0 +1,93 @@
+{
+  "offset": 1,
+  "total": 1,
+  "len": 50,
+  "workflows": [
+    {
+      "status": "SUCCEEDED",
+      "run": 0,
+      "startTime": "Wed, 30 Sep 2015 18:50:59 GMT",
+      "appName": "fake_mem_tablename_ora_timestamp_test",
+      "lastModTime": "Wed, 30 Sep 2015 19:00:29 GMT",
+      "actions": [
+{
+"status": "OK",
+"retries": 0,
+"transition": "fake_mem_tablename_avro",
+"stats": "{\"org.apache.hadoop.mapreduce.JobCounter\":{\"SLOTS_MILLIS_MAPS\":1007892,\"MB_MILLIS_MAPS\":1032081408,\"TOTAL_LAUNCHED_MAPS\":10,\"MILLIS_MAPS\":251973,\"VCORES_MILLIS_MAPS\":251973,\"OTHER_LOCAL_MAPS\":10},\"org.apache.hadoop.mapred.JobInProgress$Counter\":{\"SLOTS_MILLIS_MAPS\":1007892,\"MB_MILLIS_MAPS\":1032081408,\"TOTAL_LAUNCHED_MAPS\":10,\"MILLIS_MAPS\":251973,\"VCORES_MILLIS_MAPS\":251973,\"OTHER_LOCAL_MAPS\":10},\"ACTION_TYPE\":\"MAP_REDUCE\",\"org.apache.hadoop.mapreduce.lib.output.FileOutputFormatCounter\":{\"BYTES_WRITTEN\":197519591},\"org.apache.hadoop.mapreduce.lib.input.FileInputFormatCounter\":{\"BYTES_READ\":0},\"FileSystemCounters\":{\"FILE_WRITE_OPS\":0,\"FILE_READ_OPS\":0,\"FILE_LARGE_READ_OPS\":0,\"FILE_BYTES_READ\":0,\"HDFS_BYTES_READ\":4394,\"FILE_BYTES_WRITTEN\":3595497,\"HDFS_LARGE_READ_OPS\":0,\"HDFS_WRITE_OPS\":20,\"HDFS_READ_OPS\":40,\"HDFS_BYTES_WRITTEN\":197519591},\"org.apache.hadoop.mapreduce.TaskCounter\":{\"MAP_INPUT_RECORDS\":376248,\"MERGED_MAP_OUTPUTS\":0,\"PHYSICAL_MEMORY_BYTES\":20954861568,\"SPILLED_RECORDS\":0,\"COMMITTED_HEAP_BYTES\":18948292608,\"CPU_MILLISECONDS\":268880,\"FAILED_SHUFFLE\":0,\"VIRTUAL_MEMORY_BYTES\":41152630784,\"SPLIT_RAW_BYTES\":4394,\"MAP_OUTPUT_RECORDS\":376248,\"GC_TIME_MILLIS\":7634},\"org.apache.hadoop.mapreduce.FileSystemCounter\":{\"FILE_WRITE_OPS\":0,\"FILE_READ_OPS\":0,\"FILE_LARGE_READ_OPS\":0,\"FILE_BYTES_READ\":0,\"HDFS_BYTES_READ\":4394,\"FILE_BYTES_WRITTEN\":3595497,\"HDFS_LARGE_READ_OPS\":0,\"HDFS_WRITE_OPS\":20,\"HDFS_READ_OPS\":40,\"HDFS_BYTES_WRITTEN\":197519591},\"org.apache.hadoop.mapred.Task$Counter\":{\"MAP_INPUT_RECORDS\":376248,\"MERGED_MAP_OUTPUTS\":0,\"PHYSICAL_MEMORY_BYTES\":20954861568,\"SPILLED_RECORDS\":0,\"COMMITTED_HEAP_BYTES\":18948292608,\"CPU_MILLISECONDS\":268880,\"FAILED_SHUFFLE\":0,\"VIRTUAL_MEMORY_BYTES\":41152630784,\"SPLIT_RAW_BYTES\":4394,\"MAP_OUTPUT_RECORDS\":376248,\"GC_TIME_MILLIS\":7634}}",
+"startTime": "Wed, 30 Sep 2015 18:51:53 GMT",
+"toString": "Action name[fake_mem_tablename_import] status[OK]",
+"cred": "null",
+"errorMessage": null,
+"errorCode": null,
+"consoleUrl": "http://fake.consoleurl:8088/proxy/application_1443554425947_0170/",
+"externalId": "job_1443554425947_0170",
+"externalStatus": "SUCCEEDED",
+"conf": "<sqoop xmlns=\"uri:oozie:sqoop-action:0.4\">\r\n  <configuration>\r\n    <property xmlns=\"\">\r\n      <name>mapreduce.job.queuename</name>\r\n      <value>fake_group</value>\r\n      <source>because mapred.job.queue.name is deprecated</source>\r\n    </property>\r\n    <property xmlns=\"\">\r\n      <name>mapred.job.queue.name</name>\r\n      <value>fake_group</value>\r\n    </property>\r\n    <property xmlns=\"\">\r\n      <name>fs.hdfs.impl.disable.cache</name>\r\n      <value>true</value>\r\n      <source>programatically</source>\r\n    </property>\r\n  </configuration>\r\n  <arg>import</arg>\r\n  <arg>-D oraoop.timestamp.string=false</arg>\r\n  <arg>-D hadoop.security.credential.provider.path=jceks://hdfs/user/dev/fake.passwords.jceks</arg>\r\n  <arg>--as-avrodatafile</arg>\r\n  <arg>--verbose</arg>\r\n  <arg>--connect</arg>\r\n  <arg>jdbc:oracle:thin:@//fake.oracle:1521/fake_servicename</arg>\r\n  <arg>--target-dir</arg>\r\n  <arg>/user/data/ingest/mdm/member/fake_database/fake_mem_tablename</arg>\r\n  <arg>--delete-target-dir</arg>\r\n  <arg>--table</arg>\r\n  <arg>fake_database.fake_mem_tablename</arg>\r\n  <arg>--username</arg>\r\n  <arg>fake_username</arg>\r\n  <arg>--password-alias</arg>\r\n  <arg>fake.password.alias</arg>\r\n  <arg>-m</arg>\r\n  <arg>10</arg>\r\n  <arg>--fetch-size</arg>\r\n  <arg>10000</arg>\r\n  <arg>--direct</arg>\r\n  <job-tracker>fake.trackeruri:8032</job-tracker>\r\n  <name-node>hdfs://nameservice1</name-node>\r\n</sqoop>",
+"type": "sqoop",
+"trackerUri": "fake.trackeruri:8032",
+"externalChildIDs": "job_1443554425947_0171",
+"endTime": "Wed, 30 Sep 2015 18:53:08 GMT",
+"data": "#\n#Wed Sep 30 14:53:08 EDT 2015\nhadoopJobs=job_1443554425947_0171\n",
+"id": "0000014-150929151730679-oozie-oozi-W@fake_mem_tablename_import",
+"name": "fake_mem_tablename_import"
+}
+      ],
+      "acl": null,
+      "appPath": null,
+      "externalId": null,
+      "consoleUrl": "http:\/\/fake.dev.edgenode:11000\/oozie?job=0000014-150929151730679-oozie-oozi-W",
+      "conf": null,
+      "parentId": null,
+      "createdTime": "Wed, 30 Sep 2015 18:50:59 GMT",
+      "toString": "Workflow id[0000014-150929151730679-oozie-oozi-W] status[SUCCEEDED]",
+      "endTime": "Wed, 30 Sep 2015 19:00:29 GMT",
+      "id": "0000014-150929151730679-oozie-oozi-W",
+      "group": null,
+      "user": "m94233"
+    },
+    {
+      "status": "SUCCEEDED",
+      "run": 0,
+      "startTime": "Wed, 30 Sep 2015 18:50:59 GMT",
+      "appName": "fake_mem_tablename_ora_timestamp_test",
+      "lastModTime": "Wed, 30 Sep 2015 19:00:29 GMT",
+      "actions": [
+{
+"status": "OK",
+"retries": 0,
+"transition": "fake_mem_tablename_parquet",
+"stats": "{\"org.apache.hadoop.mapreduce.JobCounter\":{\"SLOTS_MILLIS_MAPS\":1007892,\"MB_MILLIS_MAPS\":1032081408,\"TOTAL_LAUNCHED_MAPS\":10,\"MILLIS_MAPS\":251973,\"VCORES_MILLIS_MAPS\":251973,\"OTHER_LOCAL_MAPS\":10},\"org.apache.hadoop.mapred.JobInProgress$Counter\":{\"SLOTS_MILLIS_MAPS\":1007892,\"MB_MILLIS_MAPS\":1032081408,\"TOTAL_LAUNCHED_MAPS\":10,\"MILLIS_MAPS\":251973,\"VCORES_MILLIS_MAPS\":251973,\"OTHER_LOCAL_MAPS\":10},\"ACTION_TYPE\":\"MAP_REDUCE\",\"org.apache.hadoop.mapreduce.lib.output.FileOutputFormatCounter\":{\"BYTES_WRITTEN\":197519591},\"org.apache.hadoop.mapreduce.lib.input.FileInputFormatCounter\":{\"BYTES_READ\":0},\"FileSystemCounters\":{\"FILE_WRITE_OPS\":0,\"FILE_READ_OPS\":0,\"FILE_LARGE_READ_OPS\":0,\"FILE_BYTES_READ\":0,\"HDFS_BYTES_READ\":4394,\"FILE_BYTES_WRITTEN\":3595497,\"HDFS_LARGE_READ_OPS\":0,\"HDFS_WRITE_OPS\":20,\"HDFS_READ_OPS\":40,\"HDFS_BYTES_WRITTEN\":197519591},\"org.apache.hadoop.mapreduce.TaskCounter\":{\"MAP_INPUT_RECORDS\":376248,\"MERGED_MAP_OUTPUTS\":0,\"PHYSICAL_MEMORY_BYTES\":20954861568,\"SPILLED_RECORDS\":0,\"COMMITTED_HEAP_BYTES\":18948292608,\"CPU_MILLISECONDS\":268880,\"FAILED_SHUFFLE\":0,\"VIRTUAL_MEMORY_BYTES\":41152630784,\"SPLIT_RAW_BYTES\":4394,\"MAP_OUTPUT_RECORDS\":376248,\"GC_TIME_MILLIS\":7634},\"org.apache.hadoop.mapreduce.FileSystemCounter\":{\"FILE_WRITE_OPS\":0,\"FILE_READ_OPS\":0,\"FILE_LARGE_READ_OPS\":0,\"FILE_BYTES_READ\":0,\"HDFS_BYTES_READ\":4394,\"FILE_BYTES_WRITTEN\":3595497,\"HDFS_LARGE_READ_OPS\":0,\"HDFS_WRITE_OPS\":20,\"HDFS_READ_OPS\":40,\"HDFS_BYTES_WRITTEN\":197519591},\"org.apache.hadoop.mapred.Task$Counter\":{\"MAP_INPUT_RECORDS\":376248,\"MERGED_MAP_OUTPUTS\":0,\"PHYSICAL_MEMORY_BYTES\":20954861568,\"SPILLED_RECORDS\":0,\"COMMITTED_HEAP_BYTES\":18948292608,\"CPU_MILLISECONDS\":268880,\"FAILED_SHUFFLE\":0,\"VIRTUAL_MEMORY_BYTES\":41152630784,\"SPLIT_RAW_BYTES\":4394,\"MAP_OUTPUT_RECORDS\":376248,\"GC_TIME_MILLIS\":7634}}",
+"startTime": "Wed, 30 Sep 2015 18:51:53 GMT",
+"toString": "Action name[fake_mem_tablename_parquet] status[OK]",
+"cred": "null",
+"errorMessage": null,
+"errorCode": null,
+"consoleUrl": "http://fake.consoleurl:8088/proxy/application_1443554425947_0170/",
+"externalId": "job_1443554425947_0170",
+"externalStatus": "SUCCEEDED",
+"conf": "<sqoop xmlns=\"uri:oozie:sqoop-action:0.4\">\r\n  <configuration>\r\n    <property xmlns=\"\">\r\n      <name>mapreduce.job.queuename</name>\r\n      <value>fake_group</value>\r\n      <source>because mapred.job.queue.name is deprecated</source>\r\n    </property>\r\n    <property xmlns=\"\">\r\n      <name>mapred.job.queue.name</name>\r\n      <value>fake_group</value>\r\n    </property>\r\n    <property xmlns=\"\">\r\n      <name>fs.hdfs.impl.disable.cache</name>\r\n      <value>true</value>\r\n      <source>programatically</source>\r\n    </property>\r\n  </configuration>\r\n  <arg>import</arg>\r\n  <arg>-D oraoop.timestamp.string=false</arg>\r\n  <arg>-D hadoop.security.credential.provider.path=jceks://hdfs/user/dev/fake.passwords.jceks</arg>\r\n  <arg>--as-avrodatafile</arg>\r\n  <arg>--verbose</arg>\r\n  <arg>--connect</arg>\r\n  <arg>jdbc:oracle:thin:@//fake.oracle:1521/fake_servicename</arg>\r\n  <arg>--target-dir</arg>\r\n  <arg>/user/data/ingest/mdm/member/fake_database/fake_mem_tablename</arg>\r\n  <arg>--delete-target-dir</arg>\r\n  <arg>--table</arg>\r\n  <arg>fake_database.fake_mem_tablename</arg>\r\n  <arg>--username</arg>\r\n  <arg>fake_username</arg>\r\n  <arg>--password-alias</arg>\r\n  <arg>fake.password.alias</arg>\r\n  <arg>-m</arg>\r\n  <arg>10</arg>\r\n  <arg>--fetch-size</arg>\r\n  <arg>10000</arg>\r\n  <arg>--direct</arg>\r\n  <job-tracker>fake.trackeruri:8032</job-tracker>\r\n  <name-node>hdfs://nameservice1</name-node>\r\n</sqoop>",
+"type": "sqoop",
+"trackerUri": "fake.trackeruri:8032",
+"externalChildIDs": "job_1443554425947_0171",
+"endTime": "Wed, 30 Sep 2015 18:53:08 GMT",
+"data": "#\n#Wed Sep 30 14:53:08 EDT 2015\nhadoopJobs=job_1443554425947_0171\n",
+"id": "0000014-150929151730679-oozie-oozi-W@fake_mem_tablename_import",
+"name": "fake_mem_tablename_import"
+}
+      ],
+      "acl": null,
+      "appPath": null,
+      "externalId": null,
+      "consoleUrl": "http:\/\/fake.dev.edgenode:11000\/oozie?job=0000014-150929151730679-oozie-oozi-W",
+      "conf": null,
+      "parentId": null,
+      "createdTime": "Wed, 30 Sep 2015 18:50:59 GMT",
+      "toString": "Workflow id[0000014-160929151730679-oozie-oozi-W] status[SUCCEEDED]",
+      "endTime": "Wed, 30 Sep 2015 19:00:29 GMT",
+      "id": "0000014-150929151730679-oozie-oozi-W",
+      "group": null,
+      "user": "m94233"
+    }
+  ]
+  }

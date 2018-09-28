@@ -1,0 +1,12 @@
+    <action name="fake_algnmt_tablename_avro">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>avro_parquet.sh</exec>
+            <env-var>target_dir=mdm/member/fake_database/fake_algnmt_tablename</env-var>
+            <env-var>hive2_jdbc_url=${hive2_jdbc_url}</env-var>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <env-var>hdfs_ingest_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/avro_parquet.sh#avro_parquet.sh</file>
+        </shell>
+        <ok to="fake_algnmt_tablename_avro_parquet"/>
+        <error to="kill"/>
+    </action>

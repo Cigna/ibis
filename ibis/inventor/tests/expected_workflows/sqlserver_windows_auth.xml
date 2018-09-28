@@ -1,0 +1,42 @@
+<action name="qa_tbl_import">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.4">
+            <configuration>
+                <property>
+                    <name>fs.hdfs.impl.disable.cache</name>
+                    <value>true</value>
+                </property>
+            </configuration>
+            <arg>import</arg>
+            <arg>-D hadoop.security.credential.provider.path=jceks://hdfs/user/fake_username0/fake.passwords.jceks</arg>
+            <arg>--as-avrodatafile</arg>
+            <arg>--verbose</arg>
+            <arg>--connect</arg>
+            <arg>jdbc:jtds:sqlserver://fake.sqlserver:1433;useNTLMv2=true;domain=fake_domain;database=qa_db</arg>
+            <arg>--target-dir</arg>
+            <arg>/user/data/ingest/mdm/qa_domain/qa_db/qa_tbl</arg>
+            <arg>--delete-target-dir</arg>
+            <arg>--table</arg>
+            <arg>qa_tbl</arg>
+            <arg>--username</arg>
+            <arg>qa_user</arg>
+            <arg>--password-alias</arg>
+            <arg>fake.password.alias</arg>
+            <arg>-m</arg>
+            <arg>1</arg>
+            <arg>--validate</arg>
+            <arg>--validator</arg>
+            <arg>org.apache.sqoop.validation.RowCountValidator</arg>
+            <arg>--validation-threshold</arg>
+            <arg>org.apache.sqoop.validation.AbsoluteValidationThreshold</arg>
+            <arg>--validation-failurehandler</arg>
+            <arg>org.apache.sqoop.validation.AbortOnFailureHandler</arg>
+            <arg>--driver</arg>
+            <arg>net.sourceforge.jtds.jdbc.Driver</arg>
+            <arg>--fetch-size</arg>
+            <arg>5000</arg>
+            <arg>--relaxed-isolation</arg>
+        </sqoop>
+        <ok to="qa_tbl_avro"/>
+        <error to="kill"/>
+    </action>
+

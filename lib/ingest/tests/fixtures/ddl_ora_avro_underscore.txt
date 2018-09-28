@@ -1,0 +1,20 @@
+Warning: /opt/cloudera/parcels/CDH/lib/hcatalog does not exist! HCatalog jobs will fail.
+Please set $HCAT_HOME to the root of your HCatalog installation.
+Warning: /opt/cloudera/parcels/CDH-5.5.2-1.cdh5.5.2.p0.4/bin/../lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+------------------------------------------------------------------------------------------------------------------------------------
+| COLUMN_NAME                | DATA_TYPE        | DATA_LENGTH   | DATA_PRECISION       | DATA_SCALE   | NULLABLE   | CHAR_LENGTH   |
+------------------------------------------------------------------------------------------------------------------------------------
+| _FAKE_COL_1                | VARCHAR2         | 2             | (null)               | (null)       | N          | 2             |
+| FAKE_COL_2                 | VARCHAR2         | 2             | (null)               | (null)       | N          | 2             |
+| FAKE_COL_3                 | VARCHAR2         | 9             | (null)               | (null)       | Y          | 2             |
+| FAKE_COL_4                 | NUMBER           | 22            | 13                   | 2            | N          | 0             |
+| FAKE_COL_5                 | NUMBER           | 22            | 38                   | 0            | N          | 0             |
+| FAKE_COL_6                 | VARCHAR2         | 15            | (null)               | (null)       | N          | 15            |
+| FAKE_COL_7                 | TIMESTAMP(6)     | 11            | (null)               | (null)       | N          | 0             |
+| FAKE_COL_8                 | NUMBER           | 22            | (null)               | (null)       | Y          | 0             |
+| FAKE_COL_9                 | NUMBER           | 22            | 12                   | 2            | N          | 0             |
+| FAKE_COL_10                | VARCHAR2         | 60            | (null)               | (null)       | Y          | 60            |
+| FAKE_COL_11                | DATE             | 7             | (null)               | (null)       | N          | 0             |
+| FAKE_COL_12                | VARCHAR2         | 2             | (null)               | (null)       | N          | 2             |
+------------------------------------------------------------------------------------------------------------------------------------

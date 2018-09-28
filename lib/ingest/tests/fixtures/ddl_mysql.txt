@@ -1,0 +1,13 @@
+17/04/04 11:30:04 INFO sqoop.Sqoop: Running Sqoop version: 1.4.6-cdh5.7.1
+17/04/04 11:30:06 ERROR sqoop.ConnFactory: Could not load ManagerFactory com.cirro.sqoop.CirroManagerFactory (not found)
+17/04/04 11:30:06 INFO manager.MySQLManager: Preparing to use a MySQL streaming resultset.
+--------------------------------------------------------------------------------------------------------------------
+| COLUMN_NAME          | DATA_TYPE            | CHARACTER_MAXIMUM_LENGTH | NUMERIC_PRECISION    | NUMERIC_SCALE        |
+--------------------------------------------------------------------------------------------------------------------
+| fake_col_1           | int                  | (null)               | 10                   | 0                    |
+| fake_col_2           | text                 | 65535                | (null)               | (null)               |
+| fake_col_3           | tinyint              | (null)               | 3                    | 0                    |
+| fake_col_4           | varchar              | 255                  | (null)               | (null)               |
+| fake_col_5           | datetime             | (null)               | (null)               | (null)               |
+| fake_col_6           | tinyint              | (null)               | 3                    | 0                    |
+--------------------------------------------------------------------------------------------------------------------

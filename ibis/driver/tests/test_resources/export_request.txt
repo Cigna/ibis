@@ -1,0 +1,9 @@
+[Request]
+source_database_name:src_db
+source_table_name:src_tbl
+source_dir:src_dir_path
+jdbcurl:target_url
+target_schema:target_db
+target_table:target_tbl
+db_username:test_user
+password_file:test_pswd

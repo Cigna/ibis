@@ -1,0 +1,59 @@
+<action name="fake_database_fake_rule_tablename_genhql">
+    <shell xmlns="uri:oozie:shell-action:0.3">
+        <exec>parquet_export.sh</exec>
+        <env-var>table_name=fake_database_fake_rule_tablename</env-var>
+        <env-var>target_dir=/user/data/mdm/member/fake_database/fake_rule_tablename_clone</env-var>
+        <env-var>database=member</env-var>
+        <env-var>hive2_jdbc_url=${hive2_jdbc_url}</env-var>
+        <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+        <env-var>hdfs_ingest_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+        <file>/user/dev/oozie/workspaces/ibis/lib/ingest/parquet_export.sh#parquet_export.sh</file>
+    </shell>
+    <ok to="fake_database_fake_rule_tablename_runhql"/>
+    <error to="oozie_cb_fail"/>
+</action>
+<action cred="hive2" name="fake_database_fake_rule_tablename_runhql">
+<hive2 xmlns="uri:oozie:hive2-action:0.1">
+    <jdbc-url>${hive2_jdbc_url}</jdbc-url>
+    <script>${nameNode}/tmp/fake_database_fake_rule_tablename_clone_hql/parquet_export.hql</script>
+</hive2>
+<ok to="fake_database_fake_rule_tablename_sqoop_export"/>
+<error to="oozie_cb_fail"/>
+</action>
+<action name="fake_database_fake_rule_tablename_sqoop_export">
+<sqoop xmlns="uri:oozie:sqoop-action:0.4">
+    <configuration>
+        <property>
+            <name>fs.hdfs.impl.disable.cache</name>
+            <value>true</value>
+        </property>
+    </configuration>
+    <arg>export</arg>
+    <arg>-D org.apache.sqoop.export.text.dump_data_on_error=true</arg>
+    <arg>--verbose</arg>
+    <arg>--connect</arg>
+    <arg>jdbc:oracle:thin:@//fake.oracle:1600/fake_servicename</arg>
+    <arg>--username</arg>
+    <arg>fake_username</arg>
+    <arg>--password-file</arg>
+    <arg>fake.password.alias</arg>
+    <arg>--table</arg>
+    <arg>FAKE_SCHEMA.FAKE_RULE_TABLENAME</arg>
+    <arg>--export-dir</arg>
+    <arg>/tmp/fake_database_fake_rule_tablename_clone</arg>
+    <arg>--update-key</arg>
+    <arg>fake_rule_tablename_KEY</arg>
+    <arg>--update-mode</arg>
+    <arg>allowinsert</arg>
+    <arg>-m</arg>
+    <arg>10</arg>
+    <arg>--input-null-string</arg>
+    <arg>\\N</arg>
+    <arg>--input-null-non-string</arg>
+    <arg>\\N</arg>
+    <arg>--input-fields-terminated-by</arg>
+    <arg>|</arg>
+</sqoop>
+<ok to="oozie_cb_ok"/>
+<error to="kill"/>
+</action>

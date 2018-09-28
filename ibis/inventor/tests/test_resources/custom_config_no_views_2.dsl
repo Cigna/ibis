@@ -1,0 +1,12 @@
+action shell_test.sh
+action import_prep
+action import
+action avro
+action avro_parquet
+action quality_assurance
+action /DEV/hive_test.hql
+action qa_data_sampling
+action parquet_swap
+action parquet_live
+action refresh
+action shell_test.sh

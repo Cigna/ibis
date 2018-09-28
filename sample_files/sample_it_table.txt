@@ -1,0 +1,35 @@
+# COMMENTS
+# Example of a file when using ibis-shell --update-it-table to insert/update it_table
+# Do not include comments in file. Only include following, header with appropriate key:value
+
+[Request]
+split_by:MMM_BEN_PLN_EFF_DT
+mappers:10
+jdbcurl:jdbc:db2://fake.db2:50400/fake_servicename
+db_username:fake_username
+password_file:/user/dev/fake.password.file
+refresh_frequency:weekly
+weight:small
+fetch_size:50000
+hold:0
+source_database_name:fake_database
+source_table_name:fake_mmm_tablename
+source_schema_name:dbo
+esp_appl_id:APPL006
+views:fake_view_open
+sql_query:ID > 5 AND NAME="Hello"
+
+[Request]
+split_by:BEN_FEAT_EFF_DT
+mappers:10
+jdbcurl:jdbc:db2://fake.db2:50400/fake_servicename
+db_username:fake_username
+password_file:/user/dev/fake.password.file
+refresh_frequency:weekly
+weight:medium
+fetch_size:50000
+hold:0
+source_database_name:fake_database
+source_table_name:ben_pln_feat
+esp_appl_id:APPL006
+views:fake_view_open

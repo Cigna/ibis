@@ -1,0 +1,31 @@
+    <action name="{action_name}">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.4">
+            <configuration>
+                <property>
+                    <name>fs.hdfs.impl.disable.cache</name>
+                    <value>true</value>
+                </property>
+                <property>
+                    <name>sqoop.connection.factories</name>
+                    <value>com.cloudera.connector.teradata.TeradataManagerFactory</value>
+                </property>
+            </configuration>
+            <arg>export</arg>
+            <arg>--connect</arg>
+            <arg>jdbc:teradata://fake.teradata/DATABASE={db}</arg>
+            <arg>--username</arg>
+            <arg>fake_username</arg>
+            <arg>--password-file</arg>
+            <arg>/user/dev/fake.password.file</arg>
+            <arg>-m</arg>
+            <arg>10</arg>
+            <arg>--table</arg>
+            <arg>{table}</arg>
+            <arg>--export-dir</arg>
+            <arg>{export_dir}</arg>
+            <arg>--input-fields-terminated-by</arg>
+            <arg>,</arg>
+        </sqoop>
+        <ok to="{ok}"/>
+        <error to="kill"/>
+    </action>

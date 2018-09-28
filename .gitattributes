@@ -1,0 +1,44 @@
+# Basic .gitattributes for a python repo.
+
+# this says to convert all text files to unix line endings
+* text eol=lf
+
+# Source files
+# ============
+*.pxd       text
+*.py        text
+*.py3       text
+*.pyw       text
+*.pyx       text
+
+# Binary files
+# ============
+*.db        binary
+*.p         binary
+*.pkl       binary
+*.pyc       binary
+*.pyd       binary
+*.pyo       binary
+
+*.sh         text
+*.hql        text
+*.properties text
+*.txt        text
+*.pip        text
+*.md         text
+*.xml        text
+*.ksh        text
+*.mako       text
+*.wld        text
+*.feature    text
+*.js         text
+*.md         text
+*.in         text
+
+# Denote all files that are truly binary and should not be modified.
+*.jar       binary
+*.class     binary
+*.gz        binary
+*.tar       binary
+*.zip       binary
+*.png       binary

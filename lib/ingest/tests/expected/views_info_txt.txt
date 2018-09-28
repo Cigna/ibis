@@ -1,0 +1,3 @@
+mock_domain fake_database_mock_table
+fake_view_open fake_database_mock_table
+fake_view_im fake_database_mock_table

@@ -1,0 +1,10 @@
+16/07/06 17:10:57 WARN sqoop.ConnFactory: Parameter --driver is set to an explicit driver however appropriate connection manager is not being set (via --connection-manager). Sqoop is going to fall back to org.apache.sqoop.manager.GenericJdbcManager. Please specify explicitly which connection manager should be used next time.
+16/07/06 17:10:57 INFO manager.SqlManager: Using default fetchSize of 1000
+16/07/06 17:10:57 INFO teradata.TeradataManagerFactory: Loaded connector factory for 'Cloudera Connector Powered by Teradata' on version 1.4c5
+-----------------------------------------------------------------------------
+| source_database_name | source_table_name    | ColumnName           | Split_By_Find |
+-----------------------------------------------------------------------------
+| FAKE_DATABSE                   | PLAN                | KEY            | 2    |
+| FAKE_DATABSE                   | PLAN                | KEY            | 6    |
+| FAKE_DATABSE                   | PLAN                | CRET_TS                        | 6    |
+-----------------------------------------------------------------------------

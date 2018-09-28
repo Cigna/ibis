@@ -1,0 +1,11 @@
+Warning: /opt/cloudera/parcels/CDH-5.4.4-1.cdh5.4.4.p1473.1352/bin/../lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+16/06/10 12:56:31 INFO sqoop.Sqoop: Running Sqoop version: 1.4.5-cdh5.4.4
+16/06/10 12:56:32 INFO oracle.OraOopManagerFactory: Data Connector for Oracle and Hadoop is disabled.
+16/06/10 12:56:32 INFO manager.SqlManager: Using default fetchSize of 1000
+16/06/10 12:56:33 INFO manager.OracleManager: Time zone has been set to GMT
+------------------------
+| MAX(LENGTH(FAKE_COL)) |
+------------------------
+| (null)               |
+------------------------

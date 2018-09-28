@@ -1,0 +1,8 @@
+<action cred="hive2" name="action_name">
+        <hive2 xmlns="uri:oozie:hive2-action:0.1">
+            <jdbc-url>${hive2_jdbc_url}</jdbc-url>
+            <script>${nameNode}/tmp/source_dir_clone_hql/parquet_export.hql</script>
+        </hive2>
+        <ok to="next_action"/>
+        <error to="kill_action"/>
+    </action>

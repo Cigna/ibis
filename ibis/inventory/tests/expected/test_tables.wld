@@ -1,0 +1,68 @@
+IF %ESPEVENT = 'ESPM2D.ADHOC' THEN JUMPTO ADHOC
+APPL FAKED306 POST_OLDEST WAIT JOB_ANCESTOR_WAIT
+ADHOC:
+INVOKE 'TTAT.U44.TEST.APPLLIB($DEFAULT)'
+
+$CKAGENT AGENT(fake)
+IF %fake_RES_AVAIL = '0' THEN QUIT
+AGENT fake
+RESOURCE ADD(2,THR_AGENT_fake)
+RESOURCE ADD(2,THR_FAKE_MAINT)
+
+
+LINUX_JOB test_fake_database_risk_fake_tablename
+
+   AGENT fake
+
+   RUN ANYDAY
+
+   SCRIPTNAME /opt/app/esp/fake_database_risk_fake_tablename.ksh
+
+   USER fake_username
+
+   RELEASE (test_fake_database_fake_ben_tablename)
+
+ENDJOB
+
+
+
+APPLEND APPLEND1.FAKED306
+
+ENDJOB
+
+
+
+APPLSTART APPLSTART1.FAKED306
+
+   RELEASE (test_fake_database_risk_fake_tablename)
+
+ENDJOB
+
+
+LINUX_JOB test_fake_database_fake_ben_tablename
+
+   AGENT fake
+
+   RUN ANYDAY
+
+   SCRIPTNAME /opt/app/esp/fake_database_fake_ben_tablename.ksh
+
+   USER fake_username
+
+   RELEASE (test_fake_database_fake_prof_tablename)
+
+ENDJOB
+
+LINUX_JOB test_fake_database_fake_prof_tablename
+
+   AGENT fake
+
+   RUN ANYDAY
+
+   SCRIPTNAME /opt/app/esp/fake_database_fake_prof_tablename.ksh
+
+   USER fake_username
+
+   RELEASE (APPLEND1.FAKED306)
+
+ENDJOB

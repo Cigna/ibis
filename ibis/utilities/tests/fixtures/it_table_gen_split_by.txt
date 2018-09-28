@@ -1,0 +1,8 @@
+[Request]
+source_database_name:db
+source_table_name:table
+db_username:username
+password_file:passwd
+jdbcurl:jdbc:db2://fake.db2:50400/fake_servicename
+mappers:10
+db_env:dev

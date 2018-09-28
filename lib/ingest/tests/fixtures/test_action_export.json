@@ -1,0 +1,16 @@
+{status: "OK", errorMessage: null, errorCode: null, startTime: "Wed, 15 Feb 2017 07:31:46",…}
+data:null
+endTime:"Wed, 15 Feb 2017 07:32:25"
+errorCode:null
+errorMessage:null
+externalId:"job_1481690605950_15945"
+externalIdUrl:"/jobbrowser/jobs/job_1481690605950_15945"
+id:"0005022-170124220128918-oozie-oozi-W@test_pre_quality_assurance"
+log:"/jobbrowser/jobs/job_1481690605950_15945/single_logs"
+name:"test_pre_quality_assurance"
+retries:0
+startTime:"Wed, 15 Feb 2017 07:31:46"
+status:"OK"
+transition:"test_export"
+type:"shell"
+url:"/oozie/list_oozie_workflow_action/0005022-170124220128918-oozie-oozi-W%40test_pre_quality_assurance/"

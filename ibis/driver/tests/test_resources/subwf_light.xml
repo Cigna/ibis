@@ -1,0 +1,82 @@
+<workflow-app name="test_subwf" xmlns="uri:oozie:workflow:0.4">
+    <global>
+        <job-tracker>${jobTracker}</job-tracker>
+        <name-node>${nameNode}</name-node>
+        <configuration>
+            <property>
+                <name>mapred.job.queue.name</name>
+                <value>${queueName}</value>
+            </property>
+        </configuration>
+    </global>
+    <credentials>
+        <credential name="hive2" type="hive2">
+            <property>
+                <name>hive2.jdbc.url</name>
+                <value>${hive2_jdbc_url}</value>
+            </property>
+            <property>
+                <name>hive2.server.principal</name>
+                <value>${hive2_principal}</value>
+            </property>
+            <property>
+                <name>jdbc-url</name>
+                <value>${hive2_jdbc_url}</value>
+            </property>
+        </credential>
+    </credentials>
+    <start to="job_0"/>
+
+    <fork name="job_0">
+        <path start="fake_ben_tablename"/>
+        <path start="fake_cens_tablename"/>
+        <path start="light_3"/>
+        <path start="light_4"/>
+    </fork>
+    <action name="fake_ben_tablename">
+        <sub-workflow>
+            <app-path>/user/dev/oozie/workspaces/ibis/workflows/tab5_full_load.xml</app-path>
+            <propagate-configuration />
+        </sub-workflow>
+        <ok to="job_0_join"/>
+        <error to="kill"/>
+    </action>
+        <action name="fake_cens_tablename">
+        <sub-workflow>
+            <app-path>/user/dev/oozie/workspaces/ibis/workflows/tab1_full_load.xml</app-path>
+            <propagate-configuration />
+        </sub-workflow>
+        <ok to="job_0_join"/>
+        <error to="kill"/>
+    </action>
+        <action name="light_3">
+        <sub-workflow>
+            <app-path>/user/dev/oozie/workspaces/ibis/workflows/tab2_full_load.xml</app-path>
+            <propagate-configuration />
+        </sub-workflow>
+        <ok to="job_0_join"/>
+        <error to="kill"/>
+    </action>
+        <action name="light_4">
+        <sub-workflow>
+            <app-path>/user/dev/oozie/workspaces/ibis/workflows/tab3_full_load.xml</app-path>
+            <propagate-configuration />
+        </sub-workflow>
+        <ok to="job_0_join"/>
+        <error to="kill"/>
+    </action>
+    
+    <join name="job_0_join" to="job_1"/>    <action name="job_1">
+        <sub-workflow>
+            <app-path>/user/dev/oozie/workspaces/ibis/workflows/tab4_full_load.xml</app-path>
+            <propagate-configuration />
+        </sub-workflow>
+        <ok to="end"/>
+        <error to="kill"/>
+    </action>
+    
+    <kill name="kill">
+        <message>Action failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+    </kill>
+    <end name="end"/>
+</workflow-app>

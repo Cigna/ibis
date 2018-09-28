@@ -1,0 +1,14 @@
+<action name="fake_model_run">
+    <sub-workflow>
+        <app-path>/user/fake_opendev/fake_open_framework/84_fake_model.xml</app-path>
+        <propagate-configuration />
+        <configuration>
+            <property>
+                <name>job_reg_key</name>
+                <value>${wf:actionData('JobRegisterStart')['Job_Reg_Key']}</value>
+            </property>
+        </configuration>
+    </sub-workflow>
+    <ok to="JoiningNode"/>
+    <error to="JoiningNode"/>
+</action>

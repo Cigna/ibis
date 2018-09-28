@@ -1,0 +1,45 @@
+
+ <action name="table_name_export">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.4">
+            <configuration>
+                <property>
+                    <name>fs.hdfs.impl.disable.cache</name>
+                    <value>true</value>
+                </property>
+                <property>
+                    <name>sqoop.connection.factories</name>
+                    <value>com.cloudera.connector.teradata.TeradataManagerFactory</value>
+                </property>
+            </configuration>
+            <arg>export</arg>
+            <arg>-D org.apache.sqoop.export.text.dump_data_on_error=true</arg>
+            <arg>--verbose</arg>
+            <arg>--connect</arg>
+            <arg>jdbc_url:teradata@1.1.1.1:1521:woot</arg>
+            <arg>--username</arg>
+            <arg>user</arg>
+            <arg>--password-file</arg>
+            <arg>pass</arg>
+            <arg>--table</arg>
+            <arg>TARGET_TABLE</arg>
+            <arg>--export-dir</arg>
+            <arg>/ibis/outbound/export/src_table/table_name_clone</arg>
+            <arg>-m</arg>
+            <arg>10</arg>
+            <arg>--input-null-string</arg>
+            <arg>\\N</arg>
+            <arg>--input-null-non-string</arg>
+            <arg>\\N</arg>
+            <arg>--input-fields-terminated-by</arg>
+            <arg>\001</arg>
+            <arg>--update-key</arg>
+            <arg>update_key</arg>
+            <arg>--update-mode</arg>
+            <arg>allowinsert</arg>
+            <arg>--</arg>
+            <arg>--staging-database</arg>
+            <arg>fake_staging_database</arg>
+        </sqoop>
+        <ok to="table_name_cleanup"/>
+        <error to="oozie_cb_fail"/>
+    </action>

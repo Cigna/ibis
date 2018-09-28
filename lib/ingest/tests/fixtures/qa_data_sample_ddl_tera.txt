@@ -1,0 +1,7 @@
+Warning: /opt/cloudera/parcels/CDH-5.7.1-1.cdh5.7.1.p1685.1641/bin/../lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+--------------------------------------------------------------------------------------------------------------------------------
+| Column Name          | Type            | Nullable | Format | Max Length | Decimal Total Digits | Decimal Fractional Digits |
+--------------------------------------------------------------------------------------------------------------------------------
+| AMOUNT_VALUE             | D              | Y          | --------------.99 | 8 | 15 | 2 |
+-------------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,8 @@
+17/10/01 19:44:15 DEBUG manager.SqlManager: No connection paramenters specified. Using regular API for making connection.
+17/10/01 19:44:15 DEBUG tool.EvalSqlTool: SQL query: SELECT NAME FROM SYSIBM.SYSTABLES WHERE lower(CREATOR) = lower('fake_database') AND lower(NAME) = lower('ACCT') AND TYPE = 'T'
+17/10/01 19:44:15 DEBUG tool.EvalSqlTool: resultType=true
+-------------------------
+| NAME                  |
+-------------------------
+|fake_database_ADMISSION|
+-------------------------

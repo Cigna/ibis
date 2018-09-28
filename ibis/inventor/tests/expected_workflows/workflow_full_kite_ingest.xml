@@ -1,0 +1,79 @@
+<workflow-app name="test_workflow" xmlns="uri:oozie:workflow:0.4">
+    <global>
+        <job-tracker>${jobTracker}</job-tracker>
+        <name-node>${nameNode}</name-node>
+        <configuration>
+            <property>
+                <name>mapred.job.queue.name</name>
+                <value>${queueName}</value>
+            </property>
+        </configuration>
+    </global>
+    <credentials>
+        <credential name="hive2" type="hive2">
+            <property>
+                <name>hive2.jdbc.url</name>
+                <value>${hive2_jdbc_url}</value>
+            </property>
+            <property>
+                <name>hive2.server.principal</name>
+                <value>${hive2_principal}</value>
+            </property>
+            <property>
+                <name>jdbc-url</name>
+                <value>${hive2_jdbc_url}</value>
+            </property>
+        </credential>
+    </credentials>
+    <start to="table_one_kite_ingest"/>
+    <action name="table_one_kite_ingest">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>kite.sh</exec>
+            <argument>database_one</argument>
+            <argument>table_one</argument>
+            <argument>/test/hdfs/loc</argument>
+            <env-var>hdfs_ingest_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/kite.sh#kite.sh</file>
+        </shell>
+        <ok to="table_two_kite_ingest"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action name="table_two_kite_ingest">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>kite.sh</exec>
+            <argument>database_one</argument>
+            <argument>table_two</argument>
+            <argument>/test/hdfs/loc</argument>
+            <env-var>hdfs_ingest_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/kite.sh#kite.sh</file>
+        </shell>
+        <ok to="oozie_cb_ok"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action name="oozie_cb_ok">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>oozie_cb.sh</exec>
+            <env-var>workflowName=test_workflow</env-var>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <env-var>hdfs_ingest_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/oozie_cb.sh#oozie_cb.sh</file>
+        </shell>
+        <ok to="end"/>
+        <error to="kill"/>
+    </action>
+    <action name="oozie_cb_fail">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>oozie_cb.sh</exec>
+            <env-var>workflowName=test_workflow</env-var>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <env-var>hdfs_ingest_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/oozie_cb.sh#oozie_cb.sh</file>
+        </shell>
+        <ok to="kill"/>
+        <error to="kill"/>
+    </action>
+    <kill name="kill">
+        <message>Action failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+    </kill>
+    <end name="end"/>
+</workflow-app>

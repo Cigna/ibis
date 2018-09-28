@@ -1,0 +1,6 @@
+`fake_col_1` INT,
+`fake_col_2` STRING,
+`fake_col_3` TINYINT,
+`fake_col_4` VARCHAR(255),
+`fake_col_5` TIMESTAMP,
+`fake_col_6` TINYINT

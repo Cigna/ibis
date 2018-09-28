@@ -1,0 +1,167 @@
+<workflow-app name="test_workflow_dev_jceks" xmlns="uri:oozie:workflow:0.4">
+    <global>
+        <job-tracker>${jobTracker}</job-tracker>
+        <name-node>${nameNode}</name-node>
+        <configuration>
+            <property>
+                <name>mapred.job.queue.name</name>
+                <value>${queueName}</value>
+            </property>
+        </configuration>
+    </global>
+    <credentials>
+        <credential name="hive2" type="hive2">
+            <property>
+                <name>hive2.jdbc.url</name>
+                <value>${hive2_jdbc_url}</value>
+            </property>
+            <property>
+                <name>hive2.server.principal</name>
+                <value>${hive2_principal}</value>
+            </property>
+            <property>
+                <name>jdbc-url</name>
+                <value>${hive2_jdbc_url}</value>
+            </property>
+        </credential>
+    </credentials>
+	<start to="heavy_3_export_prep"/>
+    <action name="heavy_3_export_prep">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>export_prep.sh</exec>
+            <env-var>table_name=heavy_3</env-var>
+            <env-var>source_dir=mdm/fake_database/heavy_3</env-var>
+            <env-var>database=fake_database</env-var>
+            <env-var>hive2_jdbc_url=${hive2_jdbc_url}</env-var>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <env-var>hdfs_export_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/export_prep.sh#export_prep.sh</file>
+            <capture-output/>
+        </shell>
+        <ok to="heavy_3_parquet_text"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action cred="hive2" name="heavy_3_parquet_text">
+        <hive2 xmlns="uri:oozie:hive2-action:0.1">
+            <jdbc-url>${hive2_jdbc_url}</jdbc-url>
+            <script>${nameNode}/ibis/outbound/export/fake_database/heavy_3_clone_hql/parquet_export.hql</script>
+        </hive2>
+        <ok to="heavy_3_pre_quality_assurance"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action name="heavy_3_pre_quality_assurance">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>check_export.sh</exec>
+            <env-var>target_schema=fake_database</env-var>
+            <env-var>connection_factories=com.quest.oraoop.OraOopManagerFactory</env-var>
+            <env-var>jdbc_url=jdbc:oracle:thin:@//fake.oracle:1521/fake_servicename</env-var>
+            <env-var>database=fake_database</env-var>
+            <env-var>target_table=heavy_3</env-var>
+            <env-var>user_name=fake_username</env-var>
+            <env-var>password_alias=fake.password.alias</env-var>
+            <env-var>jceks=jceks://hdfs/user/dev/fake.passwords.jceks</env-var>
+            <env-var>source_database_name=fake_database</env-var>
+            <env-var>source_table_name=heavy_3</env-var>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <env-var>hdfs_export_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/check_export.sh#check_export.sh</file>
+        </shell>
+        <ok to="heavy_3_export"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action name="heavy_3_export">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.4">
+            <configuration>
+                <property>
+                    <name>fs.hdfs.impl.disable.cache</name>
+                    <value>true</value>
+                </property>
+                <property>
+                    <name>oozie.launcher.mapred.map.child.env</name>
+                    <value>HADOOP_CREDSTORE_PASSWORD=none</value>
+                </property>
+            </configuration>
+            <arg>export</arg>
+            <arg>-D org.apache.sqoop.export.text.dump_data_on_error=true</arg>
+            <arg>-D hadoop.security.credential.provider.path=jceks://hdfs/user/dev/fake.passwords.jceks</arg>
+            <arg>--verbose</arg>
+            <arg>--connect</arg>
+            <arg>jdbc:oracle:thin:@//fake.oracle:1521/fake_servicename</arg>
+            <arg>--username</arg>
+            <arg>fake_username</arg>
+            <arg>--password-alias</arg>
+            <arg>fake.password.alias</arg>
+            <arg>--table</arg>
+            <arg>FAKE_DATABASE.HEAVY_3</arg>
+            <arg>--export-dir</arg>
+            <arg>/ibis/outbound/export/fake_database/heavy_3_clone</arg>
+            <arg>-m</arg>
+            <arg>10</arg>
+            <arg>--input-null-string</arg>
+            <arg>\\N</arg>
+            <arg>--input-null-non-string</arg>
+            <arg>\\N</arg>
+            <arg>--input-fields-terminated-by</arg>
+            <arg>\001</arg>
+            <arg>--columns</arg>
+            <arg>${wf:actionData('heavy_3_export_prep')['columnNames']}</arg>
+        </sqoop>
+        <ok to="heavy_3_cleanup"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+
+    <action cred="hive2" name="heavy_3_cleanup">
+        <hive2 xmlns="uri:oozie:hive2-action:0.1">
+            <jdbc-url>${hive2_jdbc_url}</jdbc-url>
+            <script>${nameNode}/ibis/outbound/export/fake_database/heavy_3_clone_hql/clone_delete.hql</script>
+        </hive2>
+        <ok to="heavy_3_post_quality_assurance"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action name="heavy_3_post_quality_assurance">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>quality_assurance_export.sh</exec>
+            <env-var>jdbc_url=jdbc:oracle:thin:@//fake.oracle:1521/fake_servicename</env-var>
+            <env-var>connection_factories=com.quest.oraoop.OraOopManagerFactory</env-var>
+            <env-var>user_name=fake_username</env-var>
+            <env-var>password_alias=fake.password.alias</env-var>
+            <env-var>jceks=jceks://hdfs/user/dev/fake.passwords.jceks</env-var>
+            <env-var>source_table_name=heavy_3</env-var>
+            <env-var>source_database_name=fake_database</env-var>
+            <env-var>target_schema=fake_database</env-var>
+            <env-var>target_table_name=heavy_3</env-var>
+            <env-var>target_database=fake_database</env-var>
+            <env-var>workflowName=test_workflow_dev_jceks</env-var>
+            <env-var>hdfs_export_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/quality_assurance_export.sh#quality_assurance_export.sh</file>
+        </shell>
+        <ok to="oozie_cb_ok"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action name="oozie_cb_ok">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>export_cb.sh</exec>
+            <env-var>workflowName=test_workflow_dev_jceks</env-var>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <env-var>hdfs_export_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/export_cb.sh#export_cb.sh</file>
+        </shell>
+        <ok to="end"/>
+        <error to="kill"/>
+    </action>
+    <action name="oozie_cb_fail">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>export_cb.sh</exec>
+            <env-var>workflowName=test_workflow_dev_jceks</env-var>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <env-var>hdfs_export_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/export_cb.sh#export_cb.sh</file>
+        </shell>
+        <ok to="kill"/>
+        <error to="kill"/>
+    </action>
+    <kill name="kill">
+        <message>Action failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+    </kill>
+    <end name="end"/>
+</workflow-app>

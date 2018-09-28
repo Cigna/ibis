@@ -1,0 +1,15 @@
+    <action name="{source_table_name}_import_prep">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>import_prep.sh</exec>
+            <env-var>source_database_name={source_database_name}</env-var>
+            <env-var>source_table_name={source_table_name}</env-var>
+            <env-var>target_dir={target_dir}</env-var>
+            <env-var>it_table=ibis.dev_it_table</env-var>
+            <env-var>it_table_host=fake.workflow.host</env-var>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <env-var>hdfs_ingest_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/import_prep.sh#import_prep.sh</file>
+        </shell>
+        <ok to="import"/>
+        <error to="kill"/>
+    </action>

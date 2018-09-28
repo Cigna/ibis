@@ -1,0 +1,7 @@
+CAST(`fake_col_1` AS INT) AS `fake_col_1`,
+CAST(`fake_col_2` AS STRING) AS `fake_col_2`,
+CAST(`fake_col_3` AS TINYINT) AS `fake_col_3`,
+CAST(`fake_col_4` AS VARCHAR(255)) AS `fake_col_4`,
+CAST(`fake_col_5` AS TIMESTAMP) AS `fake_col_5`,
+CAST(`fake_col_6` AS TINYINT) AS `fake_col_6`,
+'2016-01-01 16:47:56' AS `ingest_timestamp`

@@ -1,0 +1,12 @@
+<action name="source_table_name_kite_ingest">
+    <shell xmlns="uri:oozie:shell-action:0.3">
+        <exec>kite.sh</exec>
+        <argument>source_database_name</argument>
+        <argument>source_table_name</argument>
+        <argument>hdfs_loc</argument>
+        <env-var>hdfs_ingest_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+        <file>/user/dev/oozie/workspaces/ibis/lib/ingest/kite.sh#kite.sh</file>
+    </shell>
+    <ok to="ok"/>
+    <error to="error"/>
+</action>

@@ -1,0 +1,9 @@
+    <action cred="hive2" name="fake_algnmt_tablename_parquet_live">
+        <hive2 xmlns="uri:oozie:hive2-action:0.1">
+            <jdbc-url>${hive2_jdbc_url}</jdbc-url>
+            <script>${nameNode}/user/data/mdm/member/fake_database/fake_algnmt_tablename/gen/parquet_live.hql</script>
+        </hive2>
+        <ok to="pipeline0_join"/>
+        <error to="kill"/>
+    </action>
+

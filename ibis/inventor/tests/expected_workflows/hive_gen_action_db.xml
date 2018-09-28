@@ -1,0 +1,15 @@
+<action name="action_name">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>export_prep.sh</exec>
+            <env-var>table_name=source_table</env-var>
+            <env-var>source_dir=source_dir</env-var>
+            <env-var>database=source_db</env-var>
+            <env-var>hive2_jdbc_url=${hive2_jdbc_url}</env-var>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <env-var>hdfs_export_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/export_prep.sh#export_prep.sh</file>
+            <capture-output/>
+        </shell>
+        <ok to="next_action"/>
+        <error to="kill_action"/>
+    </action>

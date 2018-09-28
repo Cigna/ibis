@@ -1,0 +1,9 @@
+    <action name="fake_model_run">
+        <ssh xmlns="uri:oozie:ssh-action:0.2">
+            <host>fake_username@fake.sas.server</host>
+            <command>exec bash /home/fake_open/scripts/fake_openSAS.sh fake_model_v001_t001.sas 57 1005</command>
+            <argument>argument1</argument>
+        </ssh>
+        <ok to="fake_model_run_log_status_success"/>
+        <error to="fake_model_run_log_status_failure"/>
+    </action>

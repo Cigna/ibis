@@ -1,0 +1,9 @@
+[Request]
+source_database_name:database_one
+source_table_name:table_one
+hdfs_loc:/test/hdfs/loc
+
+[Request]
+source_database_name:database_one
+source_table_name:table_two
+hdfs_loc:/test/hdfs/loc

@@ -1,0 +1,35 @@
+    <action name="import">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.4">
+            <configuration>
+                <property>
+                    <name>fs.hdfs.impl.disable.cache</name>
+                    <value>true</value>
+                </property>
+                <property>
+                    <name>sqoop.connection.factories</name>
+                    <value>{connection_factories}</value>
+                </property>
+            </configuration>
+            <arg>import</arg>
+            <arg>-Doraoop.timestamp.string=false</arg>
+            <arg>--as-avrodatafile</arg>
+            <arg>--verbose</arg>
+            <arg>--connect</arg>
+            <arg>{jdbcurl}</arg>
+            <arg>--target-dir</arg>
+            <arg>/user/data/ingest/{target_dir}</arg>
+            <arg>--delete-target-dir</arg>
+            <arg>--table</arg>
+            <arg>{sqoop_table}</arg>
+            <arg>--username</arg>
+            <arg>{db_username}</arg>
+            <arg>--password-file</arg>
+            <arg>{password_file}</arg>
+            <arg>-m</arg>
+            <arg>{mappers}</arg>
+            <arg>--fetch-size</arg>
+            <arg>{fetch_size}</arg>
+        </sqoop>
+        <ok to="ok"/>
+        <error to="kill"/>
+    </action>

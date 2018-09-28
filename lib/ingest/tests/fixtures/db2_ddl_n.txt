@@ -1,0 +1,14 @@
+17/06/10 10:15:45 INFO sqoop.Sqoop: Running Sqoop version: 1.4.6-cdh5.10.1
+17/06/10 10:15:46 INFO teradata.TeradataManagerFactory: Loaded connector factory for 'Cloudera Connector Powered by Teradata' on version 1.5c5
+17/06/10 10:15:47 INFO sqoop.CirroManagerFactory: Entering CirroManagerFactory
+17/06/10 10:15:47 INFO sqoop.CirroManagerFactory: Exit CirroManagerFactory
+17/06/10 10:15:47 INFO manager.SqlManager: Using default fetchSize of 1000
+---------------------------------------------------------
+| NAME                 | COLTYPE  | LENGTH | SCALE  | NULLS |
+---------------------------------------------------------
+| FAKE_COL_1           | INTEGER  | 4      | 0      | Y |
+| FAKE_COL_2           | INTEGER  | 4      | 0      | Y |
+| FAKE_COL_3           | VARCHAR  | 30     | 0      | Y |
+| FAKE_COL_4           | VARCHAR  | 30     | 0      | N |
+| FAKE_COL_5           | DOUBLE   | 8      | 0      | Y |
+---------------------------------------------------------

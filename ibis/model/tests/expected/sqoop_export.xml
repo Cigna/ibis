@@ -1,0 +1,40 @@
+    <action name="export">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.4">
+            <configuration>
+                <property>
+                    <name>fs.hdfs.impl.disable.cache</name>
+                    <value>true</value>
+                </property>
+                <property>
+                    <name>sqoop.connection.factories</name>
+                    <value>{connection_factories}</value>
+                </property>
+            </configuration>
+            <arg>export</arg>
+            <arg>--verbose</arg>
+            <arg>--connect</arg>
+            <arg>{jdbcUrl}</arg>
+            <arg>--export-dir</arg>
+            <arg>{exportDir}</arg>
+            <arg>--update-key</arg>
+            <arg>{updateKey}</arg>
+            <arg>--update-mode</arg>
+            <arg>allowinsert</arg>
+            <arg>--table</arg>
+            <arg>{targetTable}</arg>
+            <arg>--username</arg>
+            <arg>{dbUserName}</arg>
+            <arg>--password</arg>
+            <arg>{password}</arg>
+            <arg>-m</arg>
+            <arg>10</arg>
+            <arg>--input-null-string</arg>
+            <arg>"\\N"</arg>
+            <arg>--input-null-non-string</arg>
+            <arg>"\\N"</arg>
+            <arg>--input-fields-terminated-by</arg>
+            <arg>"|"</arg>
+        </sqoop>
+        <ok to="ok"/>
+        <error to="kill"/>
+    </action>

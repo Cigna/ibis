@@ -1,0 +1,10 @@
+[Request]
+source_database_name:member
+source_table_name:fake_database_fake_rule_tablename
+source_dir:/user/data/mdm/member/fake_database/fake_rule_tablename
+jdbcurl:jdbc:oracle:thin:@//fake.oracle:1600/fake_servicename
+target_schema:fake_schema
+target_table:fake_rule_tablename
+db_username:fake_username
+password_file:jceks://hdfs/user/dev/fake.passwords.jceks#fake.password.alias
+update_key:RULE_KEY

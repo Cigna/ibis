@@ -1,0 +1,3 @@
+invalidate metadata mock_domain.fake_database_mock_table;
+invalidate metadata pharmacy.fake_database_mock_table;
+invalidate metadata benefits.fake_database_mock_table;

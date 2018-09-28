@@ -1,0 +1,13 @@
+Warning: /opt/cloudera/parcels/CDH/lib/hcatalog does not exist! HCatalog jobs will fail.
+Please set $HCAT_HOME to the root of your HCatalog installation.
+Warning: /opt/cloudera/parcels/CDH-5.10.1-1.cdh5.10.1.p0.10/bin/../lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+17/06/12 05:42:12 INFO sqoop.Sqoop: Running Sqoop version: 1.4.6-cdh5.10.1
+17/06/12 05:42:13 INFO teradata.TeradataManagerFactory: Loaded connector factory for 'Cloudera Connector Powered by Teradata' on version 1.5c5
+17/06/12 05:42:13 INFO sqoop.CirroManagerFactory: Entering CirroManagerFactory
+17/06/12 05:42:13 INFO sqoop.CirroManagerFactory: Exit CirroManagerFactory
+17/06/12 05:42:13 INFO manager.SqlManager: Using default fetchSize of 1000
+--------------------------------------------------------------------------------------------------
+| ID          | name                 | JOBROLE     | JOINDATE             | SALARY               |
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------

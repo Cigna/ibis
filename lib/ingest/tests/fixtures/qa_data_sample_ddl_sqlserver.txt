@@ -1,0 +1,20 @@
+Warning: /opt/cloudera/parcels/CDH-5.7.1-1.cdh5.7.1.p1685.1641/bin/../lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+---------------------------------------------------------------------------------
+| COLUMN_NAME          | DATA_TYPE            | CHARACTER_MAXIMUM_LENGTH | NUMERIC_PRECISION | NUMERIC_SCALE |
+---------------------------------------------------------------------------------
+| LOGIN_ID             | varchar              | 32          | (null) | (null)      |
+| SUB_SSN              | varchar              | 10          | (null) | (null)      |
+| INTRNL_USER_ID       | int                  | (null)      | 10  | 0           |
+| BIRTH_DT             | datetime             | (null)      | (null) | (null)      |
+| EMP_ID               | varchar              | 10          | (null) | (null)      |
+| REL_CD               | char                 | 2           | (null) | (null)      |
+| LDAP_UID             | varchar              | 32          | (null) | (null)      |
+| LAN_ID               | varchar              | 8           | (null) | (null)      |
+| LAST_UPDT_TS         | datetime             | (null)      | (null) | (null)      |
+| LAST_UPDT_OPER_ID    | varchar              | 8           | (null) | (null)      |
+| EMAIL_ADDR           | varchar              | 100         | (null) | (null)      |
+| EMAIL_OPT_CD         | smallint             | (null)      | 5   | 0           |
+| LDAP_REFRESH_IND     | char                 | 1           | (null) | (null)      |
+| USER_ACCESS_CD       | char                 | 1           | (null) | (null)      |
+---------------------------------------------------------------------------------

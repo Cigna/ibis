@@ -1,0 +1,151 @@
+<workflow-app name="src_tbl_export" xmlns="uri:oozie:workflow:0.4">
+    <global>
+        <job-tracker>${jobTracker}</job-tracker>
+        <name-node>${nameNode}</name-node>
+        <configuration>
+            <property>
+                <name>mapred.job.queue.name</name>
+                <value>${queueName}</value>
+            </property>
+        </configuration>
+    </global>
+    <credentials>
+        <credential name="hive2" type="hive2">
+            <property>
+                <name>hive2.jdbc.url</name>
+                <value>${hive2_jdbc_url}</value>
+            </property>
+            <property>
+                <name>hive2.server.principal</name>
+                <value>${hive2_principal}</value>
+            </property>
+            <property>
+                <name>jdbc-url</name>
+                <value>${hive2_jdbc_url}</value>
+            </property>
+        </credential>
+    </credentials>
+	<start to="src_tbl_export_prep"/>
+    <action name="src_tbl_export_prep">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>export_prep.sh</exec>
+            <env-var>table_name=src_tbl</env-var>
+            <env-var>source_dir=src_dir_path</env-var>
+            <env-var>database=src_db</env-var>
+            <env-var>hive2_jdbc_url=${hive2_jdbc_url}</env-var>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <env-var>hdfs_export_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/export_prep.sh#export_prep.sh</file>
+        </shell>
+        <ok to="src_tbl_parquet_text"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action cred="hive2" name="src_tbl_parquet_text">
+        <hive2 xmlns="uri:oozie:hive2-action:0.1">
+            <jdbc-url>${hive2_jdbc_url}</jdbc-url>
+            <script>${nameNode}/ibis/outbound/src_db/src_tbl_clone_hql/parquet_export.hql</script>
+        </hive2>
+        <ok to="src_tbl_pre_quality_assurance"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action name="src_tbl_pre_quality_assurance">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>check_export.sh</exec>
+            <env-var>connect_url=target_url</env-var>
+            <env-var>database_name=target_db</env-var>
+            <env-var>table_name=target_tbl</env-var>
+            <env-var>user=test_user</env-var>
+            <env-var>password=test_pswd</env-var>
+            <env-var>p_alias=' '</env-var>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <env-var>hdfs_export_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/check_export.sh#check_export.sh</file>
+        </shell>
+        <ok to="src_tbl_export"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action name="src_tbl_export">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.4">
+            <configuration>
+                <property>
+                    <name>fs.hdfs.impl.disable.cache</name>
+                    <value>true</value>
+                </property>
+            </configuration>
+            <arg>export</arg>
+            <arg>--verbose</arg>
+            <arg>--connect</arg>
+            <arg>target_url</arg>
+            <arg>--username</arg>
+            <arg>test_user</arg>
+            <arg>--password-file</arg>
+            <arg>test_pswd</arg>
+            <arg>--table</arg>
+            <arg>TARGET_DB.TARGET_TBL</arg>
+            <arg>--export-dir</arg>
+            <arg>/ibis/outbound/src_db/src_tbl_clone</arg>
+            <arg>-m</arg>
+            <arg>10</arg>
+            <arg>--input-null-string</arg>
+            <arg>\\N</arg>
+            <arg>--input-null-non-string</arg>
+            <arg>\\N</arg>
+            <arg>--input-fields-terminated-by</arg>
+            <arg>|</arg>
+        </sqoop>
+        <ok to="src_tbl_cleanup"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+
+    <action cred="hive2" name="src_tbl_cleanup">
+        <hive2 xmlns="uri:oozie:hive2-action:0.1">
+            <jdbc-url>${hive2_jdbc_url}</jdbc-url>
+            <script>${nameNode}/ibis/outbound/src_db/src_tbl_clone_hql/clone_delete.hql</script>
+        </hive2>
+        <ok to="src_tbl_post_quality_assurance"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action name="src_tbl_post_quality_assurance">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>quality_assurance_export.sh</exec>
+            <env-var>jdbc_url=target_url</env-var>
+            <env-var>connection_factories=</env-var>
+            <env-var>user_name=test_user</env-var>
+            <env-var>jceks=None</env-var>
+            <env-var>password_alias=test_pswd</env-var>
+            <env-var>table_name=src_tbl</env-var>
+            <env-var>database=target_db</env-var>
+            <env-var>domain=src_tbl</env-var>
+            <env-var>schema=None</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/quality_assurance_export.sh#quality_assurance_export.sh</file>
+        </shell>
+        <ok to="oozie_cb_ok"/>
+        <error to="oozie_cb_fail"/>
+    </action>
+    <action name="oozie_cb_ok">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>export_cb.sh</exec>
+            <env-var>workflowName=src_tbl_export</env-var>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <env-var>hdfs_export_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/export_cb.sh#export_cb.sh</file>
+        </shell>
+        <ok to="end"/>
+        <error to="kill"/>
+    </action>
+    <action name="oozie_cb_fail">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>export_cb.sh</exec>
+            <env-var>workflowName=src_tbl_export</env-var>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <env-var>hdfs_export_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/export_cb.sh#export_cb.sh</file>
+        </shell>
+        <ok to="kill"/>
+        <error to="kill"/>
+    </action>
+    <kill name="kill">
+        <message>Action failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+    </kill>
+    <end name="end"/>
+</workflow-app>

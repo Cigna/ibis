@@ -1,0 +1,103 @@
+IF %ESPEVENT = 'ESPM2D.ADHOC' THEN JUMPTO ADHOC
+APPL FAKED306 POST_OLDEST WAIT JOB_ANCESTOR_WAIT
+ADHOC:
+INVOKE 'TTAT.U44.TEST.APPLLIB($DEFAULT)'
+
+$CKAGENT AGENT(fake_agent)
+IF %fake_agent_RES_AVAIL = '0' THEN QUIT
+AGENT fake_agent
+RESOURCE ADD(2,THR_AGENT_fake_agent)
+RESOURCE ADD(2,THR_FAKE_MAINT)
+
+
+LINUX_JOB C1_FAKE_CALL_FAKE_DATABASE_DAILY_1
+
+   AGENT fake_agent
+
+   RUN ANYDAY
+
+   SCRIPTNAME /opt/app/esp/call_fake_database_daily_1.ksh
+
+   USER fake_username
+
+   RELEASE (C1_FAKE_CALL_FAKE_DATABASE_DAILY_2)
+
+ENDJOB
+
+
+
+APPLEND APPLEND1.FAKED306
+
+ENDJOB
+
+
+
+APPLSTART APPLSTART1.FAKED306
+
+   RELEASE (C1_FAKE_CALL_FAKE_DATABASE_DAILY_1)
+
+ENDJOB
+
+
+
+LINUX_JOB C1_FAKE_CALL_FAKE_DATABASE_DAILY_5
+
+        AGENT fake_agent
+
+        RUN ANYDAY
+
+        SCRIPTNAME /opt/app/esp/call_fake_database_daily_5.ksh
+
+        USER fake_username
+
+        RELEASE (APPLEND1.FAKED306)
+
+ENDJOB
+
+
+
+LINUX_JOB C1_FAKE_CALL_FAKE_DATABASE_DAILY_4
+
+        AGENT fake_agent
+
+        RUN ANYDAY
+
+        SCRIPTNAME /opt/app/esp/call_fake_database_daily_4.ksh
+
+        USER fake_username
+
+        RELEASE (C1_FAKE_CALL_FAKE_DATABASE_DAILY_5)
+
+ENDJOB
+
+
+
+LINUX_JOB C1_FAKE_CALL_FAKE_DATABASE_DAILY_3
+
+        AGENT fake_agent
+
+        RUN ANYDAY
+
+        SCRIPTNAME /opt/app/esp/call_fake_database_daily_3.ksh
+
+        USER fake_username
+
+        RELEASE (C1_FAKE_CALL_FAKE_DATABASE_DAILY_4)
+
+ENDJOB
+
+
+
+LINUX_JOB C1_FAKE_CALL_FAKE_DATABASE_DAILY_2
+
+        AGENT fake_agent
+
+        RUN ANYDAY
+
+        SCRIPTNAME /opt/app/esp/call_fake_database_daily_2.ksh
+
+        USER fake_username
+
+        RELEASE (C1_FAKE_CALL_FAKE_DATABASE_DAILY_3)
+
+ENDJOB

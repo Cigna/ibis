@@ -1,0 +1,17 @@
+[Request]
+domain:member
+split_by:
+mappers:20
+jdbcurl:jdbc:oracle:thin:@//fake.oracle:1521/fake_servicename
+db_username:fake_username
+password_file:/user/dev/fake.password.file
+refresh_frequency:none
+weight:small
+fetch_size:5000
+hold:0
+source_database_name:fake_database
+source_table_name:fake_fact_tablename
+views:
+esp_appl_id:
+esp_group:
+check_column:

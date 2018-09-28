@@ -1,0 +1,11 @@
+    <action name="fake_mem_tablename_refresh">
+        <shell xmlns="uri:oozie:shell-action:0.3">
+            <exec>impala_cleanup.sh</exec>
+            <env-var>target_dir=mdm/member/fake_database/fake_mem_tablename</env-var>
+            <env-var>HADOOP_CONF_DIR=/etc/hadoop/conf</env-var>
+            <env-var>hdfs_ingest_path=/user/dev/oozie/workspaces/ibis/lib/ingest/</env-var>
+            <file>/user/dev/oozie/workspaces/ibis/lib/ingest/impala_cleanup.sh#impala_cleanup.sh</file>
+        </shell>
+        <ok to="end"/>
+        <error to="kill"/>
+    </action>

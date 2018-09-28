@@ -1,0 +1,9 @@
+    <action name="{action_name}">
+        <sub-workflow>
+            <app-path>{xml_file}</app-path>
+            <propagate-configuration />
+        </sub-workflow>
+        <ok to="{ok}"/>
+        <error to="kill"/>
+    </action>
+    

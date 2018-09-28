@@ -1,0 +1,7 @@
+Warning: /opt/cloudera/parcels/CDH-5.7.1-1.cdh5.7.1.p1685.1641/bin/../lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+---------------------------------------------------------------------------------
+| COLUMN_NAME          | DATA_TYPE            | CHARACTER_MAXIMUM_LENGTH | NUMERIC_PRECISION | NUMERIC_SCALE | IS_NULLABLE |
+---------------------------------------------------------------------------------
+| LOGIN_ID             | varchar              | 32          | (null) | (null) | YES |
+---------------------------------------------------------------------------------

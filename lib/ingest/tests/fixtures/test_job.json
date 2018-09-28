@@ -1,0 +1,22 @@
+{
+"status": "SUCCEEDED",
+"run": 0,
+"startTime": "Wed, 30 Sep 2015 18:50:59 GMT",
+"appName": "fake_mem_tablename_ora_timestamp_test",
+"lastModTime": "Wed, 30 Sep 2015 19:00:29 GMT",
+"actions": [
+
+],
+"acl": null,
+"appPath": null,
+"externalId": null,
+"consoleUrl": "http:\/\/fake.dev.edgenode:11000\/oozie?job=0000014-150929151730679-oozie-oozi-W",
+"conf": null,
+"parentId": null,
+"createdTime": "Wed, 30 Sep 2015 18:50:59 GMT",
+"toString": "Workflow id[0000014-150929151730679-oozie-oozi-W] status[SUCCEEDED]",
+"endTime": "Wed, 30 Sep 2015 19:00:29 GMT",
+"id": "0000014-150929151730679-oozie-oozi-W",
+"group": null,
+"user": "m94233"
+}

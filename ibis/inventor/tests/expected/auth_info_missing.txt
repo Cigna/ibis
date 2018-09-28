@@ -1,0 +1,10 @@
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+x                                                                        x
+x    Table has no proper auth info                                       x
+x    domain: 'test'                                                      x
+x    full-table-name: 'FAKE_DATABASE.FAKE_BEN_TABLENAME'                 x
+x    username: ''                                                        x
+x    password: '/user/dev/fake.password.file'                            x
+x    jdbcurl: 'jdbc:oracle:thin:@//fake.oracle:1521/fake_servicename'    x
+x                                                                        x
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

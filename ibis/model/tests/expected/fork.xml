@@ -1,0 +1,6 @@
+    <fork name="pipeline1">
+        <path start="tbl1"/>
+        <path start="tbl2"/>
+        <path start="tbl3"/>
+        <path start="tbl4"/>
+    </fork>

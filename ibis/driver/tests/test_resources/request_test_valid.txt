@@ -1,0 +1,10 @@
+[Request]
+db_username:fake_username
+password_file:test
+jdbcurl:test
+source_database_name:fake_database
+source_table_name:fake_mmm_tablename
+refresh_frequency:none
+source_schema_name:dw_sales
+sql_query:TRANS_NO > 2 AND ID < 'TEBSHDE'
+views:member

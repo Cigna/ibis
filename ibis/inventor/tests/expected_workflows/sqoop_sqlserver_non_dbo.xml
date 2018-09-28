@@ -1,0 +1,39 @@
+    <action name="fake_call_tablename_import">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.4">
+            <configuration>
+                <property>
+                    <name>fs.hdfs.impl.disable.cache</name>
+                    <value>true</value>
+                </property>
+                <property>
+                    <name>oozie.launcher.mapred.map.child.env</name>
+                    <value>HADOOP_CREDSTORE_PASSWORD=none</value>
+                </property>
+            </configuration>
+            <arg>import</arg>
+            <arg>-D sqoop.connection.factories=com.cloudera.sqoop.manager.DefaultManagerFactory</arg>
+            <arg>-D hadoop.security.credential.provider.path=jceks://hdfs/user/dev/fake.passwords.jceks</arg>
+            <arg>--as-avrodatafile</arg>
+            <arg>--verbose</arg>
+            <arg>--connect</arg>
+            <arg>jdbc:sqlserver://fake.sqlserver:1433;database=FAKE_DATABASE</arg>
+            <arg>--target-dir</arg>
+            <arg>/user/data/ingest/mdm/call/fake_database/fake_call_tablename</arg>
+            <arg>--delete-target-dir</arg>
+            <arg>--username</arg>
+            <arg>fake_username</arg>
+            <arg>--password-alias</arg>
+            <arg>fake.password.alias</arg>
+            <arg>-m</arg>
+            <arg>1</arg>
+            <arg>--split-by</arg>
+            <arg>caller_ty_id</arg>
+            <arg>--query</arg>
+            <arg>SELECT [caller_ty_id] AS [caller_ty_id] FROM [fake_database].[fake_warehouse_schema].[fake_call_tablename] WHERE 1=1  AND $CONDITIONS</arg>
+            <arg>--fetch-size</arg>
+            <arg>50000</arg>
+            <arg>--relaxed-isolation</arg>
+        </sqoop>
+        <ok to="fake_call_tablename_avro"/>
+        <error to="kill"/>
+    </action>

@@ -1,0 +1,48 @@
+Warning: /opt/cloudera/parcels/CDH-5.7.1-1.cdh5.7.1.p1685.1641/bin/../lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+16/09/21 10:20:29 INFO sqoop.Sqoop: Running Sqoop version: 1.4.6-cdh5.7.1
+16/09/21 10:20:31 WARN sqoop.ConnFactory: Parameter --driver is set to an explicit driver however appropriate connection manager is not being set (via --connection-manager). Sqoop is going to fall back to org.apache.sqoop.manager.GenericJdbcManager. Please specify explicitly which connection manager should be used next time.
+16/09/21 10:20:31 INFO manager.SqlManager: Using default fetchSize of 1000
+----------------------------------------------------------------------------------------------------------------------------
+| COLUMN_NAME          | DATA_TYPE            | CHARACTER_MAXIMUM_LENGTH | NUMERIC_PRECISION | NUMERIC_SCALE | IS_NULLABLE |
+----------------------------------------------------------------------------------------------------------------------------
+| FAKE_COL_1           | datetime             | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_2           | varchar              | 13                       | (null)            | (null)        | Y           |
+| FAKE_COL_3           | numeric              | (null)                   | 15                | 0             | Y           |
+| FAKE_COL_4           | varchar              | 1                        | (null)            | (null)        | Y           |
+| FAKE_COL_5           | numeric              | (null)                   | 15                | 0             | Y           |
+| FAKE_COL_6           | decimal              | (null)                   | 9                 | 2             | Y           |
+| FAKE_COL_7           | smalldatetime        | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_8           | date                 | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_9           | int                  | (null)                   | 10                | 0             | Y           |
+| FAKE_COL_10          | bigint               | (null)                   | 19                | 0             | Y           |
+| FAKE_COL_11          | tinyint              | (null)                   | 3                 | 0             | Y           |
+| FAKE_COL_12          | nvarchar             | 20                       | (null)            | (null)        | Y           |
+| FAKE_COL_13          | ntext                | 1073741823               | (null)            | (null)        | Y           |
+| FAKE_COL_14          | char                 | 1                        | (null)            | (null)        | Y           |
+| FAKE_COL_15          | smallint             | (null)                   | 5                 | 0             | Y           |
+| FAKE_COL_16          | varchar              | -1                       | (null)            | (null)        | Y           |
+| FAKE_COL_17          | bit                  | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_18          | uniqueidentifier     | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_19          | smallmoney           | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_20          | box                  | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_21          | bigserial            | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_22          | bytea                | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_23          | character            | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_24          | cidr                 | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_25          | circle               | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_26          | json                 | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_27          | jsonb                | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_27          | line                 | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_29          | lseg                 | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_30          | polygon              | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_31          | real                 | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_32          | serial               | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_33          | smallserial          | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_34          | tsquery              | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_35          | tsvector             | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_36          | txid_snapshot        | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_37          | point                | (null)                   | (null)            | (null)        | Y           |
+| FAKE_COL_38          | float                | (null)                   | 53                | 4             | Y           |
+| FAKE_COL_39          | money                | (null)                   | 19                | 4             | Y           |
+----------------------------------------------------------------------------------------------------------------------------
