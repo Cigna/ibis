@@ -21,7 +21,7 @@ We support creating "config-based" workflows from any of the standard Oozie
 actions - such as Hive, Shell and Impala. The main use of IBIS is to
 use SQOOP for efficiently transferring bulk data between Apache Hadoop and
 structured datastores such as relational databases (including Oracle, Teradata,
-SQL Server, and DB2).
+SQL Server, and DB2 (udb and OS390)).
 
 ### Refer here on [How to setup IBIS?](/docs/setup_ibis.md)
 
