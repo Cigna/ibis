@@ -19,4 +19,4 @@ source_table_name:fake_stg_tablename
 refresh_frequency:weekly
 weight:medium
 views:fake_view_im|member
-esp_group:magic
+automation_group:magic

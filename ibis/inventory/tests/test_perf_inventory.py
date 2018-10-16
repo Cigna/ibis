@@ -28,7 +28,7 @@ class PerfInventoryTest(unittest.TestCase):
     @patch.object(PerfInventory, 'get_rows')
     @patch.object(PerfInventory, 'reingest_hql')
     def test_wipe_perf_env(self, m_reingest_hql, m_get_rows, m_run_query,
-                          m_run_hql):
+                           m_run_hql):
         """test wipe_perf_env"""
         m_get_rows.return_value = mock_wipe_table
         m_reingest_hql.return_value = 'abc.hql'
@@ -52,9 +52,9 @@ class PerfInventoryTest(unittest.TestCase):
         """ test insert in freq_ingest table without activator
         """
         self.perf_inventory.insert_freq_ingest(['fake_view_im'],
-                                              ['weekly'],
-                                              ['fake_database_mock_table'],
-                                              ['default'])
+                                               ['weekly'],
+                                               ['fake_database_mock_table'],
+                                               ['default'])
         insert_query = ("insert overwrite table ibis.freq_ingest partition"
                         "(view_name, full_table_name) values ('weekly', "
                         "'yes', 'fake_view_im', 'fake_database_mock_table')")
@@ -67,9 +67,9 @@ class PerfInventoryTest(unittest.TestCase):
         """ test insert in freq_ingest table with activator
         """
         self.perf_inventory.insert_freq_ingest(['fake_view_im'],
-                                              ['weekly'],
-                                              ['fake_database_mock_table'],
-                                              ['no'])
+                                               ['weekly'],
+                                               ['fake_database_mock_table'],
+                                               ['no'])
         insert_query = ("insert overwrite table ibis.freq_ingest partition"
                         "(view_name, full_table_name) values ('weekly', "
                         "'no', 'fake_view_im', 'fake_database_mock_table')")
@@ -86,9 +86,9 @@ class PerfInventoryTest(unittest.TestCase):
             getpass.getuser())
         expected_hql_nm = os.path.join(self.cfg_mgr.files, file_name)
         actual_hql_nm = self.perf_inventory.reingest_hql('test_view',
-                                                        'src_table',
-                                                        'src_db',
-                                                        'full_table')
+                                                         'src_table',
+                                                         'src_db',
+                                                         'full_table')
         with open(actual_hql_nm, 'r') as file_h:
             actual_hql = file_h.read()
 
@@ -103,7 +103,7 @@ class PerfInventoryTest(unittest.TestCase):
         """test run_ingest_hql"""
         process_mock = Mock()
         attrs = {'communicate.return_value': ('output', 'error'),
-                 'returncode':  0}
+                 'returncode': 0}
         process_mock.configure_mock(**attrs)
         mock_subproc_popen.return_value = process_mock
         self.perf_inventory.run_ingest_hql('abc.hql')
@@ -119,7 +119,7 @@ class PerfInventoryTest(unittest.TestCase):
         """test run_ingest_hq else partl"""
         process_mock = Mock()
         attrs = {'communicate.return_value': ('output', 'error'),
-                 'returncode':  1}
+                 'returncode': 1}
         process_mock.configure_mock(**attrs)
         mock_subproc_popen.return_value = process_mock
         self.perf_inventory.run_ingest_hql('abc.hql')

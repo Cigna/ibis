@@ -1,11 +1,11 @@
-"""ESP IDS inventory tests."""
+"""Automation IDS inventory tests."""
 import unittest
 import os
 import difflib
 from mock.mock import patch
 from ibis.inventory.inventory import Inventory
 from ibis.utilities.config_manager import ConfigManager
-from ibis.inventory.esp_ids_inventory import ESPInventory
+from ibis.inventory.automation_ids_inventory import AUTOInventory
 from ibis.settings import UNIT_TEST_ENV
 from ibis.model.table import ItTable
 from ibis.inventor.tests.fixture_workflow_generator import \
@@ -19,6 +19,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class ESPInventoryFunctionsTest(unittest.TestCase):
+
     """Test the functionality of the it inventory class.
     Tests against the fake_clm_tablename record.
     """
@@ -28,7 +29,7 @@ class ESPInventoryFunctionsTest(unittest.TestCase):
     def setUpClass(cls, mock_connect):
         """Setup."""
         cls.cfg_mgr = ConfigManager(UNIT_TEST_ENV)
-        cls.inventory = ESPInventory(cls.cfg_mgr)
+        cls.inventory = AUTOInventory(cls.cfg_mgr)
 
     @classmethod
     def tearDownClass(cls):
@@ -66,93 +67,99 @@ class ESPInventoryFunctionsTest(unittest.TestCase):
             print '\n'.join(list(diff))
         return same
 
-    @patch.object(ESPInventory, 'get_rows', return_value=appl_ref_sch)
+    @patch.object(AUTOInventory, 'get_rows', return_value=appl_ref_sch)
     def test_get_tables_by_id(self, mock_rows):
         """Test get tables by id with results"""
         expected = [{'domain': 'call', 'string_date': 'Every Day',
                      'db': 'FAKE_DATABASE', 'ksh_name': 'FAKE_DATABASE_DAILY',
-                     'frequency': 'saily', 'esp_domain': 'FAKE',
-                     'esp_group': '', 'environment': 'DEV',
+                     'frequency': 'saily', 'automation_domain': 'FAKE',
+                     'automation_group': '', 'environment': 'DEV',
                      'appl_id': 'FAKED001', 'time': '3:00',
                      'job_name': 'C1_FAKE_FAKE_DATABASE_DAILY'}]
         self.assertListEqual(expected,
                              self.inventory.get_tables_by_id('FAKED001'))
 
-    @patch.object(ESPInventory, 'get_rows', return_value=[])
+    @patch.object(AUTOInventory, 'get_rows', return_value=[])
     def test_get_tables_by_id_without_results(self, mock_rows):
         """Test get tables by id with no results"""
         expected = []
         self.assertListEqual(expected,
                              self.inventory.get_tables_by_id('FAKED001'))
 
-    @patch.object(ESPInventory, 'get_tables_by_id', return_value=False)
-    @patch.object(ESPInventory, 'run_query', autospec=True)
+    @patch.object(AUTOInventory, 'get_tables_by_id', return_value=False)
+    @patch.object(AUTOInventory, 'run_query', autospec=True)
     def test_insert(self, mock_get, mock_run):
-        """Test insert into esp_ids table"""
+        """Test insert into automation_ids table"""
         mock_tbl = {'domain': 'call', 'string_date': 'Every Day',
                     'db': 'FAKE_DATABASE', 'ksh_name': 'FAKE_DATABASE_DAILY',
-                    'frequency': 'saily', 'esp_domain': 'FAKE',
-                    'esp_group': '', 'environment': 'DEV',
+                    'frequency': 'saily', 'automation_domain': 'FAKE',
+                    'automation_group': '', 'environment': 'DEV',
                     'appl_id': 'FAKED001', 'time': '3:00',
                     'job_name': 'C1_FAKE_FAKE_DATABASE_DAILY'}
         result, msg = self.inventory.insert(mock_tbl)
         self.assertTrue(result)
         self.assertEquals(
-            msg, 'Inserted new record FAKED001 into ibis.esp_ids table')
+            msg, 'Inserted new record FAKED001 into ibis.automation_ids table')
 
-    @patch.object(ESPInventory, 'get_tables_by_id', return_value=True)
-    @patch.object(ESPInventory, 'run_query', autospec=True)
+    @patch.object(AUTOInventory, 'get_tables_by_id', return_value=True)
+    @patch.object(AUTOInventory, 'run_query', autospec=True)
     def test_insert_fail(self, mock_get, mock_run):
-        """Test insert into esp_ids table failed"""
+        """Test insert into automation_ids table failed"""
         mock_tbl = {
             'domain': 'call', 'string_date': 'Every Day', 'db': 'FAKE_DATABASE',
             'ksh_name': 'FAKE_DATABASE_DAILY', 'frequency': 'saily',
-            'esp_domain': 'FAKE', 'esp_group': '', 'environment': 'DEV',
+            'automation_domain': 'FAKE', 'automation_group': '', 'environment': 'DEV',
             'appl_id': 'FAKED001', 'time': '3:00',
             'job_name': 'C1_FAKE_FAKE_DATABASE_DAILY'}
         result, msg = self.inventory.insert(mock_tbl)
         self.assertFalse(result)
         self.assertEquals(
             msg,
-            'ID FAKED001 NOT INSERTED into ibis.esp_ids. Already exists!')
+            'ID FAKED001 NOT INSERTED into ibis.automation_ids. Already exists!')
 
     # Assumption = Previous appl ids 'FAKEW231','FAKEW261','FAKED211'
-    @patch.object(ESPInventory, 'get_rows', autospec=True)
-    @patch.object(ESPInventory, 'insert', return_value=(True, 'Success'))
-    def test_gen_esp_id(self, mock_insert, mock_rows):
+    @patch.object(AUTOInventory, 'get_rows', autospec=True)
+    @patch.object(AUTOInventory, 'insert', return_value=(True, 'Success'))
+    def test_gen_automation_id(self, mock_insert, mock_rows):
         mock_rows.side_effect = [[], [('M26',)]]
-        test_esp_id = self.inventory.gen_esp_id('MontHly', 'ClAim',
-                                                'fake_view', 'Magic')
-        self.assertEqual('FAKEM271', test_esp_id)
+        test_automation_id = self.inventory.gen_automation_id('MontHly', 'ClAim',
+                                                              'fake_view', 'Magic')
+        self.assertEqual('FAKEM271', test_automation_id)
 
     # Assumption = Previous appl ids 'FAKEW001', 'FAKEW181', 'FAKED161'
-    @patch.object(ESPInventory, 'get_rows', autospec=True)
-    @patch.object(ESPInventory, 'insert', return_value=(True, 'Success'))
-    def test_gen_esp_id_member(self, mock_insert, mock_rows):
+    @patch.object(AUTOInventory, 'get_rows', autospec=True)
+    @patch.object(AUTOInventory, 'insert', return_value=(True, 'Success'))
+    def test_gen_automation_id_member(self, mock_insert, mock_rows):
         mock_rows.side_effect = [[], [('W18',)]]
-        self.assertEqual('FAKEW191', self.inventory.gen_esp_id(
+        self.assertEqual('FAKEW191', self.inventory.gen_automation_id(
             'Weekly', 'Member', 'fake_database'))
 
-    @patch.object(ESPInventory, 'get_rows', return_value=[])
-    @patch.object(ESPInventory, 'insert', return_value=(True, 'Success'))
-    def test_gen_esp_id_no_results(self, mock_insert, mock_rows):
-        self.assertEqual('FAKEW001', self.inventory.gen_esp_id(
+    @patch.object(AUTOInventory, 'get_rows', return_value=[])
+    @patch.object(AUTOInventory, 'insert', return_value=(True, 'Success'))
+    def test_gen_automation_id_no_results(self, mock_insert, mock_rows):
+        self.assertEqual('FAKEW001', self.inventory.gen_automation_id(
             'Weekly', 'Member', 'fake_database'))
 
-    @patch.object(ESPInventory, 'get_rows', return_value=[])
-    def test_calculate_esp_id(self, mock_rows):
-        """Test calculate new esp id"""
-        self.assertEquals(self.inventory.calculate_esp_id('Daily'), 'FAKED001')
+    @patch.object(AUTOInventory, 'get_rows', return_value=[])
+    def test_calculate_automation_id(self, mock_rows):
+        """Test calculate new Automation id"""
+        self.assertEquals(
+            self.inventory.calculate_automation_id('Daily'),
+            'FAKED001')
 
-    @patch.object(ESPInventory, 'get_rows', return_value=[('D00',), ('D01',)])
-    def test_calculate_esp_id_next_seq(self, mock_rows):
-        """Test calculate next esp id"""
-        self.assertEquals(self.inventory.calculate_esp_id('Daily'), 'FAKED021')
+    @patch.object(AUTOInventory, 'get_rows', return_value=[('D00',), ('D01',)])
+    def test_calculate_automation_id_next_seq(self, mock_rows):
+        """Test calculate next Automation id"""
+        self.assertEquals(
+            self.inventory.calculate_automation_id('Daily'),
+            'FAKED021')
 
-    @patch.object(ESPInventory, 'get_rows', return_value=[('D14',), ('D2z',)])
-    def test_calculate_esp_id_z(self, mock_rows):
-        """Test calculate next esp id"""
-        self.assertEquals(self.inventory.calculate_esp_id('Daily'), 'FAKED301')
+    @patch.object(AUTOInventory, 'get_rows', return_value=[('D14',), ('D2z',)])
+    def test_calculate_automation_id_z(self, mock_rows):
+        """Test calculate next Automation id"""
+        self.assertEquals(
+            self.inventory.calculate_automation_id('Daily'),
+            'FAKED301')
 
     def test_gen_wld_subworkflow(self):
         """test wld for subworkflows"""

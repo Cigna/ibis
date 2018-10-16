@@ -7,6 +7,7 @@ from ibis.custom_logging import get_logger
 
 
 class WorkflowRule(object):
+
     """Workflow rules based on custom dsl config"""
 
     def __init__(self, action_id):
@@ -74,6 +75,7 @@ class WorkflowRule(object):
 
 
 class DSLParser(object):
+
     """Parser for ibis dsl"""
 
     def __init__(self, cfg_mgr, pre_defined_actions, scripts_dir):
@@ -117,7 +119,7 @@ class DSLParser(object):
             except pp.ParseException as parse_ex:
                 err_msg = "Line {lineno}, column {err.col}:\n"
                 err_msg += "Fix this line: '{err.line}'"
-                err_msg = err_msg.format(err=parse_ex, lineno=index+1)
+                err_msg = err_msg.format(err=parse_ex, lineno=index + 1)
                 err_msg = Utilities.print_box_msg(err_msg, border_char='x')
                 raise ValueError(err_msg)
         return action_data

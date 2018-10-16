@@ -21,7 +21,7 @@ class ItTableTest(unittest.TestCase):
             'domain': 'test_domain', 'source_database_name': 'test_DB',
             'source_table_name': 'test_TABLE', 'split_by': 'test_column',
             'mappers': 3, 'connection_factories': 'org.cloudera.test',
-            'fetch_size': 100, 'esp_appl_id': 'test_esp_id', 'views': 'fake_view_im'}
+            'fetch_size': 100, 'automation_appl_id': 'test_automation_id', 'views': 'fake_view_im'}
 
     def test_fields(self):
         """test fields"""
@@ -235,7 +235,7 @@ class ItTableTest(unittest.TestCase):
             'source_table_name': 'test_TABLE',
             'split_by': 'test_column', 'mappers': 3,
             'connection_factories': 'org.cloudera.test', 'fetch_size': 100,
-            'esp_appl_id': 'test_esp_id', 'views': 'fake_view_im'
+            'automation_appl_id': 'test_automation_id', 'views': 'fake_view_im'
         }
 
         it_obj = ItTable(it_table_dict, self.cfg_mgr)
@@ -273,7 +273,7 @@ class ItTableTest(unittest.TestCase):
             'split_by': 'test_column', 'mappers': 3,
             'connection_factories': 'net.sourceforge.jtds.jdbc.Driver',
             'fetch_size': 100,
-            'esp_appl_id': 'test_esp_id', 'views': 'fake_view_im'
+            'automation_appl_id': 'test_automation_id', 'views': 'fake_view_im'
         }
         it_obj = ItTable(it_table_dict, self.cfg_mgr)
         self.assertEquals(it_obj.connection_factories,

@@ -9,6 +9,7 @@ from ibis.inventor.dsl_parser import DSLParser
 
 
 class WorkflowGenerator(object):
+
     """Generates a workflow given a list[list[table]].
     Uses templates to generate workflow and metadata and values
     from a table properties to populate template values.
@@ -698,7 +699,8 @@ class WorkflowGenerator(object):
             if i == len(request_list) - 1:
                 ok_to = 'oozie_cb_ok'
             else:
-                ok_to = request_list[i+1]['source_table_name'] + '_kite_ingest'
+                ok_to = request_list[
+                    i + 1]['source_table_name'] + '_kite_ingest'
             kite_xml += self.action_builder.gen_kite_ingest(
                 table['source_table_name'], table['source_database_name'],
                 table['hdfs_loc'], ok_to, 'oozie_cb_fail')

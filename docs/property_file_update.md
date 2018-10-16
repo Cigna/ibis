@@ -22,7 +22,7 @@ Following are the list of properties to be updated
 |it_table_export=ibis.prod_it_table_export|N|Created by the ibis setup shell. Please match the table name with setup shell. Holds the entry for each table to be exported|
 |staging_database=fake_staging_datbase|N|Created by the ibis setup shell. Please match the table name with setup shell. Temporarily Holds the data load of each table |
 |checks_balances=ibis.checks_balances|N|Created by the ibis setup shell. Please match the table name with setup shell. Holds the entry for each table load|
-|esp_ids_table=ibis.esp_ids|N|Created by the ibis setup shell. Please match the table name with setup shell. Stores the Appl ID and frequency details|
+|automation_ids_table=ibis.automation_ids|N|Created by the ibis setup shell. Please match the table name with setup shell. Stores the Appl ID and frequency details|
 |staging_it_table=ibis.staging_it_table|N|Created by the ibis setup shell. Please match the table name with setup shell. Stores tables to be ingested through schedule|
 |prod_it_table=ibis.prod_it_table|N|Created by the ibis setup shell. Please match the table name with setup shell. Holds the entry for each table to be ingested|
 |queue_name=ingestion|Y|Update with HDFS queue name for loading the table|
@@ -49,7 +49,7 @@ Following are the list of properties to be updated
 |start_workflow=start.xml.mako|N| workflow start template|
 |end_workflow=end.xml.mako|N|workflow end template|
 |export_end_workflow=export_end.xml.mako|N|export workflow end template|
-|korn_shell=esp_template.ksh.mako|N|workflow KSH template|
+|korn_shell=automation_template.ksh.mako|N|workflow KSH template|
 |job_properties=prod_job.properties|N|Job properties template|
 |sub_workflow=subworkflow.xml|N|Sub workflow template|
 |export_to_td=export_to_td.xml|N|teradata workflow template|
@@ -69,10 +69,10 @@ Following are the list of properties to be updated
 |hql_views_workspace=/user/dev/oozie/workspaces/ibis/hql|N|HDFS location for HQl to be deployed||
 |shell_workspace=/user/dev/oozie/workspaces/shell-adhoc|N|HDFS location for shells to be deployed||
 |impala_workspace=/user/dev/oozie/workspaces/impala-adhoc|N|HDFS location for impala-scripts to be deployed||
-|**[ESP_ID]**|||
-|big_data=FAKE|Y|Update the ESP ID's first 4 letter's for example "GDBD" in Appl ID : GDBDD006|
+|**[automation_ID]**|||
+|big_data=FAKE|Y|Update the automation ID's first 4 letter's for example "GDBD" in Appl ID : GDBDD006|
 |frequencies_map=daily:D,biweekly:B,weekly:W,fortnightly:F,monthly:M,quarterly:Q,adhoc:A,onetime:O,mul-appls:X,yearly:Y|N|First letter of frequency is used in the Appl ID creations and its the letter in Appl ID|
-|environment_map=6|Y|Is an optional update. Its the last digit of the Appl ID used to identify the env in which ESP Appl is running, in this case '6' will be suffixed in the Appl ID : GDBDD006|
+|environment_map=6|Y|Is an optional update. Its the last digit of the Appl ID used to identify the env in which automation Appl is running, in this case '6' will be suffixed in the Appl ID : GDBDD006|
 |from_branch=prod|N||
 |**[Other]**|||
 |allowed_frequencies=000:none,101:daily,011:biweekly,100:weekly,110:fortnightly,010:monthly,001:quarterly,111:yearly|N|All allowed frequencies for scheduling workflows|

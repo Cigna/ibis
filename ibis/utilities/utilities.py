@@ -44,7 +44,7 @@ class Utilities(object):
         Args:
             workflow_name: just the workflow name without extension
             table_list: list of table names
-            appl_id: esp appl id
+            appl_id: Automation appl id
             table: it_table row
         """
         job_prop = self.get_lines_from_file(self.cfg_mgr.job_prop_template)

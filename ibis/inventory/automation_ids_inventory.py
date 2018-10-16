@@ -1,18 +1,19 @@
-"""ESP IDS inventory."""
+"""Automation IDS inventory."""
 import os
 from mako.template import Template
 from ibis.inventory.inventory import Inventory
 
 
-class ESPInventory(Inventory):
+class AUTOInventory(Inventory):
+
     """Class used for managing the records of source table connections.
-    and properties in the esp_ids table.
+    and properties in the automation_ids table.
     """
 
     def __init__(self, *arg):
         """Init."""
         super(self.__class__, self).__init__(*arg)
-        self.table = self.cfg_mgr.esp_ids_table
+        self.table = self.cfg_mgr.automation_ids_table
 
     def get_tables_by_id(self, appl_id):
         """Return a list of tables."""
@@ -22,60 +23,62 @@ class ESPInventory(Inventory):
         results = self.get_rows(query)
         if results:
             for table in results:
-                (appl_id, job_name, time, string_date, ksh_name, esp_domain,
+                (appl_id, job_name, time, string_date, ksh_name, automation_domain,
                  domain, database, frequency, group, env) = table
                 tbl_dict = {'appl_id': appl_id, 'job_name': job_name,
                             'time': time, 'string_date': string_date,
                             'ksh_name': ksh_name,
-                            'esp_domain': esp_domain,
+                            'automation_domain': automation_domain,
                             'domain': domain, 'db': database,
                             'frequency': frequency,
-                            'environment': env, 'esp_group': group}
+                            'environment': env, 'automation_group': group}
                 tables.append(tbl_dict)
         return tables
 
-    def insert(self, esp_dict):
-        """Insert into esp ids table"""
-        appl_id = esp_dict['appl_id']
+    def insert(self, automation_dict):
+        """Insert into Automation ids table"""
+        appl_id = automation_dict['appl_id']
         insert = False
         if not self.get_tables_by_id(appl_id):
             values = ("'{appl_id}', '{job_name}', '{time}', '{string_date}',"
-                      " '{ksh_name}', '{esp_domain}'")
+                      " '{ksh_name}', '{automation_domain}'")
             values = values.format(
-                appl_id=esp_dict['appl_id'], job_name=esp_dict['job_name'],
-                time=esp_dict['time'],
-                string_date=esp_dict['string_date'],
-                ksh_name=esp_dict['ksh_name'],
-                esp_domain=esp_dict['esp_domain'])
+                appl_id=automation_dict[
+                    'appl_id'], job_name=automation_dict['job_name'],
+                time=automation_dict['time'],
+                string_date=automation_dict['string_date'],
+                ksh_name=automation_dict['ksh_name'],
+                automation_domain=automation_dict['automation_domain'])
 
             query = ("insert into table {tbl} partition (domain='{domain}',"
-                     " db='{db}', frequency='{freq}', esp_group='{group}',"
+                     " db='{db}', frequency='{freq}', automation_group='{group}',"
                      " environment='{env}') values ({values})")
             query = query.format(tbl=self.table,
-                                 freq=esp_dict['frequency'].lower(),
-                                 domain=esp_dict['domain'].lower(),
-                                 db=esp_dict['db'].lower(),
-                                 env=esp_dict['environment'].upper(),
-                                 group=esp_dict['esp_group'].lower(),
+                                 freq=automation_dict['frequency'].lower(),
+                                 domain=automation_dict['domain'].lower(),
+                                 db=automation_dict['db'].lower(),
+                                 env=automation_dict['environment'].upper(),
+                                 group=automation_dict[
+                                     'automation_group'].lower(),
                                  values=values)
             self.run_query(query, self.table)
             insert = True
-            msg = 'Inserted new record {id} into {esp_table} table'
-            msg = msg.format(id=appl_id, esp_table=self.table)
+            msg = 'Inserted new record {id} into {automation_table} table'
+            msg = msg.format(id=appl_id, automation_table=self.table)
             self.logger.info(msg)
         else:
-            msg = 'ID {id} NOT INSERTED into {esp_table}. Already exists!'
-            msg = msg.format(id=appl_id, esp_table=self.table)
+            msg = 'ID {id} NOT INSERTED into {automation_table}. Already exists!'
+            msg = msg.format(id=appl_id, automation_table=self.table)
             self.logger.warning(msg)
         return insert, msg
 
-    def gen_esp_id(self, freq, domain, db_name, group=''):
-        """Generate a new ESP id if not exists else return existing.
+    def gen_automation_id(self, freq, domain, db_name, group=''):
+        """Generate a new Automation id if not exists else return existing.
         Args:
             freq: refresh frequency. Ex: weekly
             domain: domain name from request file
             db_name: database name from request file
-            group: esp_group from request file
+            group: automation_group from request file
         """
         if group is None:
             group = ''
@@ -94,22 +97,22 @@ class ESPInventory(Inventory):
         if group == '':
             query = ("select appl_id from {tbl} where frequency='{freq}'"
                      " and domain='{domain}' and db='{db}' and "
-                     "environment='{env}' and esp_group is NULL")
+                     "environment='{env}' and automation_group is NULL")
             query = query.format(tbl=self.table, freq=freq.lower(),
                                  domain=domain.lower(),
                                  db=db_name.lower(), env=env_str.upper())
         else:
-            # when esp_group is same, different tables/domain/db
+            # when automation_group is same, different tables/domain/db
             #  shall have the same appl_id
             query = ("select appl_id from {tbl} where environment='{env}'"
-                     " and esp_group='{grp}'")
+                     " and automation_group='{grp}'")
             query = query.format(tbl=self.table, env=env_str.upper(),
                                  grp=group.lower())
 
         result = self.get_rows(query)
         if not result:
-            esp_id = self.calculate_esp_id(freq)
-            esp_domain = self.cfg_mgr.big_data.lower()
+            automation_id = self.calculate_automation_id(freq)
+            automation_domain = self.cfg_mgr.big_data.lower()
             job_name = "C1_" + self.cfg_mgr.big_data + "_" + domain + \
                        "_" + db_name + "_" + freq
             # Dummy values by default
@@ -125,21 +128,21 @@ class ESPInventory(Inventory):
                                                      freq=freq)
 
             if group:
-                ksh_name = '{esp_group}_{freq}'.format(esp_group=group,
-                                                       freq=freq)
+                ksh_name = '{automation_group}_{freq}'.format(automation_group=group,
+                                                              freq=freq)
 
-            esp_dict = {'appl_id': esp_id, 'job_name': job_name,
-                        'time': '0:00', 'string_date': dates_map[freq],
-                        'ksh_name': ksh_name, 'esp_domain': esp_domain,
-                        'domain': domain, 'db': db_name, 'frequency': freq,
-                        'environment': env_str, 'esp_group': group}
-            success, msg = self.insert(esp_dict)
+            automation_dict = {'appl_id': automation_id, 'job_name': job_name,
+                               'time': '0:00', 'string_date': dates_map[freq],
+                               'ksh_name': ksh_name, 'automation_domain': automation_domain,
+                               'domain': domain, 'db': db_name, 'frequency': freq,
+                               'environment': env_str, 'automation_group': group}
+            success, msg = self.insert(automation_dict)
             self.logger.warning(msg)
-            return esp_id
+            return automation_id
         return result[0][0]
 
-    def calculate_esp_id(self, freq):
-        """Calculate a new ESP id.
+    def calculate_automation_id(self, freq):
+        """Calculate a new Automation id.
         Example: FAKEW004
         FAKE: Convention for Big Data
         W: Frequency, in this case Weekly (can be: D, W, M, Q)
@@ -149,7 +152,7 @@ class ESPInventory(Inventory):
         # Normalize values
         freq = freq.lower()
         # Convention for 'Big Data'
-        esp_prefix = self.cfg_mgr.big_data
+        automation_prefix = self.cfg_mgr.big_data
         # Frequency mapping.
         freq_prefix = self.cfg_mgr.frequencies_map[freq]
         # Environment mapping.
@@ -164,11 +167,11 @@ class ESPInventory(Inventory):
             if _seq[0].lower() == freq_prefix.lower():
                 current_seqs.append(_seq[1:])
         next_seq = ESPSequence(current_seqs).next_sequence
-        esp_id = esp_prefix + freq_prefix + next_seq + env_num
-        return esp_id
+        automation_id = automation_prefix + freq_prefix + next_seq + env_num
+        return automation_id
 
     def gen_wld_tables(self, appl_id, tables, workflow_names):
-        """Creates wld files for job scheduling using ESP for tables"""
+        """Creates wld files for job scheduling using Automation for tables"""
         remaining_wld_jobs = []
         first_wld_job = None
         for index, table in enumerate(tables):
@@ -192,7 +195,7 @@ class ESPInventory(Inventory):
                                    remaining_wld_jobs)
 
     def gen_wld_subworkflow(self, appl_id, appl_refs, num_jobs):
-        """Creates wld files for job scheduling using ESP for sub workflows"""
+        """Creates wld files for job scheduling using Automation for sub workflows"""
         job_name_prefix = appl_refs['job_name']
         ksh_name_prefix = appl_refs['ksh_name']
         remaining_wld_jobs = []
@@ -232,6 +235,7 @@ class ESPInventory(Inventory):
 
 
 class WldJob(object):
+
     """WLD file LINUX_JOB"""
 
     def __init__(self, job_name, script_name, next_job_name):
@@ -242,6 +246,7 @@ class WldJob(object):
 
 
 class ESPSequence(object):
+
     """Generates sequence of alphanumeric strings of length 2"""
 
     custom_alphanumerics = '0123456789abcdefghijklmnopqrstuvwxyz'

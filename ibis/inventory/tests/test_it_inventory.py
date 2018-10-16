@@ -34,7 +34,7 @@ mock_claim_tbl_dict = [{
     'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks#'
                      'fake.password.alias',
     'load': '010001', 'fetch_size': '50000', 'hold': '0',
-    'esp_appl_id': 'TEST01', 'views': 'fake_view_im|fake_view_open', 'esp_group': '',
+    'automation_appl_id': 'TEST01', 'views': 'fake_view_im|fake_view_open', 'automation_group': '',
     'check_column': 'test_inc_column', 'source_schema_name': 'dbo',
     'sql_query': 'TRANS > 40', 'actions': '', 'db_env': 'sys',
     'source_database_name': 'fake_database',
@@ -42,6 +42,7 @@ mock_claim_tbl_dict = [{
 
 
 class ITInventoryFunctionsTest(unittest.TestCase):
+
     """Test the functionality of the it inventory class.
     Tests against the fake_clm_tablename record."""
 
@@ -134,12 +135,12 @@ class ITInventoryFunctionsTest(unittest.TestCase):
         self.assertEquals(self.inventory.get_domains(), [])
 
     @patch.object(ITInventory, 'get_rows', autospec=True)
-    def test_get_all_tables_for_esp(self, mock_rows):
+    def test_get_all_tables_for_automation(self, mock_rows):
         mock_rows.side_effect = [mock_claim_tbl, []]
-        result = self.inventory.get_all_tables_for_esp('TEST01')
+        result = self.inventory.get_all_tables_for_automation('TEST01')
         table_obj = ItTable(mock_claim_tbl_dict[0], self.cfg_mgr)
         self.assertEquals(result[0], table_obj)
-        result = self.inventory.get_all_tables_for_esp('TEST02')
+        result = self.inventory.get_all_tables_for_automation('TEST02')
         self.assertEquals(result, [])
 
     @patch.object(ITInventory, 'get_rows', autospec=True)

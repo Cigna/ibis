@@ -12,6 +12,6 @@ hold:0
 source_database_name:fake_database
 source_table_name:fake_fact_tablename
 views:
-esp_appl_id:
-esp_group:
+automation_appl_id:
+automation_group:
 check_column:

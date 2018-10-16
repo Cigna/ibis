@@ -4,6 +4,7 @@ from ibis.model.exporttable import ItTableExport
 
 
 class ExportITInventory(Inventory):
+
     """Class used for managing the records of source table connections.
     and properties in the it_table.
     """

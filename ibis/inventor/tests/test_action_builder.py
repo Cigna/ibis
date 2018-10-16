@@ -22,6 +22,7 @@ mock_view_dic = {'db': 'fake_database', 'tbl': 'fake_member_tablename',
 
 
 class ActionBuilderFunctionsTest(unittest.TestCase):
+
     """Tests the functionality of the ActionBuilder class."""
 
     @patch('ibis.inventory.inventory.Inventory._connect', autospec=True)
@@ -651,7 +652,8 @@ class ActionBuilderFunctionsTest(unittest.TestCase):
     def test_gen_parquet_live_action(self):
         """Test the generation of the parquet live action xml."""
         self.builder.it_table = ItTable(fake_algnmt_tbl, self.cfg_mgr)
-        action = self.builder.gen_parquet_live('fake_algnmt_tablename_parquet_live')
+        action = self.builder.gen_parquet_live(
+            'fake_algnmt_tablename_parquet_live')
         action.ok = 'pipeline0_join'
         live_xml = action.generate_action()
         _path = os.path.join(
@@ -665,7 +667,8 @@ class ActionBuilderFunctionsTest(unittest.TestCase):
         (hadoop credstore password enable)"""
         self.cfg_mgr.hadoop_credstore_password_disable = True
         self.builder.it_table = ItTable(fake_algnmt_tbl, self.cfg_mgr)
-        action = self.builder.gen_parquet_live('fake_algnmt_tablename_parquet_live')
+        action = self.builder.gen_parquet_live(
+            'fake_algnmt_tablename_parquet_live')
         action.ok = 'pipeline0_join'
         live_xml = action.generate_action()
         _path = os.path.join(

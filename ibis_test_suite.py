@@ -15,7 +15,7 @@ from ibis.inventory.tests.test_inventory import InventoryFunctionsTest
 from ibis.inventory.tests.test_it_inventory import ITInventoryFunctionsTest
 from ibis.inventory.tests.test_cb_inventory import CBInventoryFunctionsTest
 from ibis.inventory.tests.test_perf_inventory import PerfInventoryTest
-from ibis.inventory.tests.test_esp_ids_inventory \
+from ibis.inventory.tests.test_automation_ids_inventory \
     import ESPInventoryFunctionsTest
 from ibis.model.tests.test_shell_action import ShellActionFunctionsTest
 from ibis.model.tests.test_sqoop_action import SqoopActionFunctionsTest

@@ -44,7 +44,7 @@ single configuration file, also called the "Request file".
 Split by | Provides an automated split by for Teradata, SQL Server, and DB2 | Without the automated split by, on a per table basis, you need to find a column that enables parallel execution of an ingestion
 Auto generating Oozie workflows |	Automatically creates XML workflows |	No manual XML creation
 Generate non ingestion workflows through "building blocks" |	Given hive and shell scripts, IBIS generates oozie workflow	| Automate running any type of script in the Data Lake
-Group tables based on schedule	| Group workflows into subworkflows based on schedule |	Tables with similar schedule can be kicked off using ESP by triggering one workflow.
+Group tables based on schedule	| Group workflows into subworkflows based on schedule |	Tables with similar schedule can be kicked off using Automation by triggering one workflow.
 Use Parquet |	Store data in Parquet |	Efficient storage + fast queries!
 Follows Lambda Architecture	| Storing data in the base layer, as immutable data
 Allows for data export to any RDBMS	|   Allows to export data from hive to oracle, db2, sqlserver, mysql, Teradata | For generating reports based on exported data to RDBMS
@@ -65,7 +65,7 @@ Command --help would list the IBIS Functionalities
 
 Under the covers, IBIS manages the information required to pull in data sources
 into HDFS, including usernames, passwords, JBDC connection info, and also keeps
-track of ESP ids, used for scheduling jobs in Production.
+track of Automation ids, used for scheduling jobs in Production.
 
 
 IBIS also has shell that allows you to run your workflow, when it's been created.
@@ -133,7 +133,7 @@ ibis-shell --submit-request <path to requestfile.txt> --env prod
                                                                        [small, medium, heavy]
             views:fake_view_im|fake_view_open                              <---- Views (optional)
             check_column:TRANS_TIME                        <---- Column for incremental (optional)
-            esp_group:magic                                <---- used for grouping tables in esp (optional)
+            automation_group:magic                                <---- used for grouping tables in Automation (optional)
             fetch_size:50000                               <---- sqoop rows fetch size (optional)
             hold:1                                         <---- workflow wont be generated (optional)
             split_by:fake_nd_tablename_NUM                               <---- Used for sqoop import (recommended)
@@ -198,9 +198,9 @@ ibis-shell --update-it-table <path to tables.txt> --env prod
                                                                     [small, medium, heavy]
         fetch_size:                                     <---- No value given. Just ignores
         hold:0
-        esp_appl_id:null                                <---- set null to empty the column value
+        automation_appl_id:null                                <---- set null to empty the column value
         views:fake_view_im|fake_view_open               <---- Pipe(|) seperated values
-        esp_group:magic_table
+        automation_group:magic_table
         check_column:fake_nd_tablename_NUM              <---- Sqoop incremental column
         source_database_name:fake_database                    (mandatory)
         source_table_name:fake_client_tablename               (mandatory)
@@ -218,14 +218,14 @@ ibis-shell --view --view-name <view_name> --db  <name> --table <name>  # Minimum
 
 #### Create a workflow based on schedule/frequency
 ```
-ibis-shell --gen-esp-workflows <frequency>  # frequency choices['weekly', 'monthly', 'quarterly', or 'biweekly']
+ibis-shell --gen-automation-workflows <frequency>  # frequency choices['weekly', 'monthly', 'quarterly', or 'biweekly']
 ```
 
 ----------
 
 ##### Create workflows with subworkflows based on one or more filters
 ```
-ibis-shell --gen-esp-workflow schedule=None database=None jdbc_source=None
+ibis-shell --gen-automation-workflow schedule=None database=None jdbc_source=None
         # schedule choices - none, daily, biweekly, weekly, fortnightly, monthly, quarterly
         jdbc_source choices - oracle, db2, teradata, sqlserver
 ```

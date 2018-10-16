@@ -43,11 +43,11 @@ Python 2.7.8
 
                                     [--where WHERE]
 
-                                    [--gen-esp-workflow GEN_ESP_WORKFLOW [GEN_ESP_WORKFLOW ...]]
+                                    [--gen-automation-workflow GEN_automation_WORKFLOW [GEN_automation_WORKFLOW ...]]
 
-                                    [--gen-esp-workflow-tables GEN_ESP_WORKFLOW_TABLES]
+                                    [--gen-automation-workflow-tables GEN_automation_WORKFLOW_TABLES]
 
-                                    [--gen-export-esp-workflow-tables GEN_EXPORT_ESP_WORKFLOW_TABLES]
+                                    [--gen-export-automation-workflow-tables GEN_EXPORT_automation_WORKFLOW_TABLES]
 
                                     [--data-mask DATA_MASK]
 
@@ -57,7 +57,7 @@ Python 2.7.8
 
                                     [--queue-name QUEUE_NAME]
 
-                                    [--esp-id ESP_ID] [--message MESSAGE]
+                                    [--automation-id automation_ID] [--message MESSAGE]
 
                                     [--export] [--to TO] [--auth-test]
 
@@ -177,15 +177,15 @@ Python 2.7.8
 
   --where WHERE         Used to provide a where statement
 
-  --gen-esp-workflow GEN_ESP_WORKFLOW [GEN_ESP_WORKFLOW ...]
-                        Create workflow(s) based on a list of ESP ids
+  --gen-automation-workflow GEN_automation_WORKFLOW [GEN_automation_WORKFLOW ...]
+                        Create workflow(s) based on a list of automation ids
                         separated by spaces.
 
-  --gen-esp-workflow-tables GEN_ESP_WORKFLOW_TABLES
+  --gen-automation-workflow-tables GEN_automation_WORKFLOW_TABLES
                         Create workflow(s) based on a list of tables from
                         request file
 
-  --gen-export-esp-workflow-tables GEN_EXPORT_ESP_WORKFLOW_TABLES
+  --gen-export-automation-workflow-tables GEN_EXPORT_automation_WORKFLOW_TABLES
                         Create export workflow(s) based on a table from
                         request file
 
@@ -203,7 +203,7 @@ Python 2.7.8
   --queue-name QUEUE_NAME
                         Used for providing hadoop queue name
 
-  --esp-id ESP_ID       esp-appl-id
+  --automation-id automation_ID       automation-appl-id
 
   --message MESSAGE     Provide description for bmrs
 
@@ -327,8 +327,6 @@ Python 2.7.8
   --timeout TIMEOUT     Timeout duration for auto split by
 
   --ingest-version      Get the ingest version used for the xml
-
-  --skip-profile        Flag to activate podium profiling
 
   --kite-ingest KITE_INGEST
                         Used to generate kite-ingest workflow

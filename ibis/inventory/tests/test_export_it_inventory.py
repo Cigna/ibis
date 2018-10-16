@@ -22,6 +22,7 @@ it_table_mock = {'full_table_name': 'test_oracle_export',
 
 
 class ExportITInventoryFunctionsTest(unittest.TestCase):
+
     """Tests the functionality of the export it inventory class"""
 
     @classmethod

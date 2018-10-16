@@ -24,7 +24,7 @@ class ItTable(object):
         self._props = ['domain', 'split_by', 'mappers', 'jdbcurl',
                        'target_dir', 'schema', 'query', 'username',
                        'password_file', 'load', 'frequency', 'fetch_size',
-                       'hold', 'esp_appl_id', 'views', 'esp_group',
+                       'hold', 'automation_appl_id', 'views', 'automation_group',
                        'check_column', 'table_name', 'database', 'db_env']
 
     def null_helper(self, val):
@@ -464,17 +464,17 @@ class ItTable(object):
         self.meta_dict['hold'] = int(val)
 
     @property
-    def esp_appl_id(self):
-        """Return esp appl id"""
-        val = self.get_meta_dict().get('esp_appl_id',
+    def automation_appl_id(self):
+        """Return Automation appl id"""
+        val = self.get_meta_dict().get('automation_appl_id',
                                        '')
         val = self.null_helper(val)
         return val
 
-    @esp_appl_id.setter
-    def esp_appl_id(self, val):
-        """setter for esp_appl_id"""
-        self.meta_dict['esp_appl_id'] = val
+    @automation_appl_id.setter
+    def automation_appl_id(self, val):
+        """setter for automation_appl_id"""
+        self.meta_dict['automation_appl_id'] = val
 
     @property
     def table_name(self):
@@ -601,16 +601,16 @@ class ItTable(object):
         return hive_tables
 
     @property
-    def esp_group(self):
-        """esp_group getter"""
-        val = self.get_meta_dict().get('esp_group', '')
+    def automation_group(self):
+        """automation_group getter"""
+        val = self.get_meta_dict().get('automation_group', '')
         val = self.null_helper(val)
         return val
 
-    @esp_group.setter
-    def esp_group(self, val):
-        """setter for esp_group"""
-        self.meta_dict['esp_group'] = val
+    @automation_group.setter
+    def automation_group(self, val):
+        """setter for automation_group"""
+        self.meta_dict['automation_group'] = val
 
     @property
     def schema(self):

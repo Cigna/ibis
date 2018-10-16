@@ -217,7 +217,7 @@ class PerfInventory(Inventory):
                                      src_view=src_view)
 
         file_name = view + '_' + getpass.getuser() + '_' + \
-            'full_' + Utilities.replace_special_chars(src_table)+'.hql'
+            'full_' + Utilities.replace_special_chars(src_table) + '.hql'
         act_file_name = os.path.join(self.cfg_mgr.files, file_name)
         file_h = open(act_file_name, "wb+")
         file_h.write(views_hql)

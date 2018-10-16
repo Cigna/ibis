@@ -192,7 +192,7 @@ class DB2TableTest(unittest.TestCase):
             'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks#'
                              'fake.password.alias',
             'load': '010001', 'fetch_size': '50000', 'hold': '0',
-            'esp_appl_id': 'TEST01', 'views': 'fake_view_im|fake_view_open', 'esp_group': '',
+            'automation_appl_id': 'TEST01', 'views': 'fake_view_im|fake_view_open', 'automation_group': '',
             'check_column': 'test_inc_column', 'source_schema_name': 'dbo',
             'sql_query': 'TRANS > 40', 'actions': '', 'db_env': 'sys',
             'source_database_name': 'fake_database',
@@ -372,7 +372,7 @@ class MySQLTableTest(unittest.TestCase):
             'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks#'
                              'fake.password.alias',
             'load': '010001', 'fetch_size': '50000', 'hold': '0',
-            'esp_appl_id': 'TEST01', 'views': 'fake_view_im|fake_view_open', 'esp_group': '',
+            'automation_appl_id': 'TEST01', 'views': 'fake_view_im|fake_view_open', 'automation_group': '',
             'check_column': 'test_inc_column', 'source_schema_name': 'dbo',
             'sql_query': 'TRANS > 40', 'actions': '', 'db_env': 'sys',
             'source_database_name': 'fake_database',
@@ -525,7 +525,7 @@ class TeradataTableTest(unittest.TestCase):
             'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks#'
                              'fake.password.alias',
             'load': '010001', 'fetch_size': '50000', 'hold': '0',
-            'esp_appl_id': 'TEST01', 'views': 'fake_view_im|fake_view_open', 'esp_group': '',
+            'automation_appl_id': 'TEST01', 'views': 'fake_view_im|fake_view_open', 'automation_group': '',
             'check_column': 'test_inc_column', 'source_schema_name': 'dbo',
             'sql_query': 'TRANS > 40', 'actions': '', 'db_env': 'sys',
             'source_database_name': 'fake_database',
@@ -543,7 +543,7 @@ class TeradataTableTest(unittest.TestCase):
             'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks#'
                              'fake.password.alias',
             'load': '010001', 'fetch_size': '50000', 'hold': '0',
-            'esp_appl_id': 'TEST01', 'views': 'fake_view_im|fake_view_open', 'esp_group': '',
+            'automation_appl_id': 'TEST01', 'views': 'fake_view_im|fake_view_open', 'automation_group': '',
             'check_column': 'test_inc_column', 'source_schema_name': 'dbo',
             'sql_query': 'TRANS > 40', 'actions': '', 'db_env': 'sys',
             'source_database_name': 'fake_database',
@@ -622,7 +622,7 @@ class SqlserverTableTest(unittest.TestCase):
             'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks#'
                              'fake.password.alias',
             'load': '010001', 'fetch_size': '50000', 'hold': '0',
-            'esp_appl_id': 'TEST01', 'views': 'fake_view_im|fake_view_open', 'esp_group': '',
+            'automation_appl_id': 'TEST01', 'views': 'fake_view_im|fake_view_open', 'automation_group': '',
             'check_column': 'test_inc_column', 'source_schema_name': 'dbo',
             'sql_query': 'TRANS > 40', 'actions': '', 'db_env': 'sys',
             'source_database_name': 'fake_database',

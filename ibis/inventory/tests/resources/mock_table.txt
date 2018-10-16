@@ -10,9 +10,9 @@ fetch_size:50000
 hold:0
 source_database_name:fake_database
 source_table_name:fake_clm_tablename
-esp_appl_id:TEST01
+automation_appl_id:TEST01
 views:fake_view_im
-esp_group:
+automation_group:
 check_column:
 
 [Request]
@@ -27,9 +27,9 @@ fetch_size:50000
 hold:0
 source_database_name:fake_database
 source_table_name:rx_clncl_prog_ben_plan
-esp_appl_id:TEST01
+automation_appl_id:TEST01
 views:fake_view_im
-esp_group:
+automation_group:
 check_column:
 
 [Request]
@@ -44,9 +44,9 @@ fetch_size:50000
 hold:0
 source_database_name:fake_database
 source_table_name:CLM_EVENT
-esp_appl_id:TEST01
+automation_appl_id:TEST01
 views:fake_view_im
-esp_group:
+automation_group:
 check_column:
 
 [Request]
@@ -61,7 +61,7 @@ fetch_size:50000
 hold:0
 source_database_name:fake_database
 source_table_name:cdm_ov_reporting
-esp_appl_id:TEST01
+automation_appl_id:TEST01
 views:fake_view_im
-esp_group:
+automation_group:
 check_column:

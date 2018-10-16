@@ -16,4 +16,4 @@ source_database_name:fake_database
 source_table_name:fake_stg_tablename
 refresh_frequency:daily
 views:fake_view_im|fake_view_open
-esp_appl_id:FAKEW254
+automation_appl_id:FAKEW254

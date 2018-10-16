@@ -296,18 +296,18 @@ class MainFunctionsTest(unittest.TestCase):
 
     @patch('ibis.driver.main.Driver.gen_prod_workflow')
     @patch('sys.stdout', new_callable=StringIO)
-    def test_gen_esp_workflow(self, mock_stdout, mock_workflow):
+    def test_gen_automation_workflow(self, mock_stdout, mock_workflow):
 
         """
         Given null arguments and expect invokation for
         gen_prod_workflow and tests the print statement
         """
 
-        args = Namespace(gen_esp_workflow="")
-        ibis.driver.main.gen_esp_workflow(args)
-        self.assertEqual(mock_stdout.getvalue(), '--gen-esp-workflow \
-requires at least one ESP id.\n')
-        args = Namespace(esp_id="esp_id", gen_esp_workflow="gen_esp_workflow")
+        args = Namespace(gen_automation_workflow="")
+        ibis.driver.main.gen_automation_workflow(args)
+        self.assertEqual(mock_stdout.getvalue(), '--gen-automation-workflow \
+requires at least one automation id.\n')
+        args = Namespace(automation_id="automation_id", gen_automation_workflow="gen_automation_workflow")
         mock_workflow.return_value = ('success', 'msg')
         result = ibis.driver.main.Driver.gen_prod_workflow(args)
         self.assertEquals(result, mock_workflow.return_value)

@@ -14,6 +14,7 @@ from ibis.inventor.dsl_parser import DSLParser
 
 
 class ActionBuilder(object):
+
     """Utilizes building blocks to generated workflow"""
 
     def __init__(self, cfg_mgr):
@@ -1062,7 +1063,7 @@ class ActionBuilder(object):
         Typical ingestion flow:
             import_prep -> import -> avro -> avro_parquet ->
             quality_assurance -> qa_data_sampling -> parquet_swap ->
-            parquet_live -> views -> refresh -> podium_profile
+            parquet_live -> views -> refresh
         Args:
             it_table: instance of ibis.model.table.ItTable
             sqoop_to: used for stagger sets sqoop action to value

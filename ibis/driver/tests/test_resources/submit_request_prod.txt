@@ -6,7 +6,7 @@ source_database_name:fake_database
 source_table_name:fake_nd_tablename
 refresh_frequency:fortnightly
 split_by:test_split_col
-esp_group:test_esp_group
+automation_group:test_automation_group
 weight:medium
 views:member
 
@@ -18,7 +18,7 @@ source_database_name:fake_database
 source_table_name:fake_stg_tablename
 refresh_frequency:weekly
 views:fake_view_im|member
-esp_group:magic
+automation_group:magic
 mappers:10
 split_by:test_split_by
 fetch_size:1000

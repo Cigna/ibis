@@ -8,6 +8,7 @@ req_keys = ['directory', 'pull_time', 'avro_size', 'ingest_timestamp',
 
 
 class CheckBalancesInventory(Inventory):
+
     """Class used for managing the Check Balances table."""
 
     def __init__(self, *arg):

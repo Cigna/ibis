@@ -7,6 +7,7 @@ from ibis.model.table import ItTable
 
 
 class ITInventory(Inventory):
+
     """Class used for managing the records of source table connections.
     and properties in the it_table.
     """
@@ -25,7 +26,7 @@ class ITInventory(Inventory):
                   " '{split_by}', {mappers}, '{jdbcurl}',"
                   " '{connection_factories}', '{db_username}',"
                   " '{password_file}', '{load}', {fetch_size}, {hold},"
-                  " '{appl_id}', '{views}', '{esp_group}',"
+                  " '{appl_id}', '{views}', '{automation_group}',"
                   " '{check_column}', '{source_schema_name}',"
                   " '{sql_query}', '{actions}'")
         values = values.format(
@@ -35,7 +36,7 @@ class ITInventory(Inventory):
             connection_factories=row.connection_factories,
             db_username=row.username, password_file=row.password_file,
             load=row.frequency_load, fetch_size=row.fetch_size, hold=row.hold,
-            appl_id=row.esp_appl_id, views=row.views, esp_group=row.esp_group,
+            appl_id=row.automation_appl_id, views=row.views, automation_group=row.automation_group,
             check_column=row.check_column, source_schema_name=row.schema,
             sql_query=row.query, actions=row.actions)
         return values
@@ -83,8 +84,8 @@ class ITInventory(Inventory):
             'full_table_name': '', 'domain': '', 'target_dir': '',
             'split_by': '', 'mappers': 0, 'jdbcurl': '',
             'connection_factories': '', 'db_username': '', 'password_file': '',
-            'load': '', 'fetch_size': 0, 'hold': 1, 'esp_appl_id': '',
-            'views': '', 'esp_group': '', 'check_column': '',
+            'load': '', 'fetch_size': 0, 'hold': 1, 'automation_appl_id': '',
+            'views': '', 'automation_group': '', 'check_column': '',
             'source_schema_name': '', 'sql_query': '', 'actions': '',
             'source_database_name': db_name, 'source_table_name': table_name,
             'db_env': self.cfg_mgr.default_db_env.lower()}
@@ -163,8 +164,8 @@ class ITInventory(Inventory):
             'split_by': row[3], 'mappers': row[4], 'jdbcurl': row[5],
             'connection_factories': row[6], 'db_username': row[7],
             'password_file': row[8], 'load': row[9], 'fetch_size': row[10],
-            'hold': row[11], 'esp_appl_id': row[12], 'views': row[13],
-            'esp_group': row[14], 'check_column': row[15],
+            'hold': row[11], 'automation_appl_id': row[12], 'views': row[13],
+            'automation_group': row[14], 'check_column': row[15],
             'source_schema_name': row[16], 'sql_query': row[17],
             'actions': row[18],
             'source_database_name': row[-3], 'source_table_name': row[-2],
@@ -207,9 +208,13 @@ class ITInventory(Inventory):
                 table.load_readable))
             file_h.write('fetch_size:{0}\n'.format(table.fetch_size))
             file_h.write('hold:{0}\n'.format(table.hold))
-            file_h.write('esp_appl_id:{0}\n'.format(table.esp_appl_id))
+            file_h.write(
+                'automation_appl_id:{0}\n'.format(
+                    table.automation_appl_id))
             file_h.write('views:{0}\n'.format(table.views))
-            file_h.write('esp_group:{0}\n'.format(table.esp_group))
+            file_h.write(
+                'automation_group:{0}\n'.format(
+                    table.automation_group))
             file_h.write('check_column:{0}\n'.format(table.check_column))
             file_h.write('source_schema_name:{0}\n'.format(
                 table.schema))
@@ -243,11 +248,11 @@ class ITInventory(Inventory):
                 domains.append(domain)
         return domains
 
-    def get_all_tables_for_esp(self, esp_id):
-        """Returns a list[table] of all sql-tables that match with ESP id"""
+    def get_all_tables_for_automation(self, automation_id):
+        """Returns a list[table] of all sql-tables that match with Automation id"""
         tables = []
-        query = "SELECT * FROM {tbl} WHERE esp_appl_id='{id}'"
-        query = query.format(tbl=self.table, id=esp_id)
+        query = "SELECT * FROM {tbl} WHERE automation_appl_id='{id}'"
+        query = query.format(tbl=self.table, id=automation_id)
         result = self.get_rows(query)
         if result:
             for table_row in result:

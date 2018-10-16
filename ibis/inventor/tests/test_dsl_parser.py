@@ -11,6 +11,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class DSLParserTest(unittest.TestCase):
+
     """Tests the functionality of the DSLParser class"""
 
     def setUp(self):

@@ -34,7 +34,8 @@ def parses_config():
         print 'Error: Given section, {} not found!'.format(section)
         sys.exit(1)
 
-    return ''.join(map((lambda x: x[0]+'='+x[1]+' '), parser.items(section)))
+    return ''.join(
+        map((lambda x: x[0] + '=' + x[1] + ' '), parser.items(section)))
 
 
 def main():

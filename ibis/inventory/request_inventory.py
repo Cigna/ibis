@@ -12,8 +12,8 @@ from ibis.model.exporttable import ItTableExport
 REQUIRED_FIELDS = ['source_database_name', 'source_table_name']
 OPTIONAL_FIELDS = ['jdbcurl', 'db_username', 'password_file',
                    'mappers', 'refresh_frequency', 'weight', 'views',
-                   'check_column', 'esp_group', 'split_by', 'fetch_size',
-                   'hold', 'esp_appl_id', 'source_schema_name', 'sql_query',
+                   'check_column', 'automation_group', 'split_by', 'fetch_size',
+                   'hold', 'automation_appl_id', 'source_schema_name', 'sql_query',
                    'actions', 'db_env']
 
 REQUIRED_FIELDS_EXPORT = ['source_database_name', 'source_table_name',
@@ -21,11 +21,12 @@ REQUIRED_FIELDS_EXPORT = ['source_database_name', 'source_table_name',
                           'target_table', 'db_username', 'password_file']
 OPTIONAL_FIELDS_EXPORT = ['update_key', 'fetch_size',
                           'source_dir', 'refresh_frequency', 'mappers',
-                          'esp_appl_id', 'weight', 'db_env',
+                          'automation_appl_id', 'weight', 'db_env',
                           'staging_database']
 
 
 class Request(object):
+
     """Represents fields in request file"""
 
     def __init__(self, meta_dict, cfg_mgr):
@@ -191,20 +192,20 @@ class Request(object):
         return self.get_meta_data().get('check_column', False)
 
     @property
-    def esp_group(self):
+    def automation_group(self):
         """getter
         Returns:
-            False: when esp_group is missing in request file
+            False: when automation_group is missing in request file
         """
-        return self.get_meta_data().get('esp_group', False)
+        return self.get_meta_data().get('automation_group', False)
 
     @property
-    def esp_appl_id(self):
+    def automation_appl_id(self):
         """getter
         Returns:
-            False: when esp_appl_id is missing in request file
+            False: when automation_appl_id is missing in request file
         """
-        return self.get_meta_data().get('esp_appl_id', False)
+        return self.get_meta_data().get('automation_appl_id', False)
 
     @property
     def mappers(self):
@@ -268,6 +269,7 @@ class Request(object):
 
 
 class RequestInventory(object):
+
     """Handles request file"""
 
     def __init__(self, cfg_mgr):

@@ -6,6 +6,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class Fork(Control):
+
     """Fork control class."""
 
     def __init__(self, **params):
@@ -18,7 +19,7 @@ class Fork(Control):
                                      self.params['name'],
                                      self.params['cfg_mgr'])
                 self.logger.info("Successfully forked")
-            except KeyError, e:
+            except KeyError as e:
                 self.logger.error('Fork KeyError - reason "%s"' % str(e))
         else:
             self.logger.error('Invalid expecting fork control type')

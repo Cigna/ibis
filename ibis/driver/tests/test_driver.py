@@ -11,7 +11,7 @@ from mock import patch, Mock, MagicMock
 from ibis.driver.driver import Driver
 from ibis.inventor.tests.fixture_workflow_generator import *
 from ibis.inventory.cb_inventory import CheckBalancesInventory
-from ibis.inventory.esp_ids_inventory import ESPInventory
+from ibis.inventory.automation_ids_inventory import AUTOInventory
 from ibis.inventory.export_it_inventory import ExportITInventory
 from ibis.inventory.inventory import Inventory
 from ibis.inventory.it_inventory import ITInventory
@@ -310,7 +310,7 @@ class DriverFunctionsTest(unittest.TestCase):
                               'jceks#fake.password.alias',
              'load': '000100', 'fetch_size': 20000, 'hold': 0,
              'source_database_name': 'fake_database',
-             'source_table_name': 'fake_prog_tablename', 'esp_appl_id': 'TEST01',
+             'source_table_name': 'fake_prog_tablename', 'automation_appl_id': 'TEST01',
              'views': 'fake_view_im'},
             {'full_table_name': 'fake_domainfake_database_fake_job_tablename', 'domain': 'fake_domain',
              'target_dir': 'mdm/fake_domain/fake_database/fake_job_tablename', 'split_by': '',
@@ -324,7 +324,7 @@ class DriverFunctionsTest(unittest.TestCase):
              'hold': 0,
              'source_database_name': 'fake_database',
              'source_table_name': 'fake_job_tablename',
-             'esp_appl_id': 'TEST01', 'views': 'fake_view_im'}]
+             'automation_appl_id': 'TEST01', 'views': 'fake_view_im'}]
         self.driver.cb_inventory.get.return_value = [
             ['directory', 'pull_time', 'avro_size', 'ingest_timestamp',
              'parquet_time',
@@ -350,7 +350,7 @@ class DriverFunctionsTest(unittest.TestCase):
              'load': '200100', 'db_username': 'fake_username', 'mappers': 10,
              'fetch_size': 20000,
              'hold': 0, 'source_database_name': 'fake_database',
-             'esp_appl_id': 'TEST01',
+             'automation_appl_id': 'TEST01',
              'source_table_name': 'fake_prog_tablename', 'views': 'fake_view_im'}]
         self.assertEquals(self.driver.update_all_lifespan(), '')
 
@@ -387,8 +387,8 @@ class DriverFunctionsTest(unittest.TestCase):
            autospec=True)
     @patch('ibis.utilities.utilities.Utilities.dryrun_workflow',
            autospec=True)
-    @patch.object(ITInventory, 'get_all_tables_for_esp', autospec=True)
-    @patch.object(ESPInventory, 'get_tables_by_id', autospec=True)
+    @patch.object(ITInventory, 'get_all_tables_for_automation', autospec=True)
+    @patch.object(AUTOInventory, 'get_tables_by_id', autospec=True)
     @patch('ibis.inventory.inventory.Inventory._connect', autospec=True)
     @patch('ibis.inventor.action_builder.SqoopHelper.eval', autospec=True)
     @patch.object(VizOozie, 'visualizeXML', autospec=True)
@@ -396,16 +396,16 @@ class DriverFunctionsTest(unittest.TestCase):
     @patch.object(PerfInventory, 'insert_freq_ingest', autospec=True)
     def test_gen_prod_workflow(self, m_freq_ingest, m_convert_pdf,
                                m_v_xml, m_eval, m_c,
-                               m_get_id, m_get_t_esp, m_dryrun,
+                               m_get_id, m_get_t_automation, m_dryrun,
                                m_put_w, m_sqoop_cache, m_sqoop_cache_view,
                                m_dryrun_all):
         """ Tests generate_prod_workflows with 3 tables. One light,
         one medium and oen heavy."""
         m_eval.return_value = [['Col1', 'varchar'], ['Col2', 'varchar']]
         m_get_id.side_effect = [appl_ref_id_tbl_01, appl_ref_id_tbl_02]
-        _mock_esp_tables_02 = [ItTable(tbl, self.cfg_mgr) for tbl in
-                               mock_esp_tables_02]
-        m_get_t_esp.return_value = _mock_esp_tables_02
+        _mock_automation_tables_02 = [ItTable(tbl, self.cfg_mgr) for tbl in
+                               mock_automation_tables_02]
+        m_get_t_automation.return_value = _mock_automation_tables_02
         self.cfg_mgr.env = 'perf'
         status, msg, git_files = self.driver.gen_prod_workflow('FAKED001')
         for file_name in git_files:
@@ -434,8 +434,8 @@ class DriverFunctionsTest(unittest.TestCase):
            autospec=True)
     @patch('ibis.utilities.utilities.Utilities.dryrun_workflow',
            autospec=True)
-    @patch.object(ITInventory, 'get_all_tables_for_esp', autospec=True)
-    @patch.object(ESPInventory, 'get_tables_by_id', autospec=True)
+    @patch.object(ITInventory, 'get_all_tables_for_automation', autospec=True)
+    @patch.object(AUTOInventory, 'get_tables_by_id', autospec=True)
     @patch('ibis.inventory.inventory.Inventory._connect', autospec=True)
     @patch('ibis.inventor.action_builder.SqoopHelper.eval', autospec=True)
     @patch.object(VizOozie, 'visualizeXML', autospec=True)
@@ -443,16 +443,16 @@ class DriverFunctionsTest(unittest.TestCase):
     @patch.object(PerfInventory, 'insert_freq_ingest', autospec=True)
     def test_gen_prod_workflow_perf_nodomain(self, m_freq_ingest, m_convert_pdf,
                                             m_v_xml, m_eval, m_c,
-                                            m_get_id, m_get_t_esp,
+                                            m_get_id, m_get_t_automation,
                                             m_dryrun, m_put_w, m_sqoop_cache,
                                             m_sqoop_cache_view, m_dryrun_all):
         """ Tests generate_prod_workflows with 3 tables. One light,
         one medium and oen heavy."""
         m_eval.return_value = [['Col1', 'varchar'], ['Col2', 'varchar']]
         m_get_id.side_effect = [appl_ref_id_tbl_01, appl_ref_id_tbl_02]
-        _mock_esp_tables = [ItTable(tbl, self.cfg_mgr) for tbl in
-                            mock_esp_tbl_perf_domain]
-        m_get_t_esp.return_value = _mock_esp_tables
+        _mock_automation_tables = [ItTable(tbl, self.cfg_mgr) for tbl in
+                            mock_automation_tbl_perf_domain]
+        m_get_t_automation.return_value = _mock_automation_tables
         self.cfg_mgr.env = 'perf'
         status, msg, git_files = self.driver.gen_prod_workflow('FAKED001')
         for file_name in git_files:
@@ -482,8 +482,8 @@ class DriverFunctionsTest(unittest.TestCase):
     @patch('ibis.utilities.utilities.Utilities.put_dry_workflow',
            autospec=True)
     @patch('ibis.utilities.utilities.Utilities.dryrun_workflow', autospec=True)
-    @patch.object(ITInventory, 'get_all_tables_for_esp', autospec=True)
-    @patch.object(ESPInventory, 'get_tables_by_id', autospec=True)
+    @patch.object(ITInventory, 'get_all_tables_for_automation', autospec=True)
+    @patch.object(AUTOInventory, 'get_tables_by_id', autospec=True)
     @patch('ibis.inventory.inventory.Inventory._connect', autospec=True)
     @patch('ibis.inventor.action_builder.SqoopHelper.eval', autospec=True)
     @patch.object(VizOozie, 'visualizeXML', autospec=True)
@@ -492,16 +492,16 @@ class DriverFunctionsTest(unittest.TestCase):
     @patch.object(PerfInventory, 'insert_freq_ingest', autospec=True)
     def test_gen_prod_workflow_2(self, m_freq_ingest, m_gen_incr,
                                  m_convert_pdf, m_v_xml,
-                                 m_eval, m_c, m_get_id, m_get_t_esp,
+                                 m_eval, m_c, m_get_id, m_get_t_automation,
                                  m_dryrun, m_put_w, m_sqoop_cache,
                                  m_sqoop_cache_view, m_dryrun_all):
         """ Tests generate_prod_workflows with five tables. 3 heavy,
          one medium and one light."""
         m_eval.return_value = [['Col1', 'varchar'], ['Col2', 'varchar']]
         m_get_id.side_effect = [appl_ref_id_tbl_01, appl_ref_id_tbl_02]
-        _mock_esp_tables_03 = [ItTable(tbl, self.cfg_mgr) for tbl in
-                               mock_esp_tables_03]
-        m_get_t_esp.return_value = _mock_esp_tables_03
+        _mock_automation_tables_03 = [ItTable(tbl, self.cfg_mgr) for tbl in
+                               mock_automation_tables_03]
+        m_get_t_automation.return_value = _mock_automation_tables_03
         m_gen_incr.return_value = []
         self.cfg_mgr.env = 'perf'
         status, msg, git_files = self.driver.gen_prod_workflow('FAKED001')
@@ -520,8 +520,8 @@ class DriverFunctionsTest(unittest.TestCase):
     @patch('ibis.utilities.utilities.Utilities.put_dry_workflow',
            autospec=True)
     @patch('ibis.utilities.utilities.Utilities.dryrun_workflow', autospec=True)
-    @patch.object(ITInventory, 'get_all_tables_for_esp', autospec=True)
-    @patch.object(ESPInventory, 'get_tables_by_id', autospec=True)
+    @patch.object(ITInventory, 'get_all_tables_for_automation', autospec=True)
+    @patch.object(AUTOInventory, 'get_tables_by_id', autospec=True)
     @patch('ibis.inventory.inventory.Inventory._connect', autospec=True)
     @patch('ibis.inventor.action_builder.SqoopHelper.eval', autospec=True)
     @patch.object(VizOozie, 'visualizeXML', autospec=True)
@@ -529,16 +529,16 @@ class DriverFunctionsTest(unittest.TestCase):
     @patch.object(PerfInventory, 'insert_freq_ingest', autospec=True)
     def test_gen_prod_workflow_3(self, m_freq_ingest, m_convert_pdf,
                                  m_v_xml, m_eval, m_c,
-                                 m_get_id, m_get_t_esp, m_dryrun,
+                                 m_get_id, m_get_t_automation, m_dryrun,
                                  m_put_w, m_sqoop_cache, m_sqoop_cache_view,
                                  m_dryrun_all):
         """ Tests generate_prod_workflows with 6 tables. Two light,
         three medium and one heavy."""
         m_eval.return_value = [['Col1', 'varchar'], ['Col2', 'varchar']]
         m_get_id.side_effect = [appl_ref_id_tbl_01, appl_ref_id_tbl_02]
-        _mock_esp_tables_01 = [ItTable(tbl, self.cfg_mgr) for tbl in
-                               mock_esp_tables_01]
-        m_get_t_esp.return_value = _mock_esp_tables_01
+        _mock_automation_tables_01 = [ItTable(tbl, self.cfg_mgr) for tbl in
+                               mock_automation_tables_01]
+        m_get_t_automation.return_value = _mock_automation_tables_01
         self.cfg_mgr.env = 'perf'
         status, msg, git_files = self.driver.gen_prod_workflow('FAKED001')
         self.assertEquals(len(git_files), 51)
@@ -547,31 +547,31 @@ class DriverFunctionsTest(unittest.TestCase):
         self.assertIn('subworkflow:', msg)
         self.assertTrue(status)
 
-    @patch.object(ITInventory, 'get_all_tables_for_esp', autospec=True)
-    @patch.object(ESPInventory, 'get_tables_by_id', autospec=True)
+    @patch.object(ITInventory, 'get_all_tables_for_automation', autospec=True)
+    @patch.object(AUTOInventory, 'get_tables_by_id', autospec=True)
     @patch('ibis.inventory.inventory.Inventory._connect', autospec=True)
     def test_gen_prod_workflow_without_applrefs(self, m_c, m_get_tables_by_id,
-                                                m_get_all_tables_for_esp):
+                                                m_get_all_tables_for_automation):
         """ test_gen_prod_workflow_without_applrefs"""
-        m_get_all_tables_for_esp.return_value = [mock_esp_tables_01,
-                                                 mock_esp_tables_02]
+        m_get_all_tables_for_automation.return_value = [mock_automation_tables_01,
+                                                 mock_automation_tables_02]
         m_get_tables_by_id.return_value = []
         status, msg, git_files = self.driver.gen_prod_workflow('FAKED001')
         self.assertEquals(len(git_files), 0)
         self.assertIn(
-            "No row found for esp_appl_id: 'FAKED001' "
-            "in 'ibis.esp_ids' table", msg)
+            "No row found for automation_appl_id: 'FAKED001' "
+            "in 'ibis.automation_ids' table", msg)
         self.assertFalse(status)
 
-    @patch.object(ITInventory, 'get_all_tables_for_esp', autospec=True)
+    @patch.object(ITInventory, 'get_all_tables_for_automation', autospec=True)
     @patch('ibis.inventory.inventory.Inventory._connect', autospec=True)
     def test_gen_prod_workflow_without_tables(self, m_c,
-                                              m_get_all_tables_for_esp):
+                                              m_get_all_tables_for_automation):
         """ test_gen_prod_workflow_without_applrefs"""
-        m_get_all_tables_for_esp.return_value = []
+        m_get_all_tables_for_automation.return_value = []
         status, msg, git_files = self.driver.gen_prod_workflow('FAKED001')
         self.assertEquals(len(git_files), 0)
-        self.assertIn("No tables found for esp_appl_id: 'FAKED001'", msg)
+        self.assertIn("No tables found for automation_appl_id: 'FAKED001'", msg)
         self.assertFalse(status)
 
     @patch.object(Inventory, '_connect', autospec=True)

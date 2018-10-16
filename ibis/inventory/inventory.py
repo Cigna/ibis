@@ -8,6 +8,7 @@ IMPALA_CONN = None
 
 
 class Inventory(object):
+
     """Inventory super class."""
 
     def __init__(self, cfg_mgr):

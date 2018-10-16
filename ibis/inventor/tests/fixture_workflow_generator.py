@@ -73,7 +73,7 @@ fake_fact_tbl_prop = {
     'db_username': 'fake_username',
     'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks'
                      '#fake.password.alias',
-    'load': '000010', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000010', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database',
     'source_table_name': 'risk_fake_tablename'}
 fake_fact_tbl_prop_mysql = {
@@ -84,7 +84,7 @@ fake_fact_tbl_prop_mysql = {
     'jdbcurl': 'jdbc:mysql://fake.mysql/ibis',
     'db_username': 'fake_username',
     'password_file': '/user/dev/fake.password.file',
-    'load': '000010', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000010', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database',
     'source_table_name': 'risk_fake_tablename'}
 fake_ben_tbl_prop = {
@@ -97,7 +97,7 @@ fake_ben_tbl_prop = {
     'db_username': 'fake_username',
     'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks#'
                      'fake.password.alias',
-    'load': '000100', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000100', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database',
     'source_table_name': 'fake_ben_tablename'}
 fake_ben_tbl_prop_mysql = {
@@ -108,7 +108,7 @@ fake_ben_tbl_prop_mysql = {
     'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
     'db_username': 'fake_username',
     'password_file': '/user/dev/fake.password.file',
-    'load': '000100', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000100', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database',
     'source_table_name': 'fake_ben_tablename'}
 fake_ben_pwdfile_tbl_prop = {
@@ -119,7 +119,7 @@ fake_ben_pwdfile_tbl_prop = {
                '/fake_servicename',
     'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
     'db_username': 'fake_username', 'password_file': '/user/dev/fake.password.file',
-    'load': '000100', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000100', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database',
     'source_table_name': 'fake_ben_tablename'}
 fake_prof_tbl_prop = {
@@ -132,7 +132,7 @@ fake_prof_tbl_prop = {
     'db_username': 'fake_username',
     'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks#'
                      'fake.password.alias',
-    'load': '000001', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000001', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database',
     'source_table_name': 'fake_prof_tablename'}
 fake_prof_tbl_prop_mysql = {
@@ -143,7 +143,7 @@ fake_prof_tbl_prop_mysql = {
     'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
     'db_username': 'fake_username',
     'password_file': '/user/dev/fake.password.file',
-    'load': '000001', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000001', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database',
     'source_table_name': 'fake_prof_tablename'}
 fake_fct_tbl_prop = {
@@ -156,7 +156,7 @@ fake_fct_tbl_prop = {
     'db_username': 'fake_username',
     'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks#'
                      'fake.password.alias',
-    'load': '000010', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000010', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database', 'source_table_name': 'fake_fct_tablename'}
 fake_fct_tbl_prop_mysql = {
     'full_table_name': 'fake_database_fake_fct_tablename', 'domain': 'test',
@@ -166,7 +166,7 @@ fake_fct_tbl_prop_mysql = {
     'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
     'db_username': 'fake_username',
     'password_file': '/user/dev/fake.password.file',
-    'load': '000010', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000010', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database', 'source_table_name': 'fake_fct_tablename'}
 fake_cens_tbl_prop = {
     'full_table_name': 'fake_domain.fake_database_fake_cens_tablename', 'domain': 'test',
@@ -178,7 +178,7 @@ fake_cens_tbl_prop = {
     'db_username': 'fake_username',
     'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks#'
                      'fake.password.alias',
-    'load': '000100', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000100', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database',
     'source_table_name': 'fake_cens_tablename'}
 fake_cens_tbl_prop_mysql = {
@@ -189,7 +189,7 @@ fake_cens_tbl_prop_mysql = {
     'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
     'db_username': 'fake_username',
     'password_file': '/user/dev/fake.password.file',
-    'load': '000100', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000100', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database',
     'source_table_name': 'fake_cens_tablename'}
 light_3_prop = {
@@ -202,7 +202,7 @@ light_3_prop = {
     'db_username': 'fake_username',
     'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks#'
                      'fake.password.alias',
-    'load': '000100', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000100', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database', 'source_table_name': 'light_3'}
 light_3_prop_mysql = {
     'full_table_name': 'fake_database_fake_cens_tablename', 'domain': 'test',
@@ -212,7 +212,7 @@ light_3_prop_mysql = {
     'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
     'db_username': 'fake_username',
     'password_file': '/user/dev/fake.password.file',
-    'load': '000100', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000100', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database', 'source_table_name': 'light_3'}
 light_4_prop = {
     'full_table_name': 'fake_domain.fake_database_fake_cens_tablename', 'domain': 'test',
@@ -246,7 +246,7 @@ light_5_prop = {
     'db_username': 'fake_username',
     'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks#'
                      'fake.password.alias',
-    'load': '000100', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000100', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database', 'source_table_name': 'light_5'}
 med_3_prop = {
     'full_table_name': 'fake_domain.fake_database_fake_fct_tablename', 'domain': 'test',
@@ -258,7 +258,7 @@ med_3_prop = {
     'db_username': 'fake_username',
     'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks#'
                      'fake.password.alias',
-    'load': '000010', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000010', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database', 'source_table_name': 'med_3'}
 med_3_prop_mysql = {
     'full_table_name': 'fake_database_fake_fct_tablename', 'domain': 'test',
@@ -268,7 +268,7 @@ med_3_prop_mysql = {
     'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
     'db_username': 'fake_username',
     'password_file': '/user/dev/fake.password.file',
-    'load': '000010', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000010', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database', 'source_table_name': 'med_3'}
 heavy_2_prop = {
     'full_table_name': 'fake_domain.fake_database_fake_prof_tablename', 'domain': 'test',
@@ -280,9 +280,9 @@ heavy_2_prop = {
     'db_username': 'fake_username',
     'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks#'
                      'fake.password.alias',
-    'load': '000001', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000001', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database', 'source_table_name': 'heavy_2',
-    'esp_appl_id': 'test_esp_appl_id_2', 'esp_group': '',
+    'automation_appl_id': 'test_automation_appl_id_2', 'automation_group': '',
     'check_column': 'test_incr_column'}
 heavy_2_prop_mysql = {
     'full_table_name': 'fake_database_fake_prof_tablename', 'domain': 'test',
@@ -292,9 +292,9 @@ heavy_2_prop_mysql = {
     'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
     'db_username': 'fake_username',
     'password_file': '/user/dev/fake.password.file',
-    'load': '000001', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000001', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database', 'source_table_name': 'heavy_2',
-    'esp_appl_id': 'test_esp_appl_id_2', 'esp_group': '',
+    'automation_appl_id': 'test_automation_appl_id_2', 'automation_group': '',
     'check_column': 'test_incr_column'}
 heavy_3_prop = {
     'full_table_name': 'fake_domain.fake_database_fake_prof_tablename', 'domain': 'test',
@@ -306,9 +306,9 @@ heavy_3_prop = {
     'db_username': 'fake_username',
     'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks#'
                      'fake.password.alias',
-    'load': '000001', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000001', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database', 'source_table_name': 'heavy_3',
-    'esp_appl_id': 'test_esp_appl_id', 'esp_group': '',
+    'automation_appl_id': 'test_automation_appl_id', 'automation_group': '',
     'check_column': 'test_incr_column'}
 heavy_3_prop_perf = {
     'full_table_name': 'fake_domain.fake_database_fake_prof_tablename', 'domain': 'test',
@@ -320,9 +320,9 @@ heavy_3_prop_perf = {
     'db_username': 'fake_username',
     'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks#'
                      'fake.password.alias',
-    'load': '000001', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000001', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database', 'source_table_name': 'heavy_3',
-    'esp_appl_id': 'test_esp_appl_id', 'esp_group': '',
+    'automation_appl_id': 'test_automation_appl_id', 'automation_group': '',
     'check_column': 'test_incr_column'}
 heavy_3_prop_exp = {
     'full_table_name': 'fake_domain.fake_database_fake_prof_tablename', 'domain': 'test',
@@ -334,9 +334,9 @@ heavy_3_prop_exp = {
     'db_username': 'fake_username',
     'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks#'
                      'fake.password.alias',
-    'load': '000001', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000001', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database', 'source_table_name': 'heavy_3',
-    'esp_appl_id': 'test_esp_appl_id', 'esp_group': '',
+    'automation_appl_id': 'test_automation_appl_id', 'automation_group': '',
     'check_column': 'test_incr_column', 'target_schema': 'fake_database',
     'database_name': 'fake_database', 'table_name': 'heavy_3',
     'target_table': 'heavy_3'}
@@ -348,9 +348,9 @@ heavy_3_prop_mysql = {
     'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
     'db_username': 'fake_username',
     'password_file': '/user/dev/fake.password.file',
-    'load': '000001', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000001', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database', 'source_table_name': 'heavy_3',
-    'esp_appl_id': 'test_esp_appl_id', 'esp_group': '',
+    'automation_appl_id': 'test_automation_appl_id', 'automation_group': '',
     'check_column': 'test_incr_column'}
 
 full_ingest_tbl_mysql = {
@@ -442,7 +442,7 @@ mock_table_mapping_val = {'load': '000010', 'mappers': 10,
                           'full_table_name': 'fake_database.fake_mmm_tablename',
                           'db_username': 'fake_username', 'hold': 0,
                           'split_by': '', 'jdbcurl': 'oracle',
-                          'fetch_size': 5, 'esp_appl_id': 'TEST01'}
+                          'fetch_size': 5, 'automation_appl_id': 'TEST01'}
 
 mock_table_mapping_val_export = {'source_database_name': 'test_mysql',
                                  'source_table_name': 'test_data',
@@ -457,7 +457,7 @@ mock_table_mapping_val_app = {
     'connection_factories': 'com.cloudera.sqoop.manager.DefaultManagerFactory',
     'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks#fake.password.alias',
     'full_table_name': 'fake_database.fake_mmm_tablename', 'db_username': 'fake_username', 'hold': 0,
-    'split_by': '', 'jdbcurl': 'oracle', 'fetch_size': 5, 'esp_appl_id': ''}
+    'split_by': '', 'jdbcurl': 'oracle', 'fetch_size': 5, 'automation_appl_id': ''}
 
 mock_table_mapping_val_exp = {
     'full_table_name': 'fake_domain.fake_database_fake_prof_tablename',
@@ -483,20 +483,20 @@ heavy_3_prop_exp = {
     'db_username': 'fake_username',
     'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks#'
                      'fake.password.alias',
-    'load': '000001', 'fetch_size': 50000, 'hold': 0, 'views':'fake_view_open',
+    'load': '000001', 'fetch_size': 50000, 'hold': 0, 'views': 'fake_view_open',
     'source_database_name': 'fake_database', 'source_table_name': 'heavy_3',
-    'esp_appl_id': 'test_esp_appl_id', 'esp_group': '',
+    'automation_appl_id': 'test_automation_appl_id', 'automation_group': '',
     'check_column': 'test_incr_column', 'target_schema': 'fake_database',
     'database_name': 'fake_database', 'table_name': 'heavy_3',
     'target_table': 'heavy_3'}
 
-mock_esp_tables_01 = [
+mock_automation_tables_01 = [
     {'load': '000100', 'mappers': 2, 'domain': 'member',
      'target_dir': 'mdm/member/fake_database/fake_ref_tablename',
      'password_file': 'jceks://hdfs/user/dev/fake.passwords.jceks'
                       '#fake.password.alias',
      'source_table_name': 'fake_ref_tablename', 'hold': 0, 'split_by': '',
-     'fetch_size': 20000, 'esp_appl_id': 'FAKED001',
+     'fetch_size': 20000, 'automation_appl_id': 'FAKED001',
      'source_database_name': 'fake_database',
      'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
      'full_table_name': 'member.fake_database_fake_ref_tablename',
@@ -508,7 +508,7 @@ mock_esp_tables_01 = [
      'password_file': 'jceks://hdfs/user/dev/fake.passwords.'
                       'jceks#fake.password.alias',
      'source_table_name': 'fake_biometrics_tablename',
-     'hold': 0, 'split_by': '', 'fetch_size': 10000, 'esp_appl_id': 'FAKED001',
+     'hold': 0, 'split_by': '', 'fetch_size': 10000, 'automation_appl_id': 'FAKED001',
      'source_database_name': 'fake_database',
      'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
      'full_table_name': 'member.fake_database_fake_biometrics_tablename',
@@ -520,7 +520,7 @@ mock_esp_tables_01 = [
                       'passwords.jceks#fake.password.alias',
      'source_table_name': 'fake_ben_tablename', 'hold': 0,
      'split_by': '', 'fetch_size': 50000,
-     'esp_appl_id': 'FAKED001', 'source_database_name': 'fake_database',
+     'automation_appl_id': 'FAKED001', 'source_database_name': 'fake_database',
      'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
      'full_table_name': 'member.fake_database_fake_ben_tablename',
      'db_username': 'fake_username',
@@ -531,7 +531,7 @@ mock_esp_tables_01 = [
                       'jceks#fake.password.alias',
      'source_table_name': 'fake_assmt_tablename', 'hold': 0,
      'split_by': '', 'fetch_size': 50000,
-     'esp_appl_id': 'FAKED001',
+     'automation_appl_id': 'FAKED001',
      'source_database_name': 'fake_database',
      'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
      'full_table_name': 'member.fake_database_fake_assmt_tablename',
@@ -543,7 +543,7 @@ mock_esp_tables_01 = [
      'password_file': 'jceks://hdfs/user/dev/fake.passwords.'
                       'jceks#fake.password.alias',
      'source_table_name': 'fake_rule_tablename', 'hold': 0,
-     'split_by': '', 'fetch_size': 50000, 'esp_appl_id': 'FAKED001',
+     'split_by': '', 'fetch_size': 50000, 'automation_appl_id': 'FAKED001',
      'source_database_name': 'fake_database',
      'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
      'full_table_name': 'member.fake_database_fake_rule_tablename', 'db_username': 'fake_username',
@@ -555,20 +555,20 @@ mock_esp_tables_01 = [
                       'fake.password.alias',
      'source_table_name': 'fake_posiv_tablename',
      'hold': 0, 'split_by': 'fake_split_by', 'fetch_size': 50000,
-     'esp_appl_id': 'FAKED001', 'source_database_name': 'fake_database',
+     'automation_appl_id': 'FAKED001', 'source_database_name': 'fake_database',
      'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
      'full_table_name': 'member.fake_database_fake_posiv_tablename',
      'db_username': 'fake_username',
      'jdbcurl': 'jdbc:oracle:thin:@//fake.oracle:1521/fake_servicename', 'views': 'fake_view_im|client'}]
 
-mock_esp_tables_02 = [
+mock_automation_tables_02 = [
     {'load': '000100', 'mappers': 2, 'domain': 'fake_domain',
      'target_dir': 'mdm/fake_domain/fake_database/fake_prog_tablename',
      'password_file': 'jceks://hdfs/user/dev/fake.passwords.'
                       'jceks#fake.password.alias',
      'source_table_name': 'fake_prog_tablename',
      'hold': 0, 'split_by': '', 'fetch_size': 20000,
-     'esp_appl_id': 'FAKED006',
+     'automation_appl_id': 'FAKED006',
      'source_database_name': 'fake_database',
      'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
      'full_table_name': 'fake_domain.fake_database_fake_prog_tablename',
@@ -581,7 +581,7 @@ mock_esp_tables_02 = [
                       '.jceks#fake.password.alias',
      'source_table_name': 'fake_cens_tablename',
      'hold': 0, 'split_by': '', 'fetch_size': 50000,
-     'esp_appl_id': 'FAKED006',
+     'automation_appl_id': 'FAKED006',
      'source_database_name': 'fake_database',
      'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
      'full_table_name': 'member.fake_database_fake_cens_tablename',
@@ -594,60 +594,60 @@ mock_esp_tables_02 = [
                       'jceks#fake.password.alias',
      'source_table_name': 'risk_fake_tablename',
      'hold': 0, 'split_by': '', 'fetch_size': 50000,
-     'esp_appl_id': 'FAKED006',
+     'automation_appl_id': 'FAKED006',
      'source_database_name': 'fake_database',
      'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
      'full_table_name': 'fake_domain.fake_database_risk_fake_tablename',
      'db_username': 'fake_username',
      'jdbcurl': 'jdbc:oracle:thin:@//fake.oracle:1521/fake_servicename', 'views': 'fake_view_open|client'}]
 
-mock_esp_tbl_perf_domain = [
+mock_automation_tbl_perf_domain = [
     {'load': '000100', 'mappers': 2, 'domain': 'fake_domain',
      'target_dir': 'mdm/fake_domain/fake_database/fake_prog_tablename',
      'password_file': 'jceks://hdfs/user/dev/fake.passwords.'
                       'jceks#fake.password.alias',
      'source_table_name': 'fake_prog_tablename',
      'hold': 0, 'split_by': '', 'fetch_size': 20000,
-     'esp_appl_id': 'FAKED006',
+     'automation_appl_id': 'FAKED006',
      'source_database_name': 'fake_database',
      'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
      'full_table_name': 'fake_domain.fake_database_fake_prog_tablename',
      'db_username': 'fake_username',
-     'jdbcurl': 'jdbc:oracle:thin:@//fake.oracle:1521/fake_servicename', 'views':'fake_view_open'},
+     'jdbcurl': 'jdbc:oracle:thin:@//fake.oracle:1521/fake_servicename', 'views': 'fake_view_open'},
     {'load': '100001', 'mappers': 2, 'domain': 'member',
      'target_dir': 'mdm/member/fake_database/fake_cens_tablename',
      'password_file': 'jceks://hdfs/user/dev/fake.passwords'
                       '.jceks#fake.password.alias',
      'source_table_name': 'fake_cens_tablename',
      'hold': 0, 'split_by': '', 'fetch_size': 50000,
-     'esp_appl_id': 'FAKED006',
+     'automation_appl_id': 'FAKED006',
      'source_database_name': 'fake_database',
      'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
      'full_table_name': 'member.fake_database_fake_cens_tablename',
      'db_username': 'fake_username',
      'jdbcurl': 'jdbc:oracle:thin:@//fake.oracle:1521/fake_servicename',
-     'views':'fake_view_open'},
+     'views': 'fake_view_open'},
     {'load': '100010', 'mappers': 10, 'domain': 'fake_domain',
      'target_dir': 'mdm/fake_domain/fake_database/risk_fake_tablename',
      'password_file': 'jceks://hdfs/user/dev/fake.passwords.'
                       'jceks#fake.password.alias',
      'source_table_name': 'risk_fake_tablename',
      'hold': 0, 'split_by': '', 'fetch_size': 50000,
-     'esp_appl_id': 'FAKED006',
+     'automation_appl_id': 'FAKED006',
      'source_database_name': 'fake_database',
      'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
      'full_table_name': 'fake_domain.fake_database_risk_fake_tablename',
      'db_username': 'fake_username',
-     'jdbcurl': 'jdbc:oracle:thin:@//fake.oracle:1521/fake_servicename', 'views':'fake_view_open'}]
+     'jdbcurl': 'jdbc:oracle:thin:@//fake.oracle:1521/fake_servicename', 'views': 'fake_view_open'}]
 
-mock_esp_tables_03 = [
+mock_automation_tables_03 = [
     {'load': '000010', 'mappers': 2, 'domain': 'fake_domain',
      'target_dir': 'mdm/fake_domain/fake_database/fake_prog_tablename',
      'password_file': 'jceks://hdfs/user/dev/fake.passwords.'
                       'jceks#fake.password.alias',
      'source_table_name': 'fake_prog_tablename',
      'hold': 0, 'split_by': '', 'fetch_size': 20000,
-     'esp_appl_id': 'FAKED006',
+     'automation_appl_id': 'FAKED006',
      'source_database_name': 'fake_database',
      'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
      'full_table_name': 'fake_domain.fake_database_fake_prog_tablename',
@@ -660,7 +660,7 @@ mock_esp_tables_03 = [
                       'fake.password.alias',
      'source_table_name': 'fake_cens_tablename',
      'hold': 0, 'split_by': '', 'fetch_size': 50000,
-     'esp_appl_id': 'FAKED006',
+     'automation_appl_id': 'FAKED006',
      'source_database_name': 'fake_database',
      'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
      'full_table_name': 'member.fake_database_fake_cens_tablename',
@@ -673,7 +673,7 @@ mock_esp_tables_03 = [
                       'fake.password.alias',
      'source_table_name': 'risk_fake_tablename',
      'hold': 0, 'split_by': '', 'fetch_size': 50000,
-     'esp_appl_id': 'FAKED006',
+     'automation_appl_id': 'FAKED006',
      'source_database_name': 'fake_database',
      'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
      'full_table_name': 'fake_domain.fake_database_risk_fake_tablename',
@@ -686,7 +686,7 @@ mock_esp_tables_03 = [
                       'fake.password.alias',
      'source_table_name': 'fake_risk_tablename_2',
      'hold': 0, 'split_by': '', 'fetch_size': 50000,
-     'esp_appl_id': 'FAKED006',
+     'automation_appl_id': 'FAKED006',
      'source_database_name': 'fake_database',
      'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
      'full_table_name': 'fake_domain.fake_database_fake_risk_tablename_2',
@@ -698,7 +698,7 @@ mock_esp_tables_03 = [
                       'fake.password.alias',
      'source_table_name': 'fake_risk_tablename_3',
      'hold': 0, 'split_by': '', 'fetch_size': 50000,
-     'esp_appl_id': 'FAKED006',
+     'automation_appl_id': 'FAKED006',
      'source_database_name': 'fake_database',
      'connection_factories': 'com.quest.oraoop.OraOopManagerFactory',
      'full_table_name': 'fake_domain.fake_database_fake_risk_tablename_3',
@@ -720,17 +720,17 @@ appl_ref_id_tbl_02 = [{'job_name': 'C1_FAKE_CALL2_FAKE_DATABASE_DAILY',
                        'db': 'fake_database', 'environment': 'DEV'}]
 
 appl_ref_sch_01 = [{'appl_id': 'FAKED001',
-                    'esp_name': 'C1_FAKE_FAKE_DATABASE_DAILY',
+                    'automation_name': 'C1_FAKE_FAKE_DATABASE_DAILY',
                     'time': '3:00', 'string_date':
                     'Every Day', 'frequency': 'Daily',
                     'ksh_name': 'call_fake_database_daily.ksh',
-                    'priority': 'C1', 'esp_domain': 'call', }]
+                    'priority': 'C1', 'automation_domain': 'call', }]
 
 appl_ref_sch_02 = [{'appl_id': 'FAKED006',
-                    'esp_name': 'C1_FAKE_FAKE_DATABASE_DAILY', 'time': '4:00',
+                    'automation_name': 'C1_FAKE_FAKE_DATABASE_DAILY', 'time': '4:00',
                     'string_date': 'Every Day', 'frequency': 'Daily',
                     'ksh_name': 'call_fake_database_daily.ksh',
-                    'priority': 'C1', 'esp_domain': 'call', }]
+                    'priority': 'C1', 'automation_domain': 'call', }]
 
 full_ingest_tbl_auto_domain = {
     'target_dir': 'mdm/member/fake_database/fake_mem_tablename',

@@ -86,10 +86,10 @@ def main():
                         help='Used to provide a where statement')
 
     # Generate workflows base on filter
-    parser.add_argument('--gen-esp-workflow', nargs='+', type=str,
-                        help='Create workflow(s) based on a list of ESP '
+    parser.add_argument('--gen-automation-workflow', nargs='+', type=str,
+                        help='Create workflow(s) based on a list of automation '
                              'ids separated by spaces.')
-    parser.add_argument('--gen-esp-workflow-tables', type=FileType('r'),
+    parser.add_argument('--gen-automation-workflow-tables', type=FileType('r'),
                         help='Create workflow(s) based on a list of '
                              'tables from request file')
 
@@ -102,8 +102,8 @@ def main():
     parser.add_argument('--queue-name', nargs=1, type=str,
                         help='Used for providing hadoop queue name')
 
-    parser.add_argument('--esp-id', nargs=1, type=str,
-                        help='esp-appl-id')
+    parser.add_argument('--automation-id', nargs=1, type=str,
+                        help='automation-appl-id')
     parser.add_argument('--message', nargs=1, type=str,
                         help='Provide description for bmrs')
 
@@ -260,10 +260,10 @@ def main():
     ibis_opts = {
         'checks_balances': checks_balances,
         'export': export,
-        'gen_esp_workflow_tables': gen_esp_workflow_tables,
+        'gen_automation_workflow_tables': gen_automation_workflow_tables,
         'update_activator': update_activator,
         'wipe_perf_env': wipe_perf_env,
-        'gen_esp_workflow': gen_esp_workflow,
+        'gen_automation_workflow': gen_automation_workflow,
         'gen_config_workflow': gen_config_workflow,
         'retrieve_backup': retrieve_backup,
         'run_job': run_job,
@@ -283,7 +283,7 @@ def main():
     is_failed = False
     if args.env:
         cfg_mgr = ConfigManager(args.env[0], args.for_env)
-        file_permission = 0774
+        file_permission = 0o774
 
         if not os.path.isdir(cfg_mgr.files):
             os.mkdir(cfg_mgr.files)
@@ -378,9 +378,9 @@ def export(args):
               '--to {db}.{table}'
 
 
-def gen_esp_workflow_tables(args):
+def gen_automation_workflow_tables(args):
     """Generate prod workflows for tables in the request file"""
-    driver.gen_prod_workflow_tables(args.gen_esp_workflow_tables)
+    driver.gen_prod_workflow_tables(args.gen_automation_workflow_tables)
 
 
 def update_activator(args):
@@ -395,17 +395,17 @@ def wipe_perf_env(args):
     """Drop all the tables of the selected database and reingest
      all the tables"""
     driver.wipe_perf_env_driver(args.wipe_perf_env,
-                               args.reingest_all)
+                                args.reingest_all)
 
 
-def gen_esp_workflow(args):
-    """Handler for esp workflows."""
-    if args.gen_esp_workflow:
-        for esp_id in args.gen_esp_workflow:
-            success, msg, git_files = driver.gen_prod_workflow(esp_id)
+def gen_automation_workflow(args):
+    """Handler for automation workflows."""
+    if args.gen_automation_workflow:
+        for automation_id in args.gen_automation_workflow:
+            success, msg, git_files = driver.gen_prod_workflow(automation_id)
             print msg
     else:
-        print "--gen-esp-workflow requires at least one ESP id."
+        print "--gen-automation-workflow requires at least one automation id."
 
 
 def retrieve_backup(args):

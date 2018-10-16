@@ -20,6 +20,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class WorkflowGeneratorFunctionsTest(unittest.TestCase):
+
     """Tests the functionality of the Workflow Generator class..."""
 
     @classmethod

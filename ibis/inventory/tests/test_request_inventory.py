@@ -11,6 +11,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class RequestTests(unittest.TestCase):
+
     """test Request instances"""
 
     @classmethod
@@ -53,10 +54,11 @@ class RequestTests(unittest.TestCase):
         req_obj = Request(request_dict, self.cfg_mgr)
         self.assertEqual(req_obj.views, False)
         self.assertEqual(req_obj.frequency_readable, False)
-        self.assertEqual(req_obj.esp_group, False)
+        self.assertEqual(req_obj.automation_group, False)
 
 
 class RequestInventoryFunctionsTest(unittest.TestCase):
+
     """Tests the functionality of the request inventory class"""
 
     @classmethod

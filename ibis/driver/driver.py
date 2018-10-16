@@ -10,7 +10,7 @@ import prettytable
 from ibis.custom_logging import get_logger
 from ibis.inventor.workflow_generator import WorkflowGenerator
 from ibis.inventory.cb_inventory import CheckBalancesInventory
-from ibis.inventory.esp_ids_inventory import ESPInventory
+from ibis.inventory.automation_ids_inventory import AUTOInventory
 from ibis.inventory.export_it_inventory import ExportITInventory
 from ibis.inventory.inventory import Inventory
 from ibis.inventory.it_inventory import ITInventory
@@ -44,7 +44,7 @@ class Driver(object):
         self.req_inventory = RequestInventory(self.cfg_mgr)
         self.it_inventory = ITInventory(self.cfg_mgr)
         self.export_it_inventory = ExportITInventory(self.cfg_mgr)
-        self.esp_inventory = ESPInventory(self.cfg_mgr)
+        self.automation_inventory = AUTOInventory(self.cfg_mgr)
         self.utilities = Utilities(self.cfg_mgr)
         self.cb_inventory = CheckBalancesInventory(self.cfg_mgr)
         self.vizoozie = VizOozie(self.cfg_mgr)
@@ -377,7 +377,7 @@ class Driver(object):
                 self.build_table_wf_map([table], incr_fname, True)
                 self.utilities.gen_kornshell(incr_fname)
                 self.utilities.gen_job_properties(incr_fname, sorted(
-                    [table.table_name]), table.esp_appl_id)
+                    [table.table_name]), table.automation_appl_id)
                 # self.utilities.dryrun_workflow(incr_fname)
                 files_generated.extend([
                     incr_fname + '.xml', incr_fname + '_job.properties',
@@ -457,7 +457,7 @@ class Driver(object):
             raise ValueError("Either of frequency or activate column must "
                              "contain value")
         self.perf_inventory.insert_freq_ingest(team_name, frequency, table,
-                                              activate)
+                                               activate)
 
     def wipe_perf_env_driver(self, db_name, reingest):
         """used to wipe tables from database
@@ -521,7 +521,7 @@ class Driver(object):
         Args:
             tables: List[ibis.model.table.ItTable]
             wf_name: String value used to name xml file
-            appl_id: esp id
+            appl_id: automation id
         Returns:
             list of generated files:
                 .xml, _job.properties, .ksh, _props_job.xml, .pdf
@@ -559,7 +559,7 @@ class Driver(object):
             workflows_chunks:
                 List[List[ibis.model.table.ItTable, xml file name]]
             tables: List[ibis.model.table.ItTable]
-            appl_id: (string) ESP appl id
+            appl_id: (string) Automation appl id
         Returns:
             list of generated files:
             .xml, _job.properties, .ksh, _props_job.xml
@@ -597,7 +597,7 @@ class Driver(object):
                 List[List[List[ibis.model.table.ItTable, xml file name]]]
             tables: List[ibis.model.table.ItTable]
             subwf_name_prefix: (string)Name prefix for subworkflow
-            appl_id: (string) ESP appl id
+            appl_id: (string) automation appl id
         Returns:
             gen_files: Generated subworkflows
             msg: success message
@@ -646,8 +646,8 @@ class Driver(object):
 
     def gen_prod_workflow_tables(self, request_file):
         """Generate prod workflows for given tables.
-           For the given tables, generate esp id if missing and then
-           generate prod workflows for that esp-id
+           For the given tables, generate automation id if missing and then
+           generate prod workflows for that automation-id
         Args:
             request_file: instance of open() request file with tables
         """
@@ -671,8 +671,8 @@ class Driver(object):
         return status
 
     def _gen_prod_wf_tables(self, tables):
-        """For the given tables, generate esp id if missing
-        and then generate prod workflows for that esp-id
+        """For the given tables, generate automation id if missing
+        and then generate prod workflows for that automation-id
         Args:
             tables: List[ibis.model.table.ItTable]
         """
@@ -680,20 +680,20 @@ class Driver(object):
 
         appl_ids = []
         for table in tables:
-            appl_id = table.esp_appl_id
-            self.logger.info('Table: {0} - Esp id: {1}'.format(
+            appl_id = table.automation_appl_id
+            self.logger.info('Table: {0} - automation id: {1}'.format(
                 table.full_sql_name, repr(appl_id)))
             if not appl_id:
                 # generate and update appl-id
-                appl_id = self.esp_inventory.gen_esp_id(
+                appl_id = self.automation_inventory.gen_automation_id(
                     table.frequency_readable, table.domain, table.database,
-                    table.esp_group)
+                    table.automation_group)
                 if appl_id is None:
                     warn_msg = "Scheduled workflows not generated for '{0}'!"
                     warn_msg = warn_msg.format(table.full_sql_name)
                     self.logger.warning(warn_msg)
                 else:
-                    table.esp_appl_id = appl_id
+                    table.automation_appl_id = appl_id
                     self.it_inventory.update(table)
                     msg = "Inserted new appl_id: '{0}' for '{1}'".format(
                         appl_id, table.full_sql_name)
@@ -708,7 +708,7 @@ class Driver(object):
         """For a given appl_id, generate workflows for all the
            associated tables
         Args:
-            appl_id: esp appl id
+            appl_id: automation appl id
         Returns:
             status: (boolean) success value
             msg: status message
@@ -723,19 +723,22 @@ class Driver(object):
         generated_workflows = []
 
         try:
-            tables = self.it_inventory.get_all_tables_for_esp(appl_id)
+            tables = self.it_inventory.get_all_tables_for_automation(appl_id)
             if len(tables) == 0:
-                msg += "No tables found for esp_appl_id: '{id}'\n".format(
-                    id=appl_id)
+                msg += "No tables found for " +\
+                    "automation_appl_id: '{id}'\n".format(
+                        id=appl_id)
                 msg += "No workflow generated!\n"
                 self.logger.warning(msg)
                 return status, msg, git_files
 
-            appl_refs = self.esp_inventory.get_tables_by_id(appl_id)
+            appl_refs = self.automation_inventory.get_tables_by_id(appl_id)
             if len(appl_refs) == 0:
-                msg += ("No row found for esp_appl_id: '{id}' "
+                msg += ("No row found for automation_appl_id: '{id}' "
                         "in '{tbl}' table.\n")
-                msg = msg.format(id=appl_id, tbl=self.cfg_mgr.esp_ids_table)
+                msg = msg.format(
+                    id=appl_id,
+                    tbl=self.cfg_mgr.automation_ids_table)
                 msg += "No workflow generated!\n"
                 self.logger.warning(msg)
                 return status, msg, git_files
@@ -763,15 +766,15 @@ class Driver(object):
                             if domain[0] == view_nm.lower():
                                 continue
                             self.perf_inventory.insert_freq_ingest([view_nm],
-                                                                  [freq],
-                                                                  [full_tb_nm],
-                                                                  ['default'])
+                                                                   [freq],
+                                                                   [full_tb_nm],
+                                                                   ['default'])
                     elif len(all_views) != len(domain):
                         for view_nm in all_views:
                             self.perf_inventory.insert_freq_ingest([view_nm],
-                                                                  [freq],
-                                                                  [full_tb_nm],
-                                                                  ['default'])
+                                                                   [freq],
+                                                                   [full_tb_nm],
+                                                                   ['default'])
 
                 wf_name = self._get_prod_table_workflow_name(table)
                 workflow_names.append(wf_name)
@@ -804,14 +807,14 @@ class Driver(object):
                 return status, err_msg, git_files
             msg += _msg
             # Generate wld file
-            wld_file = self.esp_inventory.gen_wld_tables(
+            wld_file = self.automation_inventory.gen_wld_tables(
                 appl_id, tables, workflow_names)
             git_files.append(wld_file)
             self.utilities.chmod_files(git_files)
             status = True
         except Exception:
             err_msg = "Error generating workflow for " \
-                      "esp_appl_id: '{id}'\n".format(id=appl_id)
+                      "automation_appl_id: '{id}'\n".format(id=appl_id)
             err_msg += traceback.format_exc()
             err_msg = 'Error found in driver.gen_prod_workflow - ' \
                       'reason: \n{0}'.format(err_msg)

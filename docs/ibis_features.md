@@ -31,7 +31,7 @@ Provide respective parameters in request file for ingestion to Hadoop and export
 Split by | Provides an automated split by for Teradata, SQL Server, and DB2 | Without the automated split by, on a per table basis, you need to find a column that enables parrallel executuion of an ingestion
 Auto generating Oozie workflows |	Automatically creates XML workflows |	No manual XML creation
 Generate non ingestion workflows through "building blocks" |	Given hive and shell scripts, IBIS generates oozie workflow	| Automate running any type of script in the Data Lake
-Group tables based on schedule	| Group workflows into subworkflows based on schedule |	Tables with similar schedule can be kicked off using ESP by triggering one workflow.
+Group tables based on schedule	| Group workflows into subworkflows based on schedule |	Tables with similar schedule can be kicked off using  automation by triggering one workflow.
 Use Parquet |	Store data in Parquet |	Efficient storage + fast queries!
 Follows Lambda Architecture	| Storing data in the base layer, as immutable data
 Allows for data export to any RDBMS	|
@@ -48,7 +48,7 @@ Command --help would list the IBIS Functionalities
 
 Under the covers, IBIS manages the information required to pull in data sources
 into HDFS, including usernames, passwords, JBDC connection info, and also keeps
-track of ESP ids, used for scheduling jobs.
+track of automation ids, used for scheduling jobs.
 
 
 IBIS also has shell that allows you to run your workflow, when it's been created.
@@ -115,7 +115,7 @@ db_env:int
                                                                        [small, medium, heavy]
             views:fake_view_im|fake_view_open                              <---- Views (optional)
             check_column:TRANS_TIME                        <---- Column for incremental (optional)
-            esp_group:magic                                <---- used for grouping tables in esp (optional)
+            automation_group:magic                                <---- used for grouping tables in automation (optional)
             fetch_size:50000                               <---- sqoop rows fetch size (optional)
             hold:1                                         <---- workflow wont be generated (optional)
             split_by:fake_nd_tablename_NUM                               <---- Used for sqoop import (recommended)
@@ -172,9 +172,9 @@ db_env:int
                                                                     [small, medium, heavy]
         fetch_size:                                     <---- No value given. Just ignores
         hold:0
-        esp_appl_id:null                                <---- set null to empty the column value
+        automation_appl_id:null                                <---- set null to empty the column value
         views:fake_view_im|fake_view_open                              <---- Pipe(|) seperated values
-        esp_group:magic_table
+        automation_group:magic_table
         check_column:fake_nd_tablename_NUM                            <---- Sqoop incremental column
         source_database_name:fake_database        (mandatory)
         source_table_name:fake_client_tablename           (mandatory)
@@ -189,12 +189,12 @@ db_env:int
 ----------
 
 #### Create a workflow based on schedule/frequency
-```ibis-shell --gen-esp-workflows <frequency>  # frequency choices['weekly', 'monthly', 'quarterly', or 'biweekly']```
+```ibis-shell --gen-automation-workflows <frequency>  # frequency choices['weekly', 'monthly', 'quarterly', or 'biweekly']```
 
 ----------
 
 ##### Create workflows with subworkflows based on one or more filters
-```ibis-shell --gen-esp-workflow schedule=None database=None jdbc_source=None
+```ibis-shell --gen-automation-workflow schedule=None database=None jdbc_source=None
         # schedule choices - none, daily, biweekly, weekly, fortnightly, monthly, quarterly
         jdbc_source choices - oracle, db2, teradata, sqlserver```
 
@@ -208,7 +208,7 @@ db_env:int
 ### PERF environment - automating loads in a lower Hadoop env for testing
 ###### Example
 
-DB_name.Table_name is scheduled via ESP to refresh every Monday at 6pm.
+DB_name.Table_name is scheduled via automation to refresh every Monday at 6pm.
 
 Team A wants it every Monday
 Team B wants it every Month
@@ -218,9 +218,9 @@ Team B will be able to run its APPL / JOB to pull the data every month
 
 Because the data will just land in the IBIS base domain, nothing will effect the team's current PERF data. The APPL / JOBs that teams will need to run will be created based on the "views" column in IBIS. It is up to the team that wants the data to run the data to bring the data into their sandbox space.
 
-##### Create ESP workflow from request file for PERF
+##### Create automation workflow from request file for PERF
 
-```ibis-shell  --env <env> --gen-esp-workflow-tables <requestFiles>```
+```ibis-shell  --env <env> --gen-automation-workflow-tables <requestFiles>```
 
 ----------
 
@@ -230,7 +230,7 @@ Because the data will just land in the IBIS base domain, nothing will effect the
 
 ----------
 
-##### Update the Activate flag and frequency for perf esp run
+##### Update the Activate flag and frequency for perf automation run
 
 ```ibis-shell  --env <env> --update-activator --table <table> --teamname <db_name> --activate <yes/no> --frequency <run_frequency>```
 

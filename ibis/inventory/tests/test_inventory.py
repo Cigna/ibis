@@ -13,6 +13,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class InventoryFunctionsTest(unittest.TestCase):
+
     """Tests the functionality of the self.inventory class"""
 
     def setUp(self):
@@ -31,7 +32,10 @@ class InventoryFunctionsTest(unittest.TestCase):
         where_condition = ("source_database_name='{0}' and "
                            "source_table_name='{1}' and "
                            "db_env='{2}'")
-        where_condition = where_condition.format('call', 'fake_database', 'dev')
+        where_condition = where_condition.format(
+            'call',
+            'fake_database',
+            'dev')
         self.inventory.get_all(where_condition)
         self.assertTrue(self.inventory._cursor.fetchall.called)
 
@@ -67,7 +71,10 @@ class InventoryFunctionsTest(unittest.TestCase):
         self.inventory._cursor.fetchall.side_effect = \
             [[('col1',), ('col2',)], [['val1', 'val2']]]
         expected = {'col1': 'val1', 'col2': 'val2'}
-        result = self.inventory.get_table_mapping('call', 'fake_database', 'dev')
+        result = self.inventory.get_table_mapping(
+            'call',
+            'fake_database',
+            'dev')
         print expected
         self.assertDictEqual(expected, result)
 
@@ -76,7 +83,10 @@ class InventoryFunctionsTest(unittest.TestCase):
         """test fail for not match in len of values."""
         self.inventory._cursor.fetchall.return_value = [('col1',), ('col2',)]
         expected = {}
-        result = self.inventory.get_table_mapping('call', 'fake_database', 'dev')
+        result = self.inventory.get_table_mapping(
+            'call',
+            'fake_database',
+            'dev')
         self.assertDictEqual(expected, result)
 
     @patch.object(Inventory, '_connect', autospec=True)
@@ -85,7 +95,10 @@ class InventoryFunctionsTest(unittest.TestCase):
         self.inventory._cursor.fetchall.side_effect = \
             [[('col1',), ('col2',)], [[]]]
         expected = {}
-        result = self.inventory.get_table_mapping('call', 'fake_database', 'dev')
+        result = self.inventory.get_table_mapping(
+            'call',
+            'fake_database',
+            'dev')
         self.assertDictEqual(expected, result)
 
     @patch.object(Inventory, '_connect', autospec=True)
@@ -93,7 +106,10 @@ class InventoryFunctionsTest(unittest.TestCase):
         """test fail for non existent table."""
         self.inventory._cursor.fetchall.return_value = []
         expected = {}
-        result = self.inventory.get_table_mapping('call', 'fake_database', 'dev')
+        result = self.inventory.get_table_mapping(
+            'call',
+            'fake_database',
+            'dev')
         self.assertDictEqual(expected, result)
 
 

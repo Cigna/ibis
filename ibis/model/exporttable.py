@@ -6,6 +6,7 @@ from ibis.utilities.sqoop_helper import DRIVERS, \
 
 
 class ItTableExport(object):
+
     """Table representation of columns of it_table"""
 
     def __init__(self, meta_dict, cfg_mgr):
@@ -20,7 +21,7 @@ class ItTableExport(object):
         self._props = ['mappers', 'jdbcurl',
                        'source_dir', 'schema', 'username',
                        'password_file', 'load', 'frequency', 'fetch_size',
-                       'esp_appl_id',
+                       'automation_appl_id',
                        'table_name', 'database', 'target_schema',
                        'target_table', 'weight', 'db_env', 'staging_database']
 
@@ -84,17 +85,17 @@ class ItTableExport(object):
         self.meta_dict['db_env'] = val
 
     @property
-    def esp_appl_id(self):
-        """Return esp appl id"""
-        val = self.get_meta_dict().get('esp_appl_id',
+    def automation_appl_id(self):
+        """Return Automation appl id"""
+        val = self.get_meta_dict().get('automation_appl_id',
                                        '')
         val = self.null_helper(val)
         return val
 
-    @esp_appl_id.setter
-    def esp_appl_id(self, val):
-        """setter for esp_appl_id"""
-        self.meta_dict['esp_appl_id'] = val
+    @automation_appl_id.setter
+    def automation_appl_id(self, val):
+        """setter for automation_appl_id"""
+        self.meta_dict['automation_appl_id'] = val
 
     @property
     def target_schema(self):

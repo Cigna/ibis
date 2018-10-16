@@ -60,7 +60,7 @@ class ConfigManager(object):
         self.staging_database = config.get('Database', 'staging_database')
         self.use_kerberos = config.get('Database', 'use_kerberos')
         self.checks_balances = config.get('Database', 'checks_balances')
-        self.esp_ids_table = config.get('Database', 'esp_ids_table')
+        self.automation_ids_table = config.get('Database', 'automation_ids_table')
         self.staging_it_table = config.get('Database', 'staging_it_table')
         self.prod_it_table = config.get('Database', 'prod_it_table')
         self.queue_name = config.get('Database', 'queue_name')
@@ -114,7 +114,7 @@ class ConfigManager(object):
         self.export_to_td_template = resource_filename(
             'resources.templates', config.get('Templates', 'export_to_td'))
         self.wld_template_mako = resource_filename(
-            'resources.templates', 'esp_job.wld.mako')
+            'resources.templates', 'automation_job.wld.mako')
         self.fake_end_template = resource_filename(
             'resources.templates', config.get('Templates', 'fake_end_workflow'))
 
@@ -148,13 +148,13 @@ class ConfigManager(object):
         self.impala_workspace = config.get('Oozie', 'impala_workspace')
         self.hql_views_workspace = config.get('Oozie', 'hql_views_workspace')
 
-        # ESP_ID
-        self.big_data = config.get('ESP_ID', 'big_data')
+        # automation_ID
+        self.big_data = config.get('automation_ID', 'big_data')
         # Dictionary of value:value_name
         self.frequencies_map = self.gen_dict(
-            config.get('ESP_ID', 'frequencies_map'))
-        self.environment_map = config.get('ESP_ID', 'environment_map')
-        self.from_branch = config.get('ESP_ID', 'from_branch')
+            config.get('automation_ID', 'frequencies_map'))
+        self.environment_map = config.get('automation_ID', 'environment_map')
+        self.from_branch = config.get('automation_ID', 'from_branch')
 
         # Other
         # Dictionary of value:value_name
