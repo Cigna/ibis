@@ -35,8 +35,7 @@ setup(
         '': ['*.properties', '*.xml', '*.ksh', '*.mako',
              '*.sh', '*.hql', '*.wld', '*txt', '*.feature'],
     },
-    data_files=[('.', ['README.md', '__main__.py',
-                       'behavior_tests.py'])],
+    data_files=[('.', ['README.md', '__main__.py'])],
 
     install_requires=ibis_deps,
     include_package_data=True,
