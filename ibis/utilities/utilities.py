@@ -20,6 +20,7 @@ requests.packages.urllib3.disable_warnings()
 
 
 class Utilities(object):
+
     """Provides additional functionality to ibis"""
 
     def __init__(self, cfg_mgr):
@@ -309,7 +310,7 @@ class Utilities(object):
             self.logger.info('success: hdfs rm {0}'.format(file_path))
 
     def gen_kornshell(self, workflow_name):
-        """Creates kornshell script for jobs scheduled with esp
+        """Creates kornshell script for jobs scheduled with automation
         Args:
             workflow_name: just the workflow name without extension
         """
@@ -404,7 +405,7 @@ class Utilities(object):
         Args:
             files(list): list of file names.
         """
-        file_permission = 0774
+        file_permission = 0o774
         for file_name in files:
             _path = os.path.join(self.cfg_mgr.files, file_name)
             if getpass.getuser() in Utilities.find_owner(_path):
@@ -536,6 +537,7 @@ class Utilities(object):
 
 
 class WorkflowTablesMapper(object):
+
     """Workflow and table names for printing"""
 
     def __init__(self, table_id):
@@ -548,6 +550,7 @@ class WorkflowTablesMapper(object):
 
 
 class SafeDict(dict):
+
     """Used to catch missing keys in string format. By falsetru found
     at http://stackoverflow.com/questions/17215400/
     python-format-string-unused-named-arguments"""

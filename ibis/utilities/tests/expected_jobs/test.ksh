@@ -1,4 +1,4 @@
-# Script to run Oozie workflows through ESP
+# Script to run Oozie workflows through automation
 # Returns success / failure on completion
 
 echo "

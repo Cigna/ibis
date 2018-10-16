@@ -18,7 +18,7 @@ appl_ref_sch = [('FAKED001', 'C1_FAKE_FAKE_DATABASE_DAILY', '3:00', 'Every Day',
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
-class ESPInventoryFunctionsTest(unittest.TestCase):
+class AutoInventoryFunctionsTest(unittest.TestCase):
 
     """Test the functionality of the it inventory class.
     Tests against the fake_clm_tablename record.

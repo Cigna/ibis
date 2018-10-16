@@ -166,7 +166,7 @@ class AUTOInventory(Inventory):
         for _seq in result:
             if _seq[0].lower() == freq_prefix.lower():
                 current_seqs.append(_seq[1:])
-        next_seq = ESPSequence(current_seqs).next_sequence
+        next_seq = AutoSequence(current_seqs).next_sequence
         automation_id = automation_prefix + freq_prefix + next_seq + env_num
         return automation_id
 
@@ -245,7 +245,7 @@ class WldJob(object):
         self.next_job_name = next_job_name
 
 
-class ESPSequence(object):
+class AutoSequence(object):
 
     """Generates sequence of alphanumeric strings of length 2"""
 

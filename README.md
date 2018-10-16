@@ -10,7 +10,7 @@ All you need to do is create a request file containing information about a table
 and IBIS will:
 1. manage the information required to create the workflow;
 2. generate Oozie workflows, following current ingestion processes and standards to make the ingestion as performant as possible;
-3. creates file that simplify the scheduling of the job through ESP; and
+3. creates file that simplify the scheduling of the job through automation; and
 4. allow easy execution of the workflow to populate the Data Lake of the RDBMS source
 
 The IBIS framework wraps the Hadoop stack technology Oozie, an XML-based workflow scheduler
@@ -106,7 +106,7 @@ db_env:int
 | Source Table Name |The name of the table you want to pull in|
 | Views |Where you have access to query and manipulate the dataset - if you need it in more than one place, seperate it by a pipe ```'```&#124;```'```  NOTE: this column is append only. To remove all of them, update with null and then add your views.|
 | Weight |Provide the size of the table (use your best judgement) on if it's '''light''','''medium''' or '''heavy'''. This is based on the number of columns and the number of rows.This effects how the workflow is generated and the number of tables that can be run in parallel. In the bakend values are translated (100 — light, 010 — medium, 001 — heavy) |
-| Refresh Frequency |Only needed for Production, the frequency that is needed. This is used for reporting in checks & balances and other dashboards. All scheduling is physically done through ESP. Possible values are ```none```, ```daily```, ```weekly```, ```monthly```, and ```quarterly```|
+| Refresh Frequency |Only needed for Production, the frequency that is needed. This is used for reporting in checks & balances and other dashboards. All scheduling is physically done through automation. Possible values are ```none```, ```daily```, ```weekly```, ```monthly```, and ```quarterly```|
 | Check Column |If you need this table ingested incrementally, provide a check column that is used to split up the load. Note that this only works for some sources right now - check with the team first|
 | DB ENV |If you need to run multiple QA cycles then specify the QA cycle name(DEV/CUSTOM-ENV/PROD) the workflows will be created with corresponding filename |
 

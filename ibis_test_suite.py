@@ -16,7 +16,7 @@ from ibis.inventory.tests.test_it_inventory import ITInventoryFunctionsTest
 from ibis.inventory.tests.test_cb_inventory import CBInventoryFunctionsTest
 from ibis.inventory.tests.test_perf_inventory import PerfInventoryTest
 from ibis.inventory.tests.test_automation_ids_inventory \
-    import ESPInventoryFunctionsTest
+    import AutoInventoryFunctionsTest
 from ibis.model.tests.test_shell_action import ShellActionFunctionsTest
 from ibis.model.tests.test_sqoop_action import SqoopActionFunctionsTest
 from ibis.model.tests.test_hive_action import HiveActionFunctionsTest
@@ -81,7 +81,7 @@ if __name__ == '__main__':
                            UtilitiesFunctionsTest, VizOozieTest,
                            ParquetOptTimeFunctionsTest,
                            DriverFunctionsTest, WorkflowGeneratorFunctionsTest,
-                           ESPInventoryFunctionsTest,
+                           AutoInventoryFunctionsTest,
                            CBInventoryFunctionsTest, ConfigManagerTest,
                            AuthTestTest, 
                            ZookeeperLocksFunctionsTest,
