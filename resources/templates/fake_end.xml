@@ -1,5 +1,0 @@
-<kill name="kill">
-    <message>Action failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
-</kill>
-<end name="end"/>
- </workflow-app>
