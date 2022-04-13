@@ -1,3 +1,0 @@
-SET mapreduce.map.memory.mb=8000;
-SET mapreduce.reduce.memory.mb=16000;
-

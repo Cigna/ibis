@@ -1,1 +1,0 @@
-invalidate metadata mock_domain.fake_database_mock_table;
